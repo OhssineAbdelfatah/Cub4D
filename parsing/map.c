@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/20 21:46:40 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/21 23:42:15 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,45 @@ int return_type(char *tokens)
 
     i = 0;
     type = NO_TYPE;
-    if(!ft_strncmp(tokens, "F", 1))
+    if(!ft_strncmp(tokens, "F", 1) && ft_strlen(tokens)== 1)
         type = FLOOR;
-    else    if(!ft_strncmp(tokens, "C",1))
+    else    if(!ft_strncmp(tokens, "C",1) && ft_strlen(tokens)== 1)
         type = CEILEING;
-    else    if(!ft_strncmp(tokens, "SO",2))
+    else    if(!ft_strncmp(tokens, "SO",2) && ft_strlen(tokens)== 2)
         type = IMG_SO;
-    else    if(!ft_strncmp(tokens, "NO",2))
+    else    if(!ft_strncmp(tokens, "NO",2) && ft_strlen(tokens)== 2)
         type = IMG_NO;
-    else    if(!ft_strncmp(tokens, "EA",2))
+    else    if(!ft_strncmp(tokens, "EA",2) && ft_strlen(tokens)== 2)
         type = IMG_EA;
-    else    if(!ft_strncmp(tokens, "EA",2))
+    else    if(!ft_strncmp(tokens, "WE",2) && ft_strlen(tokens)== 2)
         type = IMG_WE;
     else
-        type = MAP_LINE;
+        type = NO_TYPE;
     return type;
+}
+
+int check_color(char *set)
+{
+    
+    return 0;    
+}
+
+int handel_file(char *path)
+{
+    if(check_ext(path, ".png")) // tsawer bach biti tkhdem abatal
+        return 1;
+    if(access(path, R_OK) == 1)
+        return 1;
+    return 0;
+}
+int __type_color(int type)
+{
+    return (type == CEILEING ||   type == FLOOR);
+}
+
+int __type_tex(int type)
+{
+    return ( type == IMG_EA ||   type == IMG_NO ||  type == IMG_SO || type == IMG_WE );
 }
 
 int get_type(char *line)
@@ -73,35 +97,90 @@ int get_type(char *line)
     tokens = ft_split(line, ' ');
     if(!tokens)
         return type ;
+    if(ft_strslen(tokens) != 2){
+        free_split(tokens);
+        return type ;
+    }
     if(tokens[0])
         type = return_type(tokens[0]);
+    if( __type_tex(type) && handel_file(tokens[1]))
+        type = NO_TYPE;
+    // check color set
+    if( __type_color(type)  && check_color(tokens[1]) )
+        type = NO_TYPE;
+    free_split(tokens);
     return type;
 }
 
-
-t_map_lst **read_map(char *file)
+void print_node(t_map_lst *nd)
 {
-    int fd_map;
-    t_map_lst **map_lst ;
-    char *line;
-    
-    map_lst = NULL;
-    fd_map = open(file, O_RDONLY);
-    if(fd_map == -1 )
+    if(nd){
+        printf("value [%s]\n", nd->value);
+        print_type(nd->type);
+        nd=nd->next;
+    }
+}
+char *delete_nl(char *line)
+{
+    char *cln_line;
+
+    cln_line = ft_strndup(line, ft_strlen(line)-1);
+    if(!cln_line)
         return NULL;
-    while(1)
+    free(line);
+    return cln_line;
+}
+
+t_map_lst* get_map_infos(int fd_map)
+{
+    t_map_lst *map_lst ;
+    t_map_lst *tail ;
+    t_map_lst *nd ;
+    int count ;
+    char *line;
+    int type ;
+    
+    count = 0 ;
+    map_lst = NULL;
+    tail = NULL;
+    while(count < 6)
     {
         line = get_next_line(fd_map);
         if(line == NULL)
             break;
-        // get_line(line) NO_TYPE handle it
         if(line && line[0] == '\n')
         {
             free(line);
             continue;
         }
-        add_back(map_lst, create_node(line, get_type(line)));
+        line = delete_nl(line);
+        type = get_type(line);
+        if(type == NO_TYPE)
+        {
+            free_map(map_lst);
+            free(line);
+            get_next_line(-1);
+            return NULL ;
+        }
+        count++;
+        nd = create_node(line, type);
+        add_back(&map_lst ,&tail ,nd);
         free(line);
     }
+    get_next_line(-1);
+    return map_lst;
+}
+
+t_map_lst *read_map(char *file)
+{
+    int fd_map;
+    t_map_lst *map_lst ;
+    
+    fd_map = open(file, O_RDONLY);
+    if(fd_map == -1 )
+        return NULL;
+    map_lst = get_map_infos(fd_map);
+    close(fd_map);
+    printf("readed map valid\n");
     return map_lst;
 }

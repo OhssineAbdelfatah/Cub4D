@@ -1,0 +1,14 @@
+check 6 info lines
+{
+    [] check is infos 2 items exactly
+    [] check 4 img type is ext png
+    [] check imgs is exist and can be used PERMISSION
+    [] check 2 color type is 3 elements (elem0,elem1,elem2) of range [0,255] 
+}
+
+chcek map
+{
+    [] no idea yet
+}
+
+
