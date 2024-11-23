@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/21 23:42:15 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/22 19:36:26 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,53 @@ int return_type(char *tokens)
     return type;
 }
 
-int check_color(char *set)
+int count_occ(char *set)
 {
-    
-    return 0;    
+    int i ;
+
+    i = 0;
+    while(set && *set )
+    {
+        if(*set == ',')
+            i++;
+        set++;    
+    }
+    return i;
 }
+
+int valid_set(char *set)
+{
+    char **sets;
+    int i ;
+
+    sets = ft_split(set, ',');
+    if(!sets)
+        return 1;
+    if(count_occ(set) != 2 || ft_strslen(sets) != 3)
+    {
+        free_split(sets);
+        return 1;
+    }
+    i = 0;
+    while(sets[i])
+    {
+        if(ft_strlen(sets[i]) > 3)
+            return (free_split(sets) ,1);
+        if(ft_atoi(sets[i]) > 255 || ft_atoi(sets[i]) < 0 )
+            return (free_split(sets) ,1);
+        i++;
+    }
+    free_split(sets);
+    return 0;
+}
+
+// int check_color(char *set)
+// {
+//     if(valid_set(set))
+//         return 1;
+//     // chceck values between [0 , 255]
+//     return 0;    
+// }
 
 int handel_file(char *path)
 {
@@ -103,11 +145,17 @@ int get_type(char *line)
     }
     if(tokens[0])
         type = return_type(tokens[0]);
-    if( __type_tex(type) && handel_file(tokens[1]))
-        type = NO_TYPE;
+    if( __type_tex(type))
+    {
+        if(handel_file(tokens[1]))
+            type = NO_TYPE;
+    } 
     // check color set
-    if( __type_color(type)  && check_color(tokens[1]) )
-        type = NO_TYPE;
+    if( __type_color(type))
+    {
+        if(valid_set(tokens[1]))
+            type = NO_TYPE;
+    } 
     free_split(tokens);
     return type;
 }

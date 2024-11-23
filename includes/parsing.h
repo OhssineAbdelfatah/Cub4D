@@ -6,12 +6,23 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/21 22:59:58 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/22 19:32:55 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 #define PARSING_H
+
+/*  COLORS  */
+
+#define KNRM  "\x1B[0m"
+#define KRED  "\x1B[31m"
+#define KGRN  "\x1B[32m"
+#define KYEL  "\x1B[33m"
+#define KBLU  "\x1B[34m"
+#define KMAG  "\x1B[35m"
+#define KCYN  "\x1B[36m"
+#define KWHT  "\x1B[37m"
 
 /*TEST*/
 void print_type(int type);
@@ -52,6 +63,7 @@ struct s_map_lst {
 /*  MAP */
 t_map_lst *read_map(char *file);
 void free_map(t_map_lst *list);
+int check_ext(char *ext, char* base_ext);
 // void add_back(t_map_lst** lst, t_map_lst* nd);
 void    add_back(t_map_lst** lst,t_map_lst** tail ,t_map_lst* nd );
 t_map_lst *create_node(char *value, int type);

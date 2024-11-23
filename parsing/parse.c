@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:59 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/21 23:24:28 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/22 19:35:37 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int cube(char *ext)
     list = read_map(ext);
     if(!list)
         return 1;
-    print_map(list);
+    // print_map(list);
     free_map(list);
     return 0;
 }
@@ -86,10 +86,10 @@ void ff(void )
 
 int main(int ac, char **av)
 {
-    // atexit(ff);
+    atexit(ff);
     if(ac == 2){
         if(cube(av[1])){
-            write(2, "Error\n", 6);
+            write(2, "\033[0;31m Error\033[0m \n", 26);
             return 0;
         }
         write(1, "valid map name\n", 15);
