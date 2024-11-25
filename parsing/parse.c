@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:59 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/22 19:35:37 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:39:10 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,9 @@ int check_ext(char *ext, char* base_ext)
     while(four-- != 0 )
     {
         last--;
-        // printf("base[%c] == test[%c]\n", base_ext[four], ext[last]);
         if(base_ext[four] != ext[last])
             return 1;
     }
-    printf("ext valid\n");
     return 0;
 }
 
@@ -74,7 +72,6 @@ int cube(char *ext)
     list = read_map(ext);
     if(!list)
         return 1;
-    // print_map(list);
     free_map(list);
     return 0;
 }

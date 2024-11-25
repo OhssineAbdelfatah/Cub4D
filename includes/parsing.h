@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/22 19:32:55 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:52:36 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ typedef enum s_type {
     NEW_LINE,
     NO_TYPE
 }   t_type ;
+
+
+/* GET INFOS NORM*/
+typedef struct s_map_info{
+    t_map_lst *map_lst ;
+    t_map_lst *tail ;
+    t_map_lst *nd ;
+    int count ;
+    char *line;
+    int type ;
+} t_map_info;
 
 typedef struct s_map_lst t_map_lst;
 struct s_map_lst {

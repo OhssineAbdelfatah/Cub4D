@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/22 19:36:26 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:52:14 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@
     as long as it respects the rules of the map.
 
 */
+
+/* TEST ONLY**************************************************************/
+void print_node(t_map_lst *nd)
+{
+    if(nd){
+        printf("value [%s]\n", nd->value);
+        print_type(nd->type);
+        nd=nd->next;
+    }
+}
+/* TEST ONLY***************************************************************/
+
+
 int verify_obj()
 {
     
@@ -64,18 +77,39 @@ int return_type(char *tokens)
     return type;
 }
 
-int count_occ(char *set)
+int count_occ(char *set, char c)
 {
     int i ;
 
     i = 0;
     while(set && *set )
     {
-        if(*set == ',')
+        if(*set == c)
             i++;
         set++;    
     }
     return i;
+}
+
+int chcek_set_len(char **sets)
+{
+    int i;
+    int j;
+    
+    i = 0;
+    while(sets[i])
+    {
+        j = 0;
+        while(sets[i][j]){
+            if(sets[i][j] && sets[i][j] != '0'){
+                if(ft_strlen(&sets[i][j]) > 3)
+                    return (1);
+            }
+            j++;
+        }    
+        i++;
+    }
+    return 0;
 }
 
 int valid_set(char *set)
@@ -86,16 +120,13 @@ int valid_set(char *set)
     sets = ft_split(set, ',');
     if(!sets)
         return 1;
-    if(count_occ(set) != 2 || ft_strslen(sets) != 3)
-    {
-        free_split(sets);
-        return 1;
-    }
+    if(count_occ(set, ',') != 2 || ft_strslen(sets) != 3)
+        return (free_split(sets) ,1);
+    if(chcek_set_len(sets))
+        return (free_split(sets) ,1);
     i = 0;
     while(sets[i])
     {
-        if(ft_strlen(sets[i]) > 3)
-            return (free_split(sets) ,1);
         if(ft_atoi(sets[i]) > 255 || ft_atoi(sets[i]) < 0 )
             return (free_split(sets) ,1);
         i++;
@@ -103,14 +134,6 @@ int valid_set(char *set)
     free_split(sets);
     return 0;
 }
-
-// int check_color(char *set)
-// {
-//     if(valid_set(set))
-//         return 1;
-//     // chceck values between [0 , 255]
-//     return 0;    
-// }
 
 int handel_file(char *path)
 {
@@ -139,35 +162,23 @@ int get_type(char *line)
     tokens = ft_split(line, ' ');
     if(!tokens)
         return type ;
-    if(ft_strslen(tokens) != 2){
-        free_split(tokens);
-        return type ;
-    }
+    if(ft_strslen(tokens) != 2)
+        return ( free_split(tokens), type) ;
     if(tokens[0])
         type = return_type(tokens[0]);
     if( __type_tex(type))
     {
         if(handel_file(tokens[1]))
             type = NO_TYPE;
-    } 
-    // check color set
+    }
     if( __type_color(type))
     {
         if(valid_set(tokens[1]))
             type = NO_TYPE;
     } 
-    free_split(tokens);
-    return type;
+    return ( free_split(tokens), type);
 }
 
-void print_node(t_map_lst *nd)
-{
-    if(nd){
-        printf("value [%s]\n", nd->value);
-        print_type(nd->type);
-        nd=nd->next;
-    }
-}
 char *delete_nl(char *line)
 {
     char *cln_line;
@@ -179,44 +190,37 @@ char *delete_nl(char *line)
     return cln_line;
 }
 
+// NORM
+
+
+
 t_map_lst* get_map_infos(int fd_map)
 {
-    t_map_lst *map_lst ;
-    t_map_lst *tail ;
-    t_map_lst *nd ;
-    int count ;
-    char *line;
-    int type ;
+    t_map_info dt;
     
-    count = 0 ;
-    map_lst = NULL;
-    tail = NULL;
-    while(count < 6)
+    dt.count = 0 ;
+    dt.map_lst = NULL;
+    dt.tail = NULL;
+    while(dt.count < 6)
     {
-        line = get_next_line(fd_map);
-        if(line == NULL)
+        dt.line = get_next_line(fd_map);
+        if(dt.line == NULL)
             break;
-        if(line && line[0] == '\n')
+        if(dt.line && dt.line[0] == '\n')
         {
-            free(line);
+            free(dt.line);
             continue;
         }
-        line = delete_nl(line);
-        type = get_type(line);
-        if(type == NO_TYPE)
-        {
-            free_map(map_lst);
-            free(line);
-            get_next_line(-1);
-            return NULL ;
-        }
-        count++;
-        nd = create_node(line, type);
-        add_back(&map_lst ,&tail ,nd);
-        free(line);
+        dt.line = delete_nl(dt.line);
+        dt.type = get_type(dt.line);
+        if(dt.type == NO_TYPE)
+            return (free_map(dt.map_lst),free(dt.line) , get_next_line(-1), NULL);
+        dt.count++;
+        dt.nd = create_node(dt.line, dt.type);
+        add_back(&dt.map_lst ,&dt.tail ,dt.nd);
+        free(dt.line);
     }
-    get_next_line(-1);
-    return map_lst;
+    return (get_next_line(-1), dt.map_lst);
 }
 
 t_map_lst *read_map(char *file)
@@ -229,6 +233,5 @@ t_map_lst *read_map(char *file)
         return NULL;
     map_lst = get_map_infos(fd_map);
     close(fd_map);
-    printf("readed map valid\n");
     return map_lst;
 }

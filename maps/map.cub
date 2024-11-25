@@ -6,7 +6,7 @@ WE ./path_to_the_west_texture.png
 
 EA ./path_to_the_east_texture.png
 
-F 220,10,0001
+F 220,10,255
 
 C 225,30,0
 
