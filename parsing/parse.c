@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:59 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/25 17:39:10 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/26 02:42:27 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,49 @@ int check_ext(char *ext, char* base_ext)
     return 0;
 }
 
+int list_size(t_map_lst *list){
+    int  i ;
+
+    i = 0 ;
+    while(list)
+    {
+        i++;
+        list = list->next ;
+    }
+    return i;
+}
+
+int check_unicty_infos(t_map_lst* list)
+{
+    t_map_lst* tmp;
+    if(list_size(list) != 6)
+        return ( 1);
+    while(list)
+    {
+        tmp = list->next;
+        while(tmp)
+        {
+            if( list->type > 5 || list->type == tmp->type )
+                return (1);
+            tmp = tmp->next;
+        }
+        list = list->next;    
+    }
+    return 0;
+}
+
 int cube(char *ext)
 {
     t_map_lst *list;
-    
+
     if(check_ext(ext, ".cub"))
         return 1;
     list = read_map(ext);
     if(!list)
         return 1;
-    free_map(list);
-    return 0;
+    if(check_unicty_infos(list))
+        return (free_map(list) ,1 );
+    return (free_map(list), 0);
 }
 
 void ff(void )
@@ -89,7 +121,7 @@ int main(int ac, char **av)
             write(2, "\033[0;31m Error\033[0m \n", 26);
             return 0;
         }
-        write(1, "valid map name\n", 15);
+        ft_putstr_fd("\033[0;32mvalid infos name\033[0m\n", 2);
     }
     else{  
         write(2, "Error\n", 6);

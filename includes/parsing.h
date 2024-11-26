@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/25 17:52:36 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/26 02:29:25 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
 
-/*TEST*/
-void print_type(int type);
 
 
 #include<stdio.h>
@@ -40,17 +38,23 @@ void print_type(int type);
 #include"../lib/libft/libft.h"
 
 /*   STRUCT MAP   */
+typedef struct s_map_lst t_map_lst;
+
+/*TEST*/
+void print_type(int type);
+void print_map(t_map_lst* head);
+/*TEST*/
 
 typedef enum s_type {
     IMG_WE,
     IMG_NO,
     IMG_EA,
     IMG_SO,
-    MAP_LINE,
     CEILEING,
     FLOOR,
+    NO_TYPE,
+    MAP_LINE,
     NEW_LINE,
-    NO_TYPE
 }   t_type ;
 
 
@@ -64,7 +68,6 @@ typedef struct s_map_info{
     int type ;
 } t_map_info;
 
-typedef struct s_map_lst t_map_lst;
 struct s_map_lst {
     char *value;
     int type;
@@ -76,6 +79,8 @@ t_map_lst *read_map(char *file);
 void free_map(t_map_lst *list);
 int check_ext(char *ext, char* base_ext);
 // void add_back(t_map_lst** lst, t_map_lst* nd);
+char *delete_nl(char *line);
+int get_type(char *line);
 void    add_back(t_map_lst** lst,t_map_lst** tail ,t_map_lst* nd );
 t_map_lst *create_node(char *value, int type);
 
@@ -106,5 +111,17 @@ typedef struct s_data{
     t_pos *pos;
     char **map;
 } t_data;
+
+int __type_color(int type);
+int __type_tex(int type);
+
+
+/* MAP ARR */
+t_map_lst *check_map(int fd_map);
+
+
+/*  MAP LIST  */
+void free_map(t_map_lst *list);
+
 
 #endif

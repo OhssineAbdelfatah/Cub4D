@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/25 17:52:14 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/26 02:48:58 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,11 @@ int handel_file(char *path)
 {
     if(check_ext(path, ".png")) // tsawer bach biti tkhdem abatal
         return 1;
-    if(access(path, R_OK) == 1)
+    if(access(path, R_OK) != 0)
         return 1;
     return 0;
 }
+    
 int __type_color(int type)
 {
     return (type == CEILEING ||   type == FLOOR);
@@ -191,9 +192,6 @@ char *delete_nl(char *line)
 }
 
 // NORM
-
-
-
 t_map_lst* get_map_infos(int fd_map)
 {
     t_map_info dt;
@@ -220,18 +218,34 @@ t_map_lst* get_map_infos(int fd_map)
         add_back(&dt.map_lst ,&dt.tail ,dt.nd);
         free(dt.line);
     }
-    return (get_next_line(-1), dt.map_lst);
+    // return (get_next_line(-1), dt.map_lst);
+    return ( dt.map_lst);
 }
 
 t_map_lst *read_map(char *file)
 {
     int fd_map;
-    t_map_lst *map_lst ;
+    t_map_lst *map_infos ;
+    t_map_lst *rest_of_file ;
     
+    rest_of_file = NULL;
     fd_map = open(file, O_RDONLY);
     if(fd_map == -1 )
         return NULL;
-    map_lst = get_map_infos(fd_map);
-    close(fd_map);
-    return map_lst;
+    map_infos = get_map_infos(fd_map);
+    if(map_infos)
+    {
+        rest_of_file = check_map(fd_map);
+        // print_map(rest_of_file);
+        if(!rest_of_file)
+            return (close(fd_map), map_infos);
+    }
+    // here check the mfc map
+    /***
+     * 1 : walls no escape
+     * 2 : objects (1 , 0 or (N,S,W,E) once , space inside map error , outside dayz)
+     *      and others
+    */
+    free_map(rest_of_file);
+    return (close(fd_map), map_infos);
 }

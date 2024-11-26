@@ -4,7 +4,7 @@ CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 
 GNL = lib/gnl/get_next_line.c lib/gnl/get_next_line_utils.c
 
-PARSING = parsing/parse.c parsing/map.c parsing/map_list.c
+PARSING = parsing/parse.c parsing/map.c parsing/map_list.c parsing/map_arr.c
 
 CFILES = ${PARSING} ${GNL}
 
