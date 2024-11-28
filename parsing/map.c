@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/26 02:48:58 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/26 23:55:08 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,23 +222,28 @@ t_map_lst* get_map_infos(int fd_map)
     return ( dt.map_lst);
 }
 
-t_map_lst *read_map(char *file)
+t_pre_data *read_map(char *file)
 {
     int fd_map;
-    t_map_lst *map_infos ;
-    t_map_lst *rest_of_file ;
+    t_pre_data* dt;
+    // t_map_lst *map_infos ;
+    // t_map_lst *rest_of_file ;
     
-    rest_of_file = NULL;
+    dt = malloc(sizeof(t_pre_data));
+    if(!dt)
+        return NULL;
     fd_map = open(file, O_RDONLY);
     if(fd_map == -1 )
         return NULL;
-    map_infos = get_map_infos(fd_map);
-    if(map_infos)
+    dt->info = get_map_infos(fd_map);
+    if(check_unicty_infos(dt->info))
+        return (free_map(dt->info) ,NULL );
+    if(dt->info)
     {
-        rest_of_file = check_map(fd_map);
-        // print_map(rest_of_file);
-        if(!rest_of_file)
-            return (close(fd_map), map_infos);
+        dt->map = check_map(fd_map);
+        // print_map(dt->map);
+        if(!dt->map)
+            return (close(fd_map),free_map(dt->info), NULL);
     }
     // here check the mfc map
     /***
@@ -246,6 +251,12 @@ t_map_lst *read_map(char *file)
      * 2 : objects (1 , 0 or (N,S,W,E) once , space inside map error , outside dayz)
      *      and others
     */
-    free_map(rest_of_file);
-    return (close(fd_map), map_infos);
+    
+    /*
+     free linked list ,should return 2d array of map instead .
+        list ( rest of file ) is just for read the file 
+        undefined length
+    */
+    free_map(dt->map); 
+    return (close(fd_map), dt);
 }

@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:59 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/26 02:42:27 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/26 23:57:29 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ void print_type(int type)
         printf("IMG_EA\n");
     else    if(type == NO_TYPE)
         printf("NO TYPE\n");
-    else        
+    else    if(type == MAP_LINE)
         printf("MAP LINE\n");
+    else    if(type == NEW_LINE)
+        printf("NEW LINE\n");
+    else        
+        printf("NON TYPE\n");
 }
 
 void print_map(t_map_lst* head)
@@ -63,7 +67,8 @@ int check_ext(char *ext, char* base_ext)
     return 0;
 }
 
-int list_size(t_map_lst *list){
+int list_size(t_map_lst *list)
+{
     int  i ;
 
     i = 0 ;
@@ -96,16 +101,14 @@ int check_unicty_infos(t_map_lst* list)
 
 int cube(char *ext)
 {
-    t_map_lst *list;
+    t_pre_data *dt;
 
     if(check_ext(ext, ".cub"))
         return 1;
-    list = read_map(ext);
-    if(!list)
+    dt = read_map(ext);
+    if(!dt || !dt->info)
         return 1;
-    if(check_unicty_infos(list))
-        return (free_map(list) ,1 );
-    return (free_map(list), 0);
+    return (free_map(dt->info), free(dt), 0);
 }
 
 void ff(void )
@@ -118,13 +121,13 @@ int main(int ac, char **av)
     atexit(ff);
     if(ac == 2){
         if(cube(av[1])){
-            write(2, "\033[0;31m Error\033[0m \n", 26);
+            ft_putstr_fd("\033[0;31m Error\033[0m \n", 2);
             return 0;
         }
         ft_putstr_fd("\033[0;32mvalid infos name\033[0m\n", 2);
     }
     else{  
-        write(2, "Error\n", 6);
+        ft_putstr_fd("Error\n", 2);
     } 
     return 0;
 }
