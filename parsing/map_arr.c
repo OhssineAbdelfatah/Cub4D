@@ -50,12 +50,13 @@ int get_type_map(char *line)
 
 int only_spaces(char *str)
 {
-    int i ;
+    int i;
 
     i = 0 ;
     while(str && str[i])
     {
         if( !__space(str[i])) // 1 if whitespace
+        if( !__space(str[i]))
             return 0;
         i++;
     }    
@@ -131,6 +132,7 @@ t_map_lst *check_map(int fd_map)
      * soultion : get_type_map
     */
 //    curr = 0;
+//    curr = 0;
     while(1)
     {
         dt.line = get_next_line(fd_map);
@@ -143,6 +145,17 @@ t_map_lst *check_map(int fd_map)
         //     return (free_map(dt.map_lst),free(dt.line) , get_next_line(-1), NULL);
         // if((ft_strlen(dt.line) == 0 ||  dt.line[0] == '\n' || only_spaces(dt.line)) && curr)
         //     return (free(dt.line), free_map(dt.map_lst) ,NULL );
+        // if(dt.type == MAP_LINE)
+            // curr = 1;
+        // if(dt.type == NO_TYPE)
+        //     return (free_map(dt.map_lst),free(dt.line) , get_next_line(-1), NULL);
+        // if((ft_strlen(dt.line) == 0 ||  dt.line[0] == '\n' || only_spaces(dt.line)) && curr)
+        // {
+        //     free(dt.line);
+        //     free_map(dt.map_lst);
+        //     return NULL;
+        //     break;
+        // }
         dt.line = delete_nl(dt.line);
         dt.nd = create_node(dt.line, dt.type);
         add_back(&dt.map_lst ,&dt.tail ,dt.nd);
@@ -150,7 +163,8 @@ t_map_lst *check_map(int fd_map)
     }
     clean_map_downup(&(dt.map_lst));
     clean_map_updown(&(dt.map_lst));
-    print_map(dt.map_lst);
     // printf("size [%d]\n", list_size(dt.map_lst));
+    print_map(dt.map_lst);
+    printf("size [%d]\n", list_size(dt.map_lst));
     return (get_next_line(-1), dt.map_lst);
 }
