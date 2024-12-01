@@ -35,16 +35,19 @@ t_map_lst *create_node(char *value, int type)
     node->value = ft_strdup(value);
     node->type = type ;
     node->next = NULL;
+    node->prev = NULL;
     
     return (node);    
 }
 
-void    add_back(t_map_lst** lst,t_map_lst** tail ,t_map_lst* nd )
+void    add_back(t_map_lst** lst ,t_map_lst** tail ,t_map_lst* nd )
 {
     if (*lst == NULL)
 		*lst = nd;
-	else
+	else{
 		(*tail)->next = nd;
+		nd->prev = *tail;
+    }
 	*tail = nd;
 }
 

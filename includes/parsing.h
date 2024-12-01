@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/26 02:29:25 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/11/26 23:56:01 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ typedef enum s_type {
     NEW_LINE,
 }   t_type ;
 
+typedef struct s_pre_data
+{
+    t_map_lst *info;
+    t_map_lst *map;
+} t_pre_data;
 
 /* GET INFOS NORM*/
 typedef struct s_map_info{
@@ -72,10 +77,11 @@ struct s_map_lst {
     char *value;
     int type;
     t_map_lst *next;
+    t_map_lst *prev;
 };
 
 /*  MAP */
-t_map_lst *read_map(char *file);
+t_pre_data *read_map(char *file);
 void free_map(t_map_lst *list);
 int check_ext(char *ext, char* base_ext);
 // void add_back(t_map_lst** lst, t_map_lst* nd);
@@ -83,6 +89,7 @@ char *delete_nl(char *line);
 int get_type(char *line);
 void    add_back(t_map_lst** lst,t_map_lst** tail ,t_map_lst* nd );
 t_map_lst *create_node(char *value, int type);
+
 
 typedef struct s_color {
     int floor ;
@@ -94,20 +101,22 @@ typedef struct s_pos {
     int y_ver ;
 } t_pos;
 
-typedef struct s_dir {
-    double n;
-    double w;
-    double s;
-    double e;
-} t_dir;
+// typedef struct s_dir {
+//     double n;
+//     double w;
+//     double s;
+//     double e;
+// } t_dir;
 
+
+/*  final data    */
 typedef struct s_data{
     char *tex_no;
     char *tex_we;
     char *tex_so;
     char *tex_ea;
     t_color set;
-    t_dir dir;
+    double dir;
     t_pos *pos;
     char **map;
 } t_data;
@@ -118,10 +127,16 @@ int __type_tex(int type);
 
 /* MAP ARR */
 t_map_lst *check_map(int fd_map);
+int only_spaces(char *str);
 
 
 /*  MAP LIST  */
 void free_map(t_map_lst *list);
+
+/*  PARSE   */
+
+int check_unicty_infos(t_map_lst* list);
+int list_size(t_map_lst *list);
 
 
 #endif
