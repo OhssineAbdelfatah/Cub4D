@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/26 23:56:01 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/12/01 12:28:43 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_map_lst t_map_lst;
 
 /*TEST*/
 void print_type(int type);
-void print_map(t_map_lst* head);
+void print_map(t_map_lst* head, char dir);
 /*TEST*/
 
 typedef enum s_type {

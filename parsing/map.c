@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/26 23:55:08 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/12/01 11:46:35 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int verify_obj()
 int return_type(char *tokens)
 {
     int type;
-    int i;
+    // int i;
 
-    i = 0;
+    // i = 0;
     type = NO_TYPE;
     if(!ft_strncmp(tokens, "F", 1) && ft_strlen(tokens)== 1)
         type = FLOOR;
