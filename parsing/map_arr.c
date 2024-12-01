@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_arr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 23:30:04 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/26 17:53:58 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:54:43 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,24 @@ void clean_map_downup(t_map_lst **map)
     t_map_lst *tmp;
 
     tmp = *map;
-    while((*map)->next)
-        *map = (*map)->next;
     // value here without newline
     while(tmp)
     {
         if(tmp->value && ( only_spaces(tmp->value) || ft_strlen(tmp->value) == 0 ) )
         {
             (*map) = (*map)->prev;
-            tmp->prev = NULL ;
+            (*map)->next = NULL;
             free(tmp->value);
+            tmp->next = NULL ;
+            tmp->prev = NULL ;
             free(tmp);
             tmp = (*map); 
         }
         else
             break;
-    }    
+    }  
+    while((*map)->prev)
+        *map = (*map)->prev;  
     return ;
 }
 
@@ -93,28 +95,26 @@ void clean_map_downup(t_map_lst **map)
 void clean_map_updown(t_map_lst **map)
 {
     t_map_lst *tmp;
-    t_map_lst *tmp_free;
 
     tmp = *map;
-    tmp_free = NULL ; 
     // value here without newline
     while(tmp)
     {
-
         if( tmp->value && ( only_spaces(tmp->value) || ft_strlen(tmp->value) == 0 ) )
         {
-        exit(0);
             (*map) = (*map)->next;
+            (*map)->prev = NULL;
             free(tmp->value);
+            tmp->next = NULL ;
+            tmp->prev = NULL ;
             free(tmp);
             tmp = (*map); 
         }
         else
             break;
     }    
-    while((*map)->prev)
-        *map = (*map)->prev;
-
+    while((*map)->next)
+        *map = (*map)->next;
     return ;
 }
 
@@ -139,32 +139,15 @@ t_map_lst *check_map(int fd_map)
         if(dt.line == NULL)
             break;
         dt.type = get_type_map(dt.line);
-        // if(dt.type == MAP_LINE)
-        //     curr = 1;
-        // if(dt.type == NO_TYPE)
-        //     return (free_map(dt.map_lst),free(dt.line) , get_next_line(-1), NULL);
-        // if((ft_strlen(dt.line) == 0 ||  dt.line[0] == '\n' || only_spaces(dt.line)) && curr)
-        //     return (free(dt.line), free_map(dt.map_lst) ,NULL );
-        // if(dt.type == MAP_LINE)
-            // curr = 1;
-        // if(dt.type == NO_TYPE)
-        //     return (free_map(dt.map_lst),free(dt.line) , get_next_line(-1), NULL);
-        // if((ft_strlen(dt.line) == 0 ||  dt.line[0] == '\n' || only_spaces(dt.line)) && curr)
-        // {
-        //     free(dt.line);
-        //     free_map(dt.map_lst);
-        //     return NULL;
-        //     break;
-        // }
-        dt.line = delete_nl(dt.line);
+        // dt.line = delete_nl(dt.line);
         dt.nd = create_node(dt.line, dt.type);
         add_back(&dt.map_lst ,&dt.tail ,dt.nd);
         free(dt.line);
     }
-    clean_map_downup(&(dt.map_lst));
+    // print_map(dt.map_lst);
     clean_map_updown(&(dt.map_lst));
-    // printf("size [%d]\n", list_size(dt.map_lst));
-    print_map(dt.map_lst);
+    clean_map_downup(&(dt.map_lst));
+    print_map(dt.map_lst,'d');
     printf("size [%d]\n", list_size(dt.map_lst));
     return (get_next_line(-1), dt.map_lst);
 }

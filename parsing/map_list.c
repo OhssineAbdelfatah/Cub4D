@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:32:35 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/21 22:33:45 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/12/01 16:02:39 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void    add_back(t_map_lst** lst ,t_map_lst** tail ,t_map_lst* nd )
 {
     if (*lst == NULL)
 		*lst = nd;
-	else{
+	else
+    {
 		(*tail)->next = nd;
 		nd->prev = *tail;
     }

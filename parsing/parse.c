@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:59 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/26 23:57:29 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/12/01 12:28:06 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,23 @@ void print_type(int type)
         printf("NON TYPE\n");
 }
 
-void print_map(t_map_lst* head)
+void print_map(t_map_lst* head, char dir)
 {
-    while(head){
-        print_type(head->type);
-        printf("value [%s]\n", head->value);
-        printf("*****************\n");
-        head=head->next;
+    if(dir == 'd'){
+        
+        while(head){
+            print_type(head->type);
+            printf("value [%s]\n", head->value);
+            printf("*****************\n");
+            head=head->next;
+        }
+    }else if(dir == 'u'){
+        while(head){
+            print_type(head->type);
+            printf("value [%s]\n", head->value);
+            printf("*****************\n");
+            head=head->prev;
+    }
     }
 }
 /*  print   test    only    */
