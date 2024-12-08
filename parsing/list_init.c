@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:32:35 by aohssine          #+#    #+#             */
-/*   Updated: 2024/12/01 16:02:39 by blacksniper      ###   ########.fr       */
+/*   Updated: 2024/12/06 12:34:06 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/parsing.h"
-
-void free_map(t_map_lst *list)
-{
-    t_map_lst *tmp;
-    
-    while(list != NULL)
-    {
-        tmp = list->next;
-        free(list->value);
-        free(list);
-        list = tmp;
-    }    
-}
 
 t_map_lst *create_node(char *value, int type)
 {
@@ -51,12 +38,3 @@ void    add_back(t_map_lst** lst ,t_map_lst** tail ,t_map_lst* nd )
     }
 	*tail = nd;
 }
-
-
-// void	add_back(t_map_lst **head, t_map_lst **tail, t_map_lst *arg)
-// {
-// 	if (*head == NULL)
-// 		*head = arg;
-// 	else
-// 		(*tail)->next = arg;
-// }

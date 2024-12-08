@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2024/12/01 12:28:43 by blacksniper      ###   ########.fr       */
+/*   Updated: 2024/12/07 16:52:14 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #define KWHT  "\x1B[37m"
 
 
+///////////////////////////////////////////////////////////////////////
 
 #include<stdio.h>
 #include<errno.h>
@@ -40,10 +41,6 @@
 /*   STRUCT MAP   */
 typedef struct s_map_lst t_map_lst;
 
-/*TEST*/
-void print_type(int type);
-void print_map(t_map_lst* head, char dir);
-/*TEST*/
 
 typedef enum s_type {
     IMG_WE,
@@ -80,17 +77,6 @@ struct s_map_lst {
     t_map_lst *prev;
 };
 
-/*  MAP */
-t_pre_data *read_map(char *file);
-void free_map(t_map_lst *list);
-int check_ext(char *ext, char* base_ext);
-// void add_back(t_map_lst** lst, t_map_lst* nd);
-char *delete_nl(char *line);
-int get_type(char *line);
-void    add_back(t_map_lst** lst,t_map_lst** tail ,t_map_lst* nd );
-t_map_lst *create_node(char *value, int type);
-
-
 typedef struct s_color {
     int floor ;
     int ceiling ;
@@ -101,15 +87,6 @@ typedef struct s_pos {
     int y_ver ;
 } t_pos;
 
-// typedef struct s_dir {
-//     double n;
-//     double w;
-//     double s;
-//     double e;
-// } t_dir;
-
-
-/*  final data    */
 typedef struct s_data{
     char *tex_no;
     char *tex_we;
@@ -121,22 +98,65 @@ typedef struct s_data{
     char **map;
 } t_data;
 
-int __type_color(int type);
+/////////////////////////////////////////////
+/////////       FUNCTIONS          //////////
+/////////////////////////////////////////////
+
+/*  cub */
+int cube(char *ext);
+int check_ext(char *ext, char* base_ext);
+
+/*  inofs parse */
+t_pre_data *read_file(char *file);
+t_map_lst* get_map_infos(int fd_map);
+int check_unicty_infos(t_map_lst* list);
+
+
+/*  inofs_utils */
+int get_type(char *line);
 int __type_tex(int type);
+int __type_color(int type);
+int handel_file(char *path);
+int valid_set(char *set);
+
+int chcek_set_len(char **sets);
+int count_occ(char *set, char c);
+int return_type(char *tokens);
 
 
-/* MAP ARR */
-t_map_lst *check_map(int fd_map);
-int only_spaces(char *str);
+/*  list init   */
+t_map_lst *create_node(char *value, int type);
+void    add_back(t_map_lst** lst ,t_map_lst** tail ,t_map_lst* nd );
 
-
-/*  MAP LIST  */
+/*  list utils  */
+int list_size(t_map_lst *list);
+char **list_to_array(t_map_lst* map_lst);
+void clean_map_downup(t_map_lst **map);
+void clean_map_updown(t_map_lst **map);
 void free_map(t_map_lst *list);
 
-/*  PARSE   */
+/*  map check   */
+t_map_lst *check_map(int fd_map);
+int get_type_map(char *line);
+int only_spaces(char *str);
+int __space(int c);
+char *delete_nl(char *line);
 
-int check_unicty_infos(t_map_lst* list);
-int list_size(t_map_lst *list);
 
+/*  map parse   */
+int parse_map(t_map_lst* map_dbl);
+int verify_obj(char *arr, int *dir);
+int contain_line(char *line);
+int is_valid_obj(char c);
+int __direction(char c);
 
+/*   valid map   */
+void valid_map(int x, int y, char **map, int* valid);
+
+///////////////////////////////////////////////////////////////////////
+
+/*TEST*/
+void print_type(int type);
+void print_map(t_map_lst* head, char dir);
+/*TEST*/
 #endif
