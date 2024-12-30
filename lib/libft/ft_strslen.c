@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 22:36:03 by aohssine          #+#    #+#             */
-/*   Updated: 2024/11/10 23:13:00 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/12/29 19:27:10 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ int	ft_strslen(char **strs)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (!strs || !(*strs))
 		return (0);
-	while (strs[++i])
-		;
+	while (strs[i])
+	{
+		i++;
+	}
 	return (i);
 }

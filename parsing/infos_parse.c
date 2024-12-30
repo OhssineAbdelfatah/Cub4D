@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infos_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/12/26 22:14:57 by blacksniper      ###   ########.fr       */
+/*   Updated: 2024/12/30 00:01:54 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,11 @@ t_pre_data	*read_file(char *file)
 {
 	int			fd_map;
 	int			valid;
-	t_pos		p;
 	t_pre_data	*dt;
 	char		**map_arr;
 
 	map_arr = NULL;
+	valid = 0;
 	dt = malloc(sizeof(t_pre_data));
 	if (!dt)
 		return (NULL);
@@ -138,9 +138,7 @@ t_pre_data	*read_file(char *file)
 		if (!map_arr)
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
 				free_map(dt->map), NULL);
-		valid = 0;
-		find_pos(map_arr, &p);exit(0);
-		valid_map(p.x_hor, p.y_ver, map_arr, &valid); // 5
+		valid = valid_map( map_arr);
 		if (valid)
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
 				free_map(dt->map), NULL);

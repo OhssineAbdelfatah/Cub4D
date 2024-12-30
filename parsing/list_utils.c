@@ -76,14 +76,15 @@ char	**list_to_array(t_map_lst *map_lst)
 	// t_map_lst *tmp;
 	// tmp = map_lst;
 	lst_size = list_size(map_lst);
-	i = 0;
 	map_arr = malloc((lst_size + 1) * sizeof(char *));
 	if (!map_arr)
 		return (NULL);
+	i = 0;
 	while (map_lst)
 	{
 		map_arr[i] = ft_strdup(map_lst->value);
 		map_lst = map_lst->next;
+		i++;
 	}
 	map_arr[i] = NULL;
 	free_map(map_lst);

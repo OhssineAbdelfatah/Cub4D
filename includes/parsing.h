@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2024/12/07 16:52:14 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/12/30 00:01:21 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ int							is_valid_obj(char c);
 int							__direction(char c);
 
 /*   valid map   */
-void						valid_map(int x, int y, char **map, int *valid);
+// void						valid_map(int x, int y, char **map, int *valid);
+int valid_map(char **s_map_lst);
 
 ///////////////////////////////////////////////////////////////////////
 

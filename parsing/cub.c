@@ -32,7 +32,7 @@ int	cube(char *ext)
 
 int	main(int ac, char **av)
 {
-	// atexit(ff);
+	// at(ff);
 	if (ac == 2)
 	{
 		if (cube(av[1]))
