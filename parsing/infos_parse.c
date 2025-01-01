@@ -132,20 +132,20 @@ t_pre_data	*read_file(char *file)
 	if (fd_map == -1)
 	{
 		printf("can not open map file error\n");
-		return (NULL);
+		return (free(dt), NULL);
 	}
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
 	{
 		printf(">>[%p]\n",dt->info);
-		return (free_map(dt->info), NULL);
+		return (free_map(dt->info),free(dt) ,  NULL);
 	}
 	if (dt->info)
 	{
 		dt->map = check_map(fd_map);
 		if (!dt->map || parse_map(dt->map)){
 			printf("parse error\n");	
-			return (close(fd_map), free_map(dt->info), NULL);
+			return (close(fd_map), free_map(dt->info), free(dt), NULL);
 		}
 		
 		// still check is map valid
@@ -154,13 +154,13 @@ t_pre_data	*read_file(char *file)
 		{
 			printf("alist to array error\n");
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
-				free_map(dt->map), NULL);
+				free_map(dt->map), free(dt), NULL);
 		}
 		valid = valid_map( map_arr);
 		if (valid){
 			printf("valid map error\n");
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
-				free_map(dt->map), NULL);
+				free_map(dt->map), free(dt), NULL);
 		}
 	}
 	/*here comment below*/
