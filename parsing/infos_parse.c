@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/01 06:01:34 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/01 07:42:51 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,16 +136,13 @@ t_pre_data	*read_file(char *file)
 	}
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
-	{
-		printf(">>[%p]\n",dt->info);
-		return (free_map(dt->info),free(dt) ,  NULL);
-	}
+		return (free_map(dt->info), free(dt->map), free(dt), NULL);
 	if (dt->info)
 	{
 		dt->map = check_map(fd_map);
 		if (!dt->map || parse_map(dt->map)){
 			printf("parse error\n");	
-			return (close(fd_map), free_map(dt->info), free(dt), NULL);
+			return (close(fd_map), free_map(dt->info), free(dt->map),  free(dt), NULL);
 		}
 		
 		// still check is map valid
