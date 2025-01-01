@@ -22,17 +22,30 @@ int	cube(char *ext)
 {
 	t_pre_data	*dt;
 
-	if (check_ext(ext, ".cub"))
+	if (check_ext(ext, ".cub")){
+		printf("ext error\n");
 		return (1);
+	}
 	dt = read_file(ext);
 	if (!dt || !dt->info)
-		return (1);
+	{
+		printf("read file null error\n");
+		return (free(dt), 1);
+	}else if(!dt->info){
+		printf("2 read file null error\n");
+		return (free_map(dt->info), free(dt), 1);
+	}
 	return (free_map(dt->info), free(dt), 0);
+}
+
+void ff(void )
+{
+	system("leaks -q cub3D ");
 }
 
 int	main(int ac, char **av)
 {
-	// at(ff);
+	atexit(ff);
 	if (ac == 2)
 	{
 		if (cube(av[1]))

@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:16:34 by aohssine          #+#    #+#             */
-/*   Updated: 2024/12/30 02:55:11 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:49:18 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,11 @@ t_pos first_corner(char **map)
 
 int check_directions_ver(char ** map, t_pos pos)
 {
-	if(pos.y_ver - 1  > 0 
+	if (pos.y_ver - 1  > 0 
+		&& pos.x_hor > (int)ft_strlen(map[pos.y_ver - 1]))
+		return 1;
+	else if(pos.y_ver - 1  > 0 
+		&& pos.x_hor < (int)ft_strlen(map[pos.y_ver - 1]) 
 		&& map[pos.y_ver - 1][pos.x_hor] != '0' 
 		&& map[pos.y_ver - 1][pos.x_hor] != '1'
 		&& !__direction(map[pos.y_ver - 1 ][pos.x_hor])) // check left indice ( x - 1 )
@@ -81,6 +85,7 @@ int check_directions_ver(char ** map, t_pos pos)
 		return 1;
 	}
 	else if (pos.y_ver + 1 < (int)ft_strslen(map) 
+		&& pos.x_hor < (int)ft_strlen(map[pos.y_ver + 1]) 
 		&& map[pos.y_ver+ 1][pos.x_hor] != '0' 
 		&& map[pos.y_ver+ 1][pos.x_hor] != '1'
 		&& !__direction(map[pos.y_ver + 1][pos.x_hor]) )

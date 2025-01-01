@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:59 by aohssine          #+#    #+#             */
-/*   Updated: 2024/12/06 15:37:04 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/01 05:50:29 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	print_map(t_map_lst *head, char dir)
 		while (head)
 		{
 			print_type(head->type);
-			printf("value [%s]\n", head->value);
+			printf("%s]\n", head->value);
 			printf("*****************\n");
 			head = head->next;
 		}
