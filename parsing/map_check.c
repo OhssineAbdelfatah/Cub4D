@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 23:30:04 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/01 09:00:59 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:28:53 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ t_map_lst	*	check_map(int fd_map)
 		add_back(&dt.map_lst, &dt.tail, dt.nd);
 		free(dt.line);
 	}
+	if( !dt.map_lst)
+		return (get_next_line(-1), dt.map_lst);
 	clean_map_updown(&(dt.map_lst));
 	clean_map_downup(&(dt.map_lst));
 	return (get_next_line(-1), dt.map_lst);
