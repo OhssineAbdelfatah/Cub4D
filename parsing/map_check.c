@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parse.c                                        :+:      :+:    :+:   */
+/*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 23:30:04 by aohssine          #+#    #+#             */
-/*   Updated: 2024/12/06 12:42:19 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/01 09:00:59 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	get_type_map(char *line)
 		return (MAP_LINE);
 }
 
-t_map_lst	*check_map(int fd_map)
+t_map_lst	*	check_map(int fd_map)
 {
 	t_map_info	dt;
 
