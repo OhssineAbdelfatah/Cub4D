@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/01 07:42:51 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/04 09:34:11 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ t_map_lst	*get_map_infos(int fd_map)
 			free(dt.line);
 			continue ;
 		}
-		dt.line = delete_nl(dt.line);
 		dt.type = get_type(dt.line);
 		if (dt.type == NO_TYPE)
 			return (free_map(dt.map_lst), free(dt.line), get_next_line(-1),
@@ -85,7 +84,7 @@ t_map_lst	*get_map_infos(int fd_map)
 		dt.count++;
 		dt.nd = create_node(dt.line, dt.type);
 		add_back(&dt.map_lst, &dt.tail, dt.nd);
-		free(dt.line);
+		// free(dt.line);
 	}
 	return (dt.map_lst);
 }
@@ -113,56 +112,37 @@ void	find_pos(char **map, t_pos *pos)
 	}
 	return ;
 }
-
+// norm
 t_pre_data	*read_file(char *file)
 {
 	int			fd_map;
-	int			valid;
 	t_pre_data	*dt;
 	char		**map_arr;
 
 	map_arr = NULL;
-	valid = 0;
 	dt = malloc(sizeof(t_pre_data));
-	if (!dt){
-		printf("allocation dt error\n");
+	if (!dt)
 		return (NULL);
-	}
 	fd_map = open(file, O_RDONLY);
 	if (fd_map == -1)
-	{
-		printf("can not open map file error\n");
 		return (free(dt), NULL);
-	}
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
 		return (free_map(dt->info), free(dt->map), free(dt), NULL);
 	if (dt->info)
 	{
 		dt->map = check_map(fd_map);
-		if (!dt->map || parse_map(dt->map)){
-			printf("parse error\n");	
-			return (close(fd_map), free_map(dt->info), free(dt->map),  free(dt), NULL);
-		}
-		
-		// still check is map valid
+		if (!dt->map || parse_map(dt->map))
+			return (close(fd_map), free_map(dt->info), free_map(dt->map),  free(dt), NULL);
 		map_arr = list_to_array(dt->map);
 		if (!map_arr)
-		{
-			printf("alist to array error\n");
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
 				free_map(dt->map), free(dt), NULL);
-		}
-		valid = valid_map( map_arr);
-		if (valid){
-			printf("valid map error\n");
+		if (valid_map( map_arr))
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
 				free_map(dt->map), free(dt), NULL);
-		}
 	}
-	/*here comment below*/
-	free_map(dt->map);
-	return (close(fd_map), dt);
+	return (free_split(map_arr), free_map(dt->map),close(fd_map), dt);
 }
 
 // here check the mfc map

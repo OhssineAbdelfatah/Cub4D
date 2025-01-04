@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 23:30:04 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/03 17:28:53 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/04 09:34:06 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_map_lst	*	check_map(int fd_map)
 			dt.line = delete_nl(dt.line);
 		dt.nd = create_node(dt.line, dt.type);
 		add_back(&dt.map_lst, &dt.tail, dt.nd);
-		free(dt.line);
+		// free(dt.line);
 	}
 	if( !dt.map_lst)
 		return (get_next_line(-1), dt.map_lst);

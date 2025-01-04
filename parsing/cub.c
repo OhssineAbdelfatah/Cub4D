@@ -22,19 +22,13 @@ int	cube(char *ext)
 {
 	t_pre_data	*dt;
 
-	if (check_ext(ext, ".cub")){
-		printf("ext error\n");
+	if (check_ext(ext, ".cub"))
 		return (1);
-	}
 	dt = read_file(ext);
-	if (!dt || !dt->info)
-	{
-		printf("read file null error\n");
+	if (!dt)
 		return (free(dt), 1);
-	}else if(!dt->info){
-		printf("2 read file null error\n");
+	if(!dt->info)
 		return (free_map(dt->info), free(dt), 1);
-	}
 	return (free_map(dt->info), free(dt), 0);
 }
 

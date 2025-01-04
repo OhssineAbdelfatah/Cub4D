@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_list.c                                         :+:      :+:    :+:   */
+/*   list_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:32:35 by aohssine          #+#    #+#             */
-/*   Updated: 2024/12/06 12:34:06 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/04 09:33:53 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_map_lst	*create_node(char *value, int type)
 	if (!node)
 		return (NULL);
 	node->value = ft_strdup(value);
+	free(value);
 	node->type = type;
 	node->next = NULL;
 	node->prev = NULL;
