@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/04 09:34:11 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/04 09:54:23 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_map_lst	*get_map_infos(int fd_map)
 			free(dt.line);
 			continue ;
 		}
+		dt.line = delete_nl(dt.line);
 		dt.type = get_type(dt.line);
 		if (dt.type == NO_TYPE)
 			return (free_map(dt.map_lst), free(dt.line), get_next_line(-1),
@@ -84,7 +85,6 @@ t_map_lst	*get_map_infos(int fd_map)
 		dt.count++;
 		dt.nd = create_node(dt.line, dt.type);
 		add_back(&dt.map_lst, &dt.tail, dt.nd);
-		// free(dt.line);
 	}
 	return (dt.map_lst);
 }
@@ -113,6 +113,8 @@ void	find_pos(char **map, t_pos *pos)
 	return ;
 }
 // norm
+
+
 t_pre_data	*read_file(char *file)
 {
 	int			fd_map;
@@ -120,12 +122,8 @@ t_pre_data	*read_file(char *file)
 	char		**map_arr;
 
 	map_arr = NULL;
-	dt = malloc(sizeof(t_pre_data));
-	if (!dt)
-		return (NULL);
-	fd_map = open(file, O_RDONLY);
-	if (fd_map == -1)
-		return (free(dt), NULL);
+	dt = safe_malloc();
+	fd_map = safe_open(file, dt);
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
 		return (free_map(dt->info), free(dt->map), free(dt), NULL);

@@ -56,7 +56,6 @@ int	get_type(char *line)
 	char **tokens;
 	int type;
 
-	line = delete_nl(line);
 	type = NO_TYPE;
 	tokens = ft_split(line, ' ');
 	if (!tokens)
