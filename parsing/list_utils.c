@@ -18,7 +18,6 @@ void	clean_map_updown(t_map_lst **map)
 	t_map_lst	*tmp;
 
 	tmp = *map;
-	// value here without newline
 	while (tmp)
 	{
 		if (tmp->value && (only_spaces(tmp->value)
@@ -45,7 +44,6 @@ void	clean_map_downup(t_map_lst **map)
 	t_map_lst	*tmp;
 
 	tmp = *map;
-	// value here without newline
 	while (tmp)
 	{
 		if (tmp->value && (only_spaces(tmp->value)
@@ -73,8 +71,6 @@ char	**list_to_array(t_map_lst *map_lst)
 	int		lst_size;
 	int		i;
 
-	// t_map_lst *tmp;
-	// tmp = map_lst;
 	lst_size = list_size(map_lst);
 	i = 0;
 	map_arr = malloc((lst_size + 1) * sizeof(char *));
@@ -92,7 +88,7 @@ char	**list_to_array(t_map_lst *map_lst)
 
 int	list_size(t_map_lst *list)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (list)

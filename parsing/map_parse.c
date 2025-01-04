@@ -33,7 +33,7 @@ int	verify_obj(char *arr, int *dir)
 
 int	parse_map(t_map_lst *map_dbl)
 {
-	int dir;
+	int	dir;
 
 	dir = 0;
 	while (map_dbl)

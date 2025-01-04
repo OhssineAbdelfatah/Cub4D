@@ -4,8 +4,6 @@ int	return_type(char *tokens)
 {
 	int	type;
 
-	// int i;
-	// i = 0;
 	type = NO_TYPE;
 	if (!ft_strncmp(tokens, "F", 1) && ft_strlen(tokens) == 1)
 		type = FLOOR;

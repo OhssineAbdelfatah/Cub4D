@@ -139,7 +139,8 @@ t_pre_data	*read_file(char *file)
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
 				free_map(dt->map), NULL);
 		valid = 0;
-		find_pos(map_arr, &p);exit(0);
+		find_pos(map_arr, &p);
+		exit(0);
 		valid_map(p.x_hor, p.y_ver, map_arr, &valid); // 5
 		if (valid)
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),

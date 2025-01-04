@@ -45,8 +45,8 @@ int	__type_tex(int type)
 
 int	get_type(char *line)
 {
-	char **tokens;
-	int type;
+	char	**tokens;
+	int		type;
 
 	type = NO_TYPE;
 	tokens = ft_split(line, ' ');
