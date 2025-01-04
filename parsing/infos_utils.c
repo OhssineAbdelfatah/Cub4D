@@ -26,9 +26,15 @@ int	valid_set(char *set)
 int	handel_file(char *path)
 {
 	if (check_ext(path, ".png")) // tsawer bach biti tkhdem abatal
+	{
+		printf("texture ext error\n");
 		return (1);
+	}
 	if (access(path, R_OK) != 0)
+	{
+		printf("texture permission error\n");
 		return (1);
+	}
 	return (0);
 }
 

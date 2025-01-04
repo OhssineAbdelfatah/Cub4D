@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/12/26 22:14:57 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/04 11:10:27 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ int	check_unicty_infos(t_map_lst *list)
 	t_map_lst	*tmp;
 
 	if (list_size(list) != 6)
+	{
+		printf("len list %d\n", list_size(list));
+		printf("list size diff 6 error\n");
 		return (1);
+	}
 	while (list)
 	{
 		tmp = list->next;
@@ -81,7 +85,6 @@ t_map_lst	*get_map_infos(int fd_map)
 		dt.count++;
 		dt.nd = create_node(dt.line, dt.type);
 		add_back(&dt.map_lst, &dt.tail, dt.nd);
-		free(dt.line);
 	}
 	return (dt.map_lst);
 }
@@ -109,46 +112,35 @@ void	find_pos(char **map, t_pos *pos)
 	}
 	return ;
 }
+// norm
 
 t_pre_data	*read_file(char *file)
 {
 	int			fd_map;
-	int			valid;
-	t_pos		p;
 	t_pre_data	*dt;
 	char		**map_arr;
 
 	map_arr = NULL;
-	dt = malloc(sizeof(t_pre_data));
-	if (!dt)
-		return (NULL);
-	fd_map = open(file, O_RDONLY);
-	if (fd_map == -1)
-		return (NULL);
+	dt = safe_malloc();
+	fd_map = safe_open(file, dt);
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
-		return (free_map(dt->info), NULL);
+		return (free_map(dt->info), free(dt->map), free(dt), NULL);
 	if (dt->info)
 	{
 		dt->map = check_map(fd_map);
-		if (!dt->map || parse_map(dt->map)) // 4
-			return (close(fd_map), free_map(dt->info), NULL);
-		// still check is map valid
+		if (!dt->map || parse_map(dt->map))
+			return (close(fd_map), free_map(dt->info), free_map(dt->map),
+				free(dt), NULL);
 		map_arr = list_to_array(dt->map);
 		if (!map_arr)
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
-				free_map(dt->map), NULL);
-		valid = 0;
-		find_pos(map_arr, &p);
-		exit(0);
-		valid_map(p.x_hor, p.y_ver, map_arr, &valid); // 5
-		if (valid)
+				free_map(dt->map), free(dt), NULL);
+		if (valid_map(map_arr))
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
-				free_map(dt->map), NULL);
+				free_map(dt->map), free(dt), NULL);
 	}
-	/*here comment below*/
-	free_map(dt->map);
-	return (close(fd_map), dt);
+	return (free_split(map_arr), free_map(dt->map), close(fd_map), dt);
 }
 
 // here check the mfc map

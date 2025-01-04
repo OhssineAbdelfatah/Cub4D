@@ -25,14 +25,21 @@ int	cube(char *ext)
 	if (check_ext(ext, ".cub"))
 		return (1);
 	dt = read_file(ext);
-	if (!dt || !dt->info)
-		return (1);
+	if (!dt)
+		return (free(dt), 1);
+	if (!dt->info)
+		return (free_map(dt->info), free(dt), 1);
 	return (free_map(dt->info), free(dt), 0);
+}
+
+void	ff(void)
+{
+	system("leaks -q cub3D ");
 }
 
 int	main(int ac, char **av)
 {
-	// atexit(ff);
+	atexit(ff);
 	if (ac == 2)
 	{
 		if (cube(av[1]))

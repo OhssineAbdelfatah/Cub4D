@@ -1,14 +1,14 @@
 CC = cc 
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 
 GNL = lib/gnl/get_next_line.c lib/gnl/get_next_line_utils.c
 
 
 PARSING = 	parsing/cub.c          parsing/infos_utils2.c parsing/map_check.c\
 			parsing/infos_parse.c  parsing/list_init.c    parsing/map_parse.c    parsing/valid_map.c\
-			parsing/infos_utils.c  parsing/list_utils.c   parsing/test.c\
-
+			parsing/infos_utils.c  parsing/list_utils.c   \
+			parsing/safe_func.c
 CFILES = ${PARSING} ${GNL}
 
 OBJ = $(CFILES:.c=.o)
