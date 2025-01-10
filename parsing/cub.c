@@ -47,6 +47,7 @@ int	main(int ac, char **av)
 			ft_putstr_fd("\033[0;31m Error\033[0m \n", 2);
 			return (0);
 		}
+		
 		ft_putstr_fd("\033[0;32mvalid infos name\033[0m\n", 2);
 	}
 	else
