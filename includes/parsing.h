@@ -90,7 +90,19 @@ typedef struct s_pos
 	int						y_ver;
 }							t_pos;
 
-typedef struct s_data
+// typedef struct s_data
+// {
+// 	char					*tex_no;
+// 	char					*tex_we;
+// 	char					*tex_so;
+// 	char					*tex_ea;
+// 	t_color					set;
+// 	double					dir;
+// 	t_pos					*pos;
+// 	char					**map;
+// }							t_data;
+
+typedef struct s_parse_data
 {
 	char					*tex_no;
 	char					*tex_we;
@@ -100,8 +112,7 @@ typedef struct s_data
 	double					dir;
 	t_pos					*pos;
 	char					**map;
-}							t_data;
-
+}							t_parse_data;
 /////////////////////////////////////////////
 /////////       FUNCTIONS          //////////
 /////////////////////////////////////////////
