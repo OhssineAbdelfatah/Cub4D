@@ -1,6 +1,6 @@
 CC = cc 
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g
  
 GNL = lib/gnl/get_next_line.c lib/gnl/get_next_line_utils.c
 

@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/10 18:02:21 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/12 23:33:39 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int	check_unicty_infos(t_map_lst *list)
 
 	if (list_size(list) != 6)
 	{
-		printf("len list %d\n", list_size(list));
-		printf("list size diff 6 error\n");
+		printf("list size diff 6 error, len list %d\n",  list_size(list));
 		return (1);
 	}
 	while (list)
@@ -52,7 +51,7 @@ int	check_unicty_infos(t_map_lst *list)
 		while (tmp)
 		{
 			if (list->type > 5 || list->type == tmp->type)
-				return (1);
+				return (printf("more infos or err type\n") ,1);
 			tmp = tmp->next;
 		}
 		list = list->next;
@@ -80,7 +79,7 @@ t_map_lst	*get_map_infos(int fd_map)
 		dt.line = delete_nl(dt.line);
 		dt.type = get_type(dt.line);
 		if (dt.type == NO_TYPE)
-			return (free_map(dt.map_lst), free(dt.line), get_next_line(-1),
+			return (free_map(dt.map_lst), free(dt.line), get_next_line(-1),printf("no type err\n"),
 				NULL);
 		dt.count++;
 		dt.nd = create_node(dt.line, dt.type);
@@ -121,24 +120,24 @@ t_pre_data	*read_file(char *file)
 	char		**map_arr;
 
 	map_arr = NULL;
-	dt = safe_malloc();
+	dt = (t_pre_data *)safe_malloc();
 	fd_map = safe_open(file, dt);
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
-		return (free_map(dt->info), free(dt->map), free(dt), NULL);
+		return (free_map(dt->info), free(dt->map), free(dt),printf("unicty err\n"), NULL);
 	if (dt->info)
 	{
 		dt->map = check_map(fd_map);
 		if (!dt->map || parse_map(dt->map))
 			return (close(fd_map), free_map(dt->info), free_map(dt->map),
-				free(dt), NULL);
+				free(dt),printf("dt.map NULL or parse map err\n") ,NULL);
 		map_arr = list_to_array(dt->map);
 		if (!map_arr)
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
-				free_map(dt->map), free(dt), NULL);
+				free_map(dt->map), free(dt),  printf("list to array NULL\n"),NULL);
 		if (valid_map(map_arr))
 			return (free_split(map_arr), close(fd_map), free_map(dt->info),
-				free_map(dt->map), free(dt), NULL);
+				free_map(dt->map), free(dt), printf("invalid map\n"),NULL);
 	}
 	return (free_split(map_arr), free_map(dt->map), close(fd_map), dt);
 }

@@ -18,23 +18,25 @@ void	clean_map_updown(t_map_lst **map)
 	t_map_lst	*tmp;
 
 	tmp = *map;
-	while (tmp)
+	while (tmp ) 
 	{
-		if (tmp->value && (only_spaces(tmp->value)
+		if (map && *map && tmp && tmp->value && (only_spaces(tmp->value)
 				|| ft_strlen(tmp->value) == 0))
 		{
 			(*map) = (*map)->next;
-			(*map)->prev = NULL;
+			if(*map)
+				(*map)->prev = NULL;
 			free(tmp->value);
 			tmp->next = NULL;
 			tmp->prev = NULL;
 			free(tmp);
-			tmp = (*map);
+			if(*map)
+				tmp = (*map);
 		}
 		else
 			break ;
 	}
-	while ((*map)->next)
+	while (*map && (*map)->next)
 		*map = (*map)->next;
 	return ;
 }
@@ -46,7 +48,7 @@ void	clean_map_downup(t_map_lst **map)
 	tmp = *map;
 	while (tmp)
 	{
-		if (tmp->value && (only_spaces(tmp->value)
+		if (*map && tmp->value && (only_spaces(tmp->value)
 				|| ft_strlen(tmp->value) == 0))
 		{
 			(*map) = (*map)->prev;
@@ -60,7 +62,7 @@ void	clean_map_downup(t_map_lst **map)
 		else
 			break ;
 	}
-	while ((*map)->prev)
+	while (*map && (*map)->prev)
 		*map = (*map)->prev;
 	return ;
 }

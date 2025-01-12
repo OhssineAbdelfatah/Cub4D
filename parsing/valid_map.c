@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:16:34 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/10 19:25:59 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/12 23:19:35 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_pos	first_corner(char **map)
 
 int	check_directions_ver(char **map, t_pos pos)
 {
-	if (pos.y_ver - 1 > 0 && pos.x_hor > (int)ft_strlen(map[pos.y_ver - 1]))
+	if (pos.y_ver - 1 >= 0 && pos.x_hor >= (int)ft_strlen(map[pos.y_ver - 1]))
 		return (1);
-	else if (pos.y_ver - 1 > 0 
+	else if (pos.y_ver - 1 >= 0 
 		&& pos.x_hor < (int)ft_strlen(map[pos.y_ver - 1])
 		&& map[pos.y_ver - 1][pos.x_hor] != '0' 
 		&& map[pos.y_ver- 1][pos.x_hor] != '1' 
@@ -65,7 +65,7 @@ int	check_directions_ver(char **map, t_pos pos)
 
 int	check_directions_hor(char **map, t_pos pos)
 {
-	if (pos.x_hor - 1 > 0 && map[pos.y_ver][pos.x_hor - 1] != '0'
+	if (pos.x_hor - 1 >= 0 && map[pos.y_ver][pos.x_hor - 1] != '0'
 		&& map[pos.y_ver][pos.x_hor - 1] != '1'
 		&& !__direction(map[pos.y_ver][pos.x_hor - 1]))
 	{
@@ -90,9 +90,10 @@ int check_line(char **map, t_pos first)
 {
 	while (map[first.y_ver][first.x_hor])
 	{
+		printf("[%d][%d]\n",first.y_ver, first.x_hor);
 		if ((first.y_ver == 0 || first.x_hor == 0)
 			&& (map[first.y_ver][first.x_hor] == '0' 
-			|| __direction(map[first.y_ver][first.x_hor]) ))
+			|| __direction(map[first.y_ver][first.x_hor])))
 			return (1);
 		if (map[first.y_ver][first.x_hor] == '1'
 			|| map[first.y_ver][first.x_hor] == ' ')

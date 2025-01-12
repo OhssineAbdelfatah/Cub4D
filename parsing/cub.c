@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/10 18:01:24 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/12 23:36:14 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@ int	check_ext(char *ext, char *base_ext)
 	return (0);
 }
 
-int	cube(char *ext)
+int	cube(char *ext, t_pre_data* data)
 {
 	t_pre_data	*dt;
 
 	if (check_ext(ext, ".cub"))
-		return (1);
+		return (printf("ext err\n"),1);
 	dt = read_file(ext);
+		// return ((printf("alo\n")), 1);
 	if (!dt)
-		return (free(dt), 1);
+		return (free(dt), printf("read file dt NULL\n"),1);
 	if (!dt->info)
 		return (free_map(dt->info), free(dt), 1);
 	return (free_map(dt->info), free(dt), 0);
@@ -49,22 +50,42 @@ void	ff(void)
 	system("leaks -q cub3D ");
 }
 
-int	main(int ac, char **av)
+void free_data(t_parse_data* data)
 {
-	atexit(ff);
+	(void)data;
+	return ;
+}
+
+t_parse_data	*parse(int ac, char **av)
+{
+	t_parse_data *data;
+	// atexit(ff);
+	data = (t_parse_data *)safe_malloc();
 	if (ac == 2)
 	{
-		if (cube(av[1]))
+		if (cube(av[1], data))
 		{
 			ft_putstr_fd("\033[0;31m Error\033[0m \n", 2);
-			return (0);
+			free_data(data);
+			exit(1);
 		}
 		
-		ft_putstr_fd("\033[0;32mvalid infos name\033[0m\n", 2);
+		// return parse data
+		/*
+				char					*tex_no;
+				char					*tex_we;
+				char					*tex_so;
+				char					*tex_ea;
+				t_color					set;
+				double					dir;
+				t_pos					*pos;
+				char					**map;
+		*/
 	}
 	else
 	{
 		ft_putstr_fd("Error\n", 2);
+		exit(1);
 	}
-	return (0);
+	exit(0);
 }

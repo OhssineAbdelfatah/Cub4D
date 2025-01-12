@@ -6,17 +6,17 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:02:39 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/10 18:02:40 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/12 23:33:48 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-t_pre_data	*safe_malloc(void)
+void	*safe_malloc(void)
 {
-	t_pre_data	*dt;
+	void	*dt;
 
-	dt = malloc(sizeof(t_pre_data));
+	dt = malloc(sizeof(void));
 	if (!dt)
 		exit(1);
 	return (dt);
