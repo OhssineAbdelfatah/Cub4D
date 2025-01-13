@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/04 09:55:48 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/13 00:03:08 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_parse_data
 /////////////////////////////////////////////
 
 /*  cub */
-int							cube(char *ext);
+int							cube(char *ext, t_parse_data* data);
 int							check_ext(char *ext, char *base_ext);
 
 /*  inofs parse */
@@ -167,12 +167,20 @@ int							__direction(char c);
 int							valid_map(char **s_map_lst);
 
 /*	safe functions	*/
-t_pre_data					*safe_malloc(void);
+void					*safe_malloc(void);
 int							safe_open(char *file, t_pre_data *dt);
+
+
+/*	main func	*/
+t_parse_data	*parse(int ac, char **av);
+
 ///////////////////////////////////////////////////////////////////////
+
+
 
 /*TEST*/
 void						print_type(int type);
 void						print_map(t_map_lst *head, char dir);
+
 /*TEST*/
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/12 23:36:14 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/12 23:55:27 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ int	check_ext(char *ext, char *base_ext)
 	return (0);
 }
 
-int	cube(char *ext, t_pre_data* data)
+int	cube(char *ext, t_parse_data* data)
 {
 	t_pre_data	*dt;
 
+	(void)data;
 	if (check_ext(ext, ".cub"))
 		return (printf("ext err\n"),1);
 	dt = read_file(ext);
@@ -50,11 +51,11 @@ void	ff(void)
 	system("leaks -q cub3D ");
 }
 
-void free_data(t_parse_data* data)
-{
-	(void)data;
-	return ;
-}
+// void free_data(t_parse_data* data)
+// {
+// 	(void)data;
+// 	return ;
+// }
 
 t_parse_data	*parse(int ac, char **av)
 {
@@ -66,7 +67,7 @@ t_parse_data	*parse(int ac, char **av)
 		if (cube(av[1], data))
 		{
 			ft_putstr_fd("\033[0;31m Error\033[0m \n", 2);
-			free_data(data);
+			// free_data(data);
 			exit(1);
 		}
 		
