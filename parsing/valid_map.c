@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:16:34 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/12 23:19:35 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:25:08 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int check_line(char **map, t_pos first)
 {
 	while (map[first.y_ver][first.x_hor])
 	{
-		printf("[%d][%d]\n",first.y_ver, first.x_hor);
+		// printf("[%d][%d]\n",first.y_ver, first.x_hor);
 		if ((first.y_ver == 0 || first.x_hor == 0)
 			&& (map[first.y_ver][first.x_hor] == '0' 
 			|| __direction(map[first.y_ver][first.x_hor])))

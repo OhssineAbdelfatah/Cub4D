@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/13 00:51:26 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/13 19:28:18 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ struct						s_map_lst
 
 typedef struct s_color
 {
-	int						floor;
-	int						ceiling;
+	int						floor[3];
+	int						ceiling[3];
 }							t_color;
 
 typedef struct s_pos
@@ -109,8 +109,8 @@ struct s_parse_data
 	char					*tex_we;
 	char					*tex_so;
 	char					*tex_ea;
-	t_color					set;
-	double					dir;
+	t_color					*set;
+	char					*dir;
 	t_pos					*pos;
 	char					**map;
 };
@@ -169,7 +169,8 @@ int							valid_map(char **s_map_lst);
 
 /*	safe functions	*/
 void					*safe_malloc(void);
-int							safe_open(char *file, t_pre_data *dt);
+int						safe_open(char *file, t_pre_data *dt);
+void					**safe__malloc(void);
 
 
 /*	main func	*/
@@ -182,6 +183,6 @@ t_parse_data	*parse(int ac, char **av);
 /*TEST*/
 void						print_type(int type);
 void						print_map(t_map_lst *head, char dir);
-
+void print_data(t_parse_data* data);
 /*TEST*/
 #endif

@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/13 01:17:57 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/13 18:53:28 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	cube(char *ext, t_parse_data** data)
 {
 	t_pre_data	*dt;
 
-	(void)data;
 	if (check_ext(ext, ".cub"))
 		return (printf("ext err\n"),1);
 	dt = read_file(ext);
@@ -64,18 +63,22 @@ void	ff(void)
 t_parse_data	*parse(int ac, char **av)
 {
 	t_parse_data **data;
+	t_parse_data *data1;
 	// atexit(ff);
 	// data = (t_parse_data *)safe_malloc();
-	data = malloc(sizeof);
+	data = (t_parse_data**)safe__malloc();
 	if (ac == 2)
 	{
 		if (cube(av[1], data))
 		{
 			ft_putstr_fd("\033[0;31m Error\033[0m \n", 2);
 			// free_data(data);
+			// free(data);
 			exit(1);
 		}
-		return *data;
+		data1 = *data;
+		free(data);
+		return data1;
 	
 	// return parse data
 	/*

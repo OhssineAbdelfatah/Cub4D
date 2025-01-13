@@ -3,18 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   safe_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:02:39 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/12 23:33:48 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:44:30 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
+void	**safe__malloc(void)
+{
+	void	**dt;
+
+	dt = malloc(sizeof(void *));
+	if (!dt)
+		exit(1);
+	return (dt);
+}
+
+
 void	*safe_malloc(void)
 {
-	void	*dt;
+	void	**dt;
 
 	dt = malloc(sizeof(void));
 	if (!dt)
