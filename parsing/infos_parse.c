@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/13 00:00:27 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/13 01:16:26 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,14 @@ t_pre_data	*read_file(char *file)
 {
 	int			fd_map;
 	t_pre_data	*dt;
-	char		**map_arr;
+	// char		**map_arr;
 
-	map_arr = NULL;
-	dt = (t_pre_data *)safe_malloc();
+	dt = (t_pre_data *)malloc(sizeof(t_pre_data));
+	dt->data = (t_parse_data *)malloc(sizeof(t_parse_data));
+	if(!dt || !dt->data)
+		return NULL;
+	// dt->data = (t_parse_data *)safe_malloc();
+	// dt->data->map = NULL;
 	fd_map = safe_open(file, dt);
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
@@ -131,15 +135,16 @@ t_pre_data	*read_file(char *file)
 		if (!dt->map || parse_map(dt->map))
 			return (close(fd_map), free_map(dt->info), free_map(dt->map),
 				free(dt),printf("dt.map NULL or parse map err\n") ,NULL);
-		map_arr = list_to_array(dt->map);
-		if (!map_arr)
-			return (free_split(map_arr), close(fd_map), free_map(dt->info),
+		dt->data->map = list_to_array(dt->map);
+		if (!dt->data->map)
+			return (free_split(dt->data->map), close(fd_map), free_map(dt->info),
 				free_map(dt->map), free(dt),  printf("list to array NULL\n"),NULL);
-		if (valid_map(map_arr))
-			return (free_split(map_arr), close(fd_map), free_map(dt->info),
+		if (valid_map(dt->data->map))
+			return (free_split(dt->data->map), close(fd_map), free_map(dt->info),
 				free_map(dt->map), free(dt), printf("invalid map\n"),NULL);
+			
 	}
-	return (free_split(map_arr), free_map(dt->map), close(fd_map), dt);
+	return (free_map(dt->map), close(fd_map), dt);
 }
 
 // here check the mfc map

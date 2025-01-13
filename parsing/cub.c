@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/12 23:55:27 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/13 01:17:57 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_ext(char *ext, char *base_ext)
 	return (0);
 }
 
-int	cube(char *ext, t_parse_data* data)
+int	cube(char *ext, t_parse_data** data)
 {
 	t_pre_data	*dt;
 
@@ -43,7 +43,11 @@ int	cube(char *ext, t_parse_data* data)
 		return (free(dt), printf("read file dt NULL\n"),1);
 	if (!dt->info)
 		return (free_map(dt->info), free(dt), 1);
-	return (free_map(dt->info), free(dt), 0);
+	*data = dt->data;
+	free_map(dt->info);
+	free(dt);
+	return 0;
+	// return (free_map(dt->info), free(dt), 0);
 }
 
 void	ff(void)
@@ -59,9 +63,10 @@ void	ff(void)
 
 t_parse_data	*parse(int ac, char **av)
 {
-	t_parse_data *data;
+	t_parse_data **data;
 	// atexit(ff);
-	data = (t_parse_data *)safe_malloc();
+	// data = (t_parse_data *)safe_malloc();
+	data = malloc(sizeof);
 	if (ac == 2)
 	{
 		if (cube(av[1], data))
@@ -70,20 +75,21 @@ t_parse_data	*parse(int ac, char **av)
 			// free_data(data);
 			exit(1);
 		}
-		
-		// return parse data
-		/*
-				char					*tex_no;
-				char					*tex_we;
-				char					*tex_so;
-				char					*tex_ea;
-				t_color					set;
-				double					dir;
-				t_pos					*pos;
-				char					**map;
-		*/
-	}
-	else
+		return *data;
+	
+	// return parse data
+	/*
+			char					*tex_no;
+			char					*tex_we;
+			char					*tex_so;
+			char					*tex_ea;
+			t_color					set;
+			double					dir;
+			t_pos					*pos;
+			char					**map;
+	*/
+
+	}else
 	{
 		ft_putstr_fd("Error\n", 2);
 		exit(1);

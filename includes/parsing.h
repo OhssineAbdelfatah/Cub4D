@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/13 00:03:08 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/13 00:51:26 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 /*   STRUCT MAP   */
 typedef struct s_map_lst	t_map_lst;
-
+typedef struct s_parse_data t_parse_data;
 typedef enum s_type
 {
 	IMG_WE,
@@ -57,6 +57,7 @@ typedef struct s_pre_data
 {
 	t_map_lst				*info;
 	t_map_lst				*map;
+	t_parse_data			*data;
 }							t_pre_data;
 
 /* GET INFOS NORM*/
@@ -102,7 +103,7 @@ typedef struct s_pos
 // 	char					**map;
 // }							t_data;
 
-typedef struct s_parse_data
+struct s_parse_data
 {
 	char					*tex_no;
 	char					*tex_we;
@@ -112,13 +113,13 @@ typedef struct s_parse_data
 	double					dir;
 	t_pos					*pos;
 	char					**map;
-}							t_parse_data;
+};
 /////////////////////////////////////////////
 /////////       FUNCTIONS          //////////
 /////////////////////////////////////////////
 
 /*  cub */
-int							cube(char *ext, t_parse_data* data);
+int							cube(char *ext, t_parse_data** data);
 int							check_ext(char *ext, char *base_ext);
 
 /*  inofs parse */
