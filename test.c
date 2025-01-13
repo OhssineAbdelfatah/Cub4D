@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:59 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/03 18:18:17 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:28:04 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,35 @@ void	print_node(t_map_lst *nd)
 		print_type(nd->type);
 		nd = nd->next;
 	}
+}
+
+
+void print_str(char *str, char *type)
+{
+	if(!str)
+		exit(printf("str %s null\n"));
+	else 
+		exit(printf("str %s %s\n", type, str));
+}
+
+void print_data(t_parse_data* data)
+{
+	int oi = 0 ;
+	if(!data)
+		printf("data null \n");
+	print_str(data->tex_ea,"EA");
+	print_str(data->tex_we,"WE");
+	print_str(data->tex_so,"SO");
+	print_str(data->tex_no,"NO");
+	print_str(data->dir,"DIR");
+	int i = 0;
+	while(data->map && i < ft_strlen(data->map))
+	{
+		printf("%s\n",data->map[i]);
+		i++;
+	}
+	printf(" color floor %d-%d-%d\n",data->set->floor[0], data->set->floor[1], data->set->floor[2]);
+	printf(" color cieling %d-%d-%d\n", data->set->ceiling[0], data->set->ceiling[1], data->set->ceiling[2]);
+	printf(" player pos x_hor[%d] y_ver[%d]\n", data->pos->x_hor, data->pos->y_ver);
 }
 /* TEST ONLY***************************************************************/
