@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/04 09:55:48 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:28:18 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 /*   STRUCT MAP   */
 typedef struct s_map_lst	t_map_lst;
-
+typedef struct s_parse_data t_parse_data;
 typedef enum s_type
 {
 	IMG_WE,
@@ -57,6 +57,7 @@ typedef struct s_pre_data
 {
 	t_map_lst				*info;
 	t_map_lst				*map;
+	t_parse_data			*data;
 }							t_pre_data;
 
 /* GET INFOS NORM*/
@@ -80,8 +81,8 @@ struct						s_map_lst
 
 typedef struct s_color
 {
-	int						floor;
-	int						ceiling;
+	int						floor[3];
+	int						ceiling[3];
 }							t_color;
 
 typedef struct s_pos
@@ -102,23 +103,23 @@ typedef struct s_pos
 // 	char					**map;
 // }							t_data;
 
-typedef struct s_parse_data
+struct s_parse_data
 {
 	char					*tex_no;
 	char					*tex_we;
 	char					*tex_so;
 	char					*tex_ea;
-	t_color					set;
-	double					dir;
+	t_color					*set;
+	char					*dir;
 	t_pos					*pos;
 	char					**map;
-}							t_parse_data;
+};
 /////////////////////////////////////////////
 /////////       FUNCTIONS          //////////
 /////////////////////////////////////////////
 
 /*  cub */
-int							cube(char *ext);
+int							cube(char *ext, t_parse_data** data);
 int							check_ext(char *ext, char *base_ext);
 
 /*  inofs parse */
@@ -167,12 +168,21 @@ int							__direction(char c);
 int							valid_map(char **s_map_lst);
 
 /*	safe functions	*/
-t_pre_data					*safe_malloc(void);
-int							safe_open(char *file, t_pre_data *dt);
+void					*safe_malloc(void);
+int						safe_open(char *file, t_pre_data *dt);
+void					**safe__malloc(void);
+
+
+/*	main func	*/
+t_parse_data	*parse(int ac, char **av);
+
 ///////////////////////////////////////////////////////////////////////
+
+
 
 /*TEST*/
 void						print_type(int type);
 void						print_map(t_map_lst *head, char dir);
+void print_data(t_parse_data* data);
 /*TEST*/
 #endif
