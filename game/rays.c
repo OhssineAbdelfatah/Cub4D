@@ -33,7 +33,7 @@ void cast_ray(t_main_s *var, int i)
     double distance1, distance2;
     distance1 = 0;
     distance2 = 0;
-    var->p_infos->rays[i].distance = 1000;
+    // var->p_infos->rays[i].distance = 1000;
     if (fabs(var->p_infos->rays[i].angle - M_PI) < EPSILON || fabs(var->p_infos->rays[i].angle) < -EPSILON)
     {
         var->p_infos->rays[i].distance = cast_horizontally(var, i);
@@ -68,7 +68,8 @@ void shoot_the_rays(t_main_s * var)
 
     wall_strip = 1;
     i = 0;
-    var->p_infos->nbr_rays  = (var->map_width * square_len) / wall_strip;
+    // var->p_infos->nbr_rays  = (var->map_width * square_len) / wall_strip;
+    var->p_infos->nbr_rays  = var->window_width / wall_strip;
     // printf(">>>>nbr of rays %d,map_hight %d,map_width %d\n", var->p_infos->nbr_rays, var->map_hight, var->map_width);
     fov = ( M_PI / 180) * 60;
     ray_angle_increment = fov / var->p_infos->nbr_rays;
@@ -91,5 +92,4 @@ void shoot_the_rays(t_main_s * var)
         ray_angle = adjust_angle(ray_angle);
         i++;
     }
-    (void)wall_strip;
 }

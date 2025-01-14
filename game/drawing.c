@@ -51,7 +51,9 @@ void draw_a_line(t_main_s *var, int s_x, int s_y, int f_x, int f_y, int color)
             break;
         if (s_x < 0 || s_y < 0)
             break;
-        if (var->map_hight * square_len <= s_y || var->map_width * square_len <=  s_x)
+        // if (var->map_hight * square_len <= s_y || var->map_width * square_len <=  s_x)
+        //     break; 
+        if (var->window_height <= s_y || var->window_width <=  s_x)
             break;
         my_mlx_pixel_put(&var->img, s_x, s_y, color);
         int e2 = 2 * err;
@@ -97,12 +99,32 @@ void draw_disk1(t_main_s *var, int x_c, int y_c, int radius)
         x = -radius;
         while (x <= radius) {
             if (x * x + y * y <= radius * radius) {
-                my_mlx_pixel_put(&var->img2, x_c + x, y_c + y, 0x000000FF);
+                my_mlx_pixel_put(&var->mini_map->img3, x_c + x, y_c + y, 0x000000FF);
             }
             x++;
         }
         y++;
     }
+}
+
+
+void draw_disk11(t_data *img, int x_c, int y_c, int radius, int color)
+{
+    int x, y;
+
+    y = -radius;
+    // printf("drawing the disk \n");
+    while (y <= radius) {
+        x = -radius;
+        while (x <= radius) {
+            if (x * x + y * y <= radius * radius) {
+                my_mlx_pixel_put(img, x_c + x, y_c + y, color);
+            }
+            x++;
+        }
+        y++;
+    }
+    // printf("finished drawing the disk \n");
 }
 
 void draw_disk2(t_test *var, int x_c, int y_c, int radius)
@@ -135,5 +157,27 @@ void draw_disk3(t_test *var, int x_c, int y_c, int radius)
             x++;
         }
         y++;
+    }
+}
+
+
+
+void draw_square_for_mini(t_data *img, int x, int y)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0;
+    while (i < 40 )
+    {
+        while (j < (40 ) -1)
+        {
+            my_mlx_pixel_put(img, x + i, y + j, 0x000000FF);
+            j++;
+        }
+        my_mlx_pixel_put(img, x + i, y + j, 0x000000FF);
+        j = 0;
+        i++;
     }
 }

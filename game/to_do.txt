@@ -1,0 +1,6 @@
+>> need to update the logic of the rendering so the window width and height
+     won't depend on the map anymore; the window height and width sould be constents;
+
+>>  TELEPORATION
+
+>>  LEAKS !!

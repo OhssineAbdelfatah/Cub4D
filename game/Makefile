@@ -33,7 +33,7 @@ GNL = ../gnl/get_next_line/get_next_line.c ../gnl/get_next_line/get_next_line_ut
 
 # PARSING = parsing/parse.c parsing/map.c parsing/map_list.c
 
-CFILES = 	casting.c tools.c walls_rendering.c rays.c drawing.c draw_minimap.c \
+CFILES =  	hooks_nd_loops.c casting.c tools.c walls_rendering.c rays.c drawing.c draw_minimap.c \
 			 constructors.c  main.c   ${GNL}
 
 OBJ = $(CFILES:.c=.o)

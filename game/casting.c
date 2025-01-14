@@ -10,9 +10,7 @@ int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i)
     if (y < 0 || x < 0 || x >= var->map_hight || y > var->map_width)
         return 1;
     if (var->map[x][y] == '1')
-    {
         return 1;
-    }
     (void)i;
     return 0;
 }
@@ -65,9 +63,7 @@ double cast_horizontally(t_main_s *var, int i)
        
             if (hit_a_wall
             (var,cst.xintersection + up_down, cst.yintersection , i))
-            {
                 break;
-            }
         cst.xintersection += (cst.xsteps * up_down);
         cst.yintersection += cst.ysteps ;
     }
@@ -89,15 +85,10 @@ void init_cst_vert(t_casting *cst, t_main_s *var, int i)
     cst->yintersection = floor(var->p_infos->y / square_len) * square_len;
     if (left_right == 1)
         cst->yintersection += square_len;
-    if (angle == 0.00 || angle == M_PI)
-        cst->xintersection = var->p_infos->x;
+    if (var->p_infos->rays[i].facing_up)
+            cst->xintersection =  var->p_infos->x - ((cst->yintersection - var->p_infos->y) * cst->tan_angle);
     else
-    {
-        if (var->p_infos->rays[i].facing_up)
-             cst->xintersection =  var->p_infos->x - ((cst->yintersection - var->p_infos->y) * cst->tan_angle);
-        else
-          cst->xintersection = var->p_infos->x - (( cst->yintersection - var->p_infos->y ) * cst->tan_angle);
-    }
+        cst->xintersection = var->p_infos->x - (( cst->yintersection - var->p_infos->y ) * cst->tan_angle);
     cst->ysteps = square_len;
     cst->xsteps = cst->ysteps * cst->tan_angle;
     if (var->p_infos->rays[i].facing_left)
