@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/13 19:28:18 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/15 00:09:43 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,6 @@ struct						s_map_lst
 	t_map_lst				*prev;
 };
 
-typedef struct s_color
-{
-	int						floor[3];
-	int						ceiling[3];
-}							t_color;
 
 typedef struct s_pos
 {
@@ -105,14 +100,15 @@ typedef struct s_pos
 
 struct s_parse_data
 {
+	char					**map;
 	char					*tex_no;
 	char					*tex_we;
 	char					*tex_so;
 	char					*tex_ea;
-	t_color					*set;
-	char					*dir;
 	t_pos					*pos;
-	char					**map;
+	char					dir;
+	int						*clr_f;
+	int						*clr_c;
 };
 /////////////////////////////////////////////
 /////////       FUNCTIONS          //////////

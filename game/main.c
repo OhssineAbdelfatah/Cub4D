@@ -87,6 +87,16 @@ int loop_hook(t_main_s *var)
     return 0;
 }
 
+    /*
+        replace  with parse
+
+            if (ac != 2)
+                return (perror("need path of valid map\n"),1);
+                
+        t_parse_data *data;
+        data = parse(ac, av)
+    */
+
 int main(int ac, char **av)
 {
     t_main_s *var;

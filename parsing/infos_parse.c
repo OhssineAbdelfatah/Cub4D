@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infos_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/13 01:16:26 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/15 09:26:03 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	find_pos(char **map, t_pos *pos)
 		{
 			if (__direction(map[i][j]))
 			{
-				pos->x_hor = i;
-				pos->y_ver = j;
+				pos->x_hor = j;
+				pos->y_ver = i;
 				return ;
 			}
 			j++;
@@ -113,28 +113,93 @@ void	find_pos(char **map, t_pos *pos)
 }
 // norm
 
+char *find_info_value(int type, t_map_lst* info)
+{
+	while(info)
+	{
+		if(info->type == type)
+			return info->value;
+		info = info->next;
+	}
+	return NULL;
+}
+
+char *fetch_index_splited(char *str, int index, char set)
+{
+	char **strs;
+	char *new;
+	int i ;
+
+	i = 0;
+	strs = ft_split(str, set);
+	if(index > ft_strslen(strs) || index < 0)
+		return (free_split(strs), NULL);
+	new = ft_strdup(strs[index]);
+	return (free_split(strs), new);
+	
+}
+
+void fill_data(t_pre_data* dt)
+{
+	char ***sets;
+	char *set1;
+	char *set2;
+	int count;
+
+	count = 0;
+	// textures
+	dt->data->tex_ea = fetch_index_splited(find_info_value(IMG_EA, dt->info), 1, ' ');
+	dt->data->tex_so = fetch_index_splited(find_info_value(IMG_SO, dt->info), 1, ' ');
+	dt->data->tex_we = fetch_index_splited(find_info_value(IMG_WE, dt->info), 1, ' ');
+	dt->data->tex_no = fetch_index_splited(find_info_value(IMG_NO, dt->info), 1, ' ');
+	// pos
+	dt->data->pos = malloc(sizeof(t_pos));
+	find_pos(dt->data->map, dt->data->pos);
+	// dir
+	dt->data->dir = dt->data->map[dt->data->pos->y_ver][dt->data->pos->x_hor];
+	// colors
+	sets = (char ***)malloc(2 * sizeof(char **));
+	set1 = fetch_index_splited(find_info_value(FLOOR, dt->info), 1, ' ');
+	sets[0] = ft_split(set1, ',');
+	set2 = fetch_index_splited(find_info_value(CEILEING, dt->info), 1, ' ');
+	sets[1] = ft_split(set2, ',');
+	dt->data->clr_f = malloc(3 * sizeof(int));
+	dt->data->clr_c = malloc(3 * sizeof(int));
+	while(count < 3)
+	{
+		dt->data->clr_f[count] = ft_atoi(sets[0][count]);
+		dt->data->clr_c[count] = ft_atoi(sets[1][count]);
+		count++;
+	}
+	free(set1);
+	free(set2);
+	free_split(sets[0]);
+	free_split(sets[1]);
+	free(sets);
+}
+
 t_pre_data	*read_file(char *file)
 {
 	int			fd_map;
 	t_pre_data	*dt;
-	// char		**map_arr;
 
 	dt = (t_pre_data *)malloc(sizeof(t_pre_data));
 	dt->data = (t_parse_data *)malloc(sizeof(t_parse_data));
 	if(!dt || !dt->data)
 		return NULL;
-	// dt->data = (t_parse_data *)safe_malloc();
-	// dt->data->map = NULL;
 	fd_map = safe_open(file, dt);
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
-		return (free_map(dt->info), free(dt->map), free(dt),printf("unicty err\n"), NULL);
+		return (free_map(dt->info), free(dt),printf("unicty err\n"), NULL);
 	if (dt->info)
 	{
 		dt->map = check_map(fd_map);
-		if (!dt->map || parse_map(dt->map))
+		if (!dt->map)
 			return (close(fd_map), free_map(dt->info), free_map(dt->map),
-				free(dt),printf("dt.map NULL or parse map err\n") ,NULL);
+				free(dt),printf("dt.map NULL \n") ,NULL);
+		if( parse_map(dt->map) )
+			return (close(fd_map), free_map(dt->info), free_map(dt->map),
+				free(dt),printf("parse map err\n") ,NULL);
 		dt->data->map = list_to_array(dt->map);
 		if (!dt->data->map)
 			return (free_split(dt->data->map), close(fd_map), free_map(dt->info),
@@ -144,8 +209,10 @@ t_pre_data	*read_file(char *file)
 				free_map(dt->map), free(dt), printf("invalid map\n"),NULL);
 			
 	}
+	fill_data(dt);
 	return (free_map(dt->map), close(fd_map), dt);
 }
+
 
 // here check the mfc map
 /***

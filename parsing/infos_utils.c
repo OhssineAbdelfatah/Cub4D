@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:02:25 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/10 18:02:26 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/14 23:06:45 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int	valid_set(char *set)
 	return (0);
 }
 
-int	handel_file(char *path)
+int	handel_file(char *texture)
 {
-	if (check_ext(path, ".png")) // tsawer bach biti tkhdem abatal
+	if (check_ext(texture, ".png")) // tsawer bach biti tkhdem abatal
 	{
 		printf("texture ext error\n");
 		return (1);
 	}
-	if (access(path, R_OK) != 0)
+	if (access(texture, R_OK) != 0)
 	{
 		printf("texture permission error\n");
 		return (1);
@@ -67,10 +67,13 @@ int	get_type(char *line)
 	int		type;
 
 	type = NO_TYPE;
-	tokens = ft_split(line, ' ');
+	/*
+		u caan split textures chcek and colors sets 
+	*/
+	tokens = ft_split(line, ' '); 
 	if (!tokens)
 		return (type);
-	if (ft_strslen(tokens) != 2)
+	if (ft_strslen(tokens) != 2) // texture name with spaces should handeld here 
 		return (free_split(tokens), type);
 	if (tokens[0])
 		type = return_type(tokens[0]);
@@ -78,8 +81,7 @@ int	get_type(char *line)
 	{
 		if (handel_file(tokens[1]))
 			type = NO_TYPE;
-	}
-	if (__type_color(type))
+	} else if (__type_color(type))
 	{
 		if (valid_set(tokens[1]))
 			type = NO_TYPE;

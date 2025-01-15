@@ -2,7 +2,7 @@
 #define CUBE_H
 
 // #include "mlx.h"
-#include <mlx.h>
+// #include <mlx.h>
 #include "parsing.h"
 #include "macros.h"
 

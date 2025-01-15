@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/13 18:53:28 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/15 09:20:04 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	check_ext(char *ext, char *base_ext)
 	return (0);
 }
 
+
+
 int	cube(char *ext, t_parse_data** data)
 {
 	t_pre_data	*dt;
@@ -49,22 +51,24 @@ int	cube(char *ext, t_parse_data** data)
 	// return (free_map(dt->info), free(dt), 0);
 }
 
-void	ff(void)
-{
-	system("leaks -q cub3D ");
-}
 
-// void free_data(t_parse_data* data)
-// {
-// 	(void)data;
-// 	return ;
-// }
+
+void free_data(t_parse_data* data)
+{
+	free(data->tex_ea);
+	free(data->tex_so);
+	free(data->tex_we);
+	free(data->tex_no);
+	free(data->clr_c);
+	free(data->clr_f);
+	free_split(data->map);
+	return ;
+}
 
 t_parse_data	*parse(int ac, char **av)
 {
 	t_parse_data **data;
 	t_parse_data *data1;
-	// atexit(ff);
 	// data = (t_parse_data *)safe_malloc();
 	data = (t_parse_data**)safe__malloc();
 	if (ac == 2)
