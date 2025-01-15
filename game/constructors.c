@@ -27,20 +27,52 @@ t_player_infos *init_player_struct(char c, int x, int y)
     return (var);
 }
 
+t_mini_map *init_mini_map( void *mlx, int width, int height)
+{
+    t_mini_map *var;
+
+    var = malloc(sizeof(t_mini_map));
+    if (!var)
+        panic("malloc faild !\n");
+    var->mini_square_len = 40;
+    var->minimap_height = 200;
+    var->minimap_width = 280;
+    var->p_x = 280 / 2;
+    var->p_y = 200 / 2;
+    var->img3.img = mlx_new_image(mlx, 280, 200);
+    var->img3.addr = mlx_get_data_addr(var->img3.img, &var->img3.bits_per_pixel, &var->img3.line_length, &var->img3.endian);
+    printf("bits per pixel :: >>%d\n" , var->img3.bits_per_pixel);
+    (void)height;
+    (void)width;
+    return var;
+}
+
 t_main_s *init_main_var(char **av)
 {
     t_main_s *var;
     var = malloc(sizeof(*var));
     if (!var)
         panic("malloc failed !\n");
+    var->window_height = 800;
+    var->window_width = 1400;
     var->p_infos = NULL;
     fill_map(av, var);
     var->mlx = mlx_init();
-    var->mlx_win = mlx_new_window(var->mlx, (var->map_width  * square_len), (var->map_hight * square_len) , "cub3D");
+    var->mlx_win = mlx_new_window(var->mlx, var->window_width, var->window_height , "cub3D");
     var->img.img = mlx_new_image(var->mlx, (var->map_width  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
+    // var->img.img = mlx_new_image(var->mlx, (var->window_width * scale_of_minimap), (var->window_height * scale_of_minimap ));
     var->img.addr = mlx_get_data_addr(var->img.img, &var->img.bits_per_pixel, &var->img.line_length, &var->img.endian);
-    var->img2.img = mlx_new_image(var->mlx, (var->map_width  * square_len), (var->map_hight * square_len));
+   
+   
+    var->img2.img = mlx_new_image(var->mlx, var->window_width, var->window_height);
     var->img2.addr = mlx_get_data_addr(var->img2.img, &var->img2.bits_per_pixel, &var->img2.line_length, &var->img2.endian);
+   
+   
+    var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
+    var->mouse_x = (var->window_width * square_len) / 2;
+   
+    // var->img3.img = mlx_new_image(var->mlx, (var->window_width * scale_of_minimap), var->window_height * scale_of_minimap);
+    // var->img3.addr = mlx_get_data_addr(var->img3.img, &var->img3.bits_per_pixel, &var->img3.line_length, &var->img3.endian);
     return var;
 }
 
@@ -71,7 +103,8 @@ t_walls *init_walls(t_main_s *ptr)
     var = malloc(sizeof(*var));
     if (!var)
         panic("malloc failed !\n");
-    var->distance_prj_plane = ((ptr->map_width * square_len) / 2) / tan(ptr->p_infos->fov / 2);
+    // var->distance_prj_plane = ((ptr->map_width * square_len) / 2) / tan(ptr->p_infos->fov / 2);
+    var->distance_prj_plane = (ptr->window_width / 2) / tan(ptr->p_infos->fov / 2);
     var->wall_hight = 0;
     return var;
 }

@@ -28,7 +28,6 @@ double adjust_distance(t_main_s *var, int i)
     double teta_angle;
     double adjusted_distance ;
 
-
     teta_angle = var->p_infos->rays[i].angle - var->p_infos->rays[var->p_infos->nbr_rays / 2].angle;
     if (teta_angle < 0)
         teta_angle *= -1;
@@ -78,9 +77,9 @@ void wall_rendering(t_main_s *var)
     {
         adjusted_distance = adjust_distance(var, i);
         walls->wall_hight = (square_len / adjusted_distance) * walls->distance_prj_plane;
-        if (walls->wall_hight > var->map_hight * square_len)
-            walls->wall_hight = var->map_hight * square_len;
-        y = (var->map_hight * square_len) / 2 - (walls->wall_hight / 2);
+        if (walls->wall_hight > var->window_height)
+            walls->wall_hight = var->window_height;
+        y = (var->window_height) / 2 - (walls->wall_hight / 2);
         transparency = get_transparency(adjusted_distance);
         b = 255;
         if (var->p_infos->rays[i].horzt_or_vert == 'v')
@@ -90,5 +89,7 @@ void wall_rendering(t_main_s *var)
         i--;
         j++;
     }
+    free(var->p_infos->rays);
+    free(walls);
 }
 

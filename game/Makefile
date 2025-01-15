@@ -4,15 +4,15 @@ CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 
 #######################################
 # FOR LINUX :
-# MLXFLAGS_OBJ = -Imlx_linux
-# MLXFLAGS_LINK = -Lmlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+MLXFLAGS_OBJ = -Imlx_linux
+MLXFLAGS_LINK = -Lmlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 ########################################  
 
 
 #########################################
 # FOR MAC :
-MLXFLAGS_OBJ = -Imlx
-MLXFLAGS_LINK = -L. -lmlx -framework OpenGL -framework AppKit
+# MLXFLAGS_OBJ = -Imlx
+# MLXFLAGS_LINK = -L. -lmlx -framework OpenGL -framework AppKit
 ############################################
 ASCII_ART = "\033[31m\n"\
 "                    (      \n"\
@@ -33,7 +33,7 @@ GNL = ../gnl/get_next_line/get_next_line.c ../gnl/get_next_line/get_next_line_ut
 
 # PARSING = parsing/parse.c parsing/map.c parsing/map_list.c
 
-CFILES = 	casting.c tools.c walls_rendering.c rays.c drawing.c draw_minimap.c \
+CFILES =  	hooks_nd_loops.c casting.c tools.c walls_rendering.c rays.c drawing.c draw_minimap.c \
 			 constructors.c  main.c   ${GNL}
 
 OBJ = $(CFILES:.c=.o)

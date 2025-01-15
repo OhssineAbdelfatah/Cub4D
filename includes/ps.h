@@ -11,7 +11,6 @@
 
 
 
-// #define FOV 1.5
 
 
 
@@ -28,14 +27,16 @@ void draw_a_line(t_main_s *var, int s_x, int s_y, int f_x, int f_y, int color);
 void  draw_empty_square(t_main_s *var,int  y, int x);
 void draw_disk(t_main_s *var, int x_c, int y_c, int radius);
 void draw_disk1(t_main_s *var, int x_c, int y_c, int radius);
+void draw_disk11(t_data *img ,int x_c, int y_c, int radius, int color);
 void draw_disk2(t_test *var, int x_c, int y_c, int radius);
 void draw_disk3(t_test *var, int x_c, int y_c, int radius);
+void draw_square_for_mini(t_data *img, int x, int y);
 
 /*************************************************/
 //            >>    DRAW_MINI_MAP.C     <<
 /*************************************************/
 
-int draw_the_map(t_main_s *var);
+int draw_the_mini_map(t_main_s *var);
 
 /*************************************************/
 //            >>    CONSTRUCTORS.C     <<
@@ -67,6 +68,13 @@ double cast_vertically(t_main_s *var, int i);
 double cast_horizontally(t_main_s *var, int i);
 int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i);
 
+
+/*************************************************/
+//            >>   HOOKS_ND_LOOPS.C     <<
+/*************************************************/
+int key_hook(int key, t_main_s *ptr);
+int loop_hook(t_main_s *var);
+void mlx_loops_and_hooks(t_main_s *var);
 
 /*-------------DIRECTIONS-----------*/
 int         turn_left(t_main_s *ptr);
