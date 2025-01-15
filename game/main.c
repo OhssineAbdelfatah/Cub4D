@@ -74,7 +74,7 @@ int main(int ac, char **av)
 {
     t_main_s *var;
 
-    // atexit(ff);
+    atexit(ff);
     if (ac != 2)
         return (perror("need path of valid map\n"),1);
     var = init_main_var(av);

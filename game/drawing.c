@@ -181,3 +181,56 @@ void draw_square_for_mini(t_data *img, int x, int y)
         i++;
     }
 }
+
+
+void  draw_empty_square_for_mini(t_data *img,  int  y, int x)
+{
+    int i;
+
+    i = 0;
+    while (i < 40 )
+    {
+        my_mlx_pixel_put(img, y  + i, x , 0x000000FF);
+        i++;
+    }
+    i = 0;
+    while (i < 40 )
+    {
+        my_mlx_pixel_put(img, y ,x + i, 0x000000FF);
+        i++;
+    }
+}
+
+
+
+void draw_a_line2(t_main_s *var, int s_x, int s_y, int f_x, int f_y, int color, t_data *img)
+{
+    int dx = abs(f_x - s_x);
+    int dy = abs(f_y - s_y);
+    int sx = (s_x < f_x) ? 1 : -1;
+    int sy = (s_y < f_y) ? 1 : -1;
+    int err = dx - dy;
+    while (1)
+    {
+        if (s_x == f_x && s_y == f_y)
+            break;
+        if (s_x < 0 || s_y < 0)
+            break;
+        // if (var->map_hight * square_len <= s_y || var->map_width * square_len <=  s_x)
+        //     break; 
+        if (var->window_height <= s_y || var->window_width <=  s_x)
+            break;
+        my_mlx_pixel_put(img, s_x, s_y, color);
+        int e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            s_x += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            s_y += sy;
+        }
+    }
+}

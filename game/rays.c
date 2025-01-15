@@ -87,7 +87,7 @@ void shoot_the_rays(t_main_s * var)
         cast_ray(var,  i);
         x = var->p_infos->x + (cos(ray_angle) * (var->p_infos->rays[i].distance ));
         y = var->p_infos->y + (sin(ray_angle) * (var->p_infos->rays[i].distance ));
-        draw_a_line(var, var->p_infos->y * scale_of_minimap , var->p_infos->x * scale_of_minimap  , y * scale_of_minimap , x * scale_of_minimap , 0xF0000F);
+        // draw_a_line(var, var->p_infos->y * scale_of_minimap , var->p_infos->x * scale_of_minimap  , y * scale_of_minimap , x * scale_of_minimap , 0xF0000F);
         ray_angle += ray_angle_increment;
         ray_angle = adjust_angle(ray_angle);
         i++;

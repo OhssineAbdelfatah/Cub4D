@@ -27,7 +27,7 @@ t_player_infos *init_player_struct(char c, int x, int y)
     return (var);
 }
 
-t_mini_map *init_mini_map( void *mlx, int width, int height)
+t_mini_map *init_mini_map(void *mlx, int width, int height)
 {
     t_mini_map *var;
 
