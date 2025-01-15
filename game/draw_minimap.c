@@ -1,37 +1,65 @@
 #include "../includes/ps.h"
 
 
+int mini_map_check_wall(t_main_s *var, int x, int y)
+{
+    t_pos  mini_player;
+    t_pos  dif;
+    t_pos   square_to_check;
+    t_pos   acttual_player;
+
+    mini_player.x_hor = 3;
+    mini_player.y_ver = 2;
+    acttual_player.x_hor = floor(var->p_infos->x) / square_len;
+    acttual_player.y_ver = floor(var->p_infos->y) / square_len;
+
+    dif.x_hor = x - mini_player.x_hor;
+    dif.y_ver = y - mini_player.y_ver;
+
+    square_to_check.x_hor = acttual_player.y_ver + dif.x_hor;
+    square_to_check.y_ver = acttual_player.x_hor + dif.y_ver;
+
+    if (square_to_check.x_hor < 0 || square_to_check.y_ver < 0 )
+        return 0;
+    if (var->map[square_to_check.y_ver][square_to_check.x_hor] == '1')
+        return 1;
+    // if (var->map[square_to_check.x_hor][square_to_check.y_ver] == '1')
+    //     return 1;
+    return 0;
+}
+
 int draw_mini_map2(t_main_s *var)
 {
-    int i, j, s;
-    int px, py;
-    printf("height of  minimap:%d ,width : %d \n", var->mini_map->minimap_height, var->mini_map->minimap_width);
+    int i, j,x, y;
+    // printf("height of  minimap:%d ,width : %d \n", var->mini_map->minimap_height, var->mini_map->minimap_width);
     paintit(&var->mini_map->img3, 0x00E0E0E0, var->mini_map->minimap_height , var->mini_map->minimap_width);
     draw_disk11(&var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
     i = floor(var->p_infos->x) / square_len;
     j = floor(var->p_infos->y) / square_len;
-    printf(" x :: %d , y :: %d \n", i ,j );
-    s = 2;
-    i --;
+    x = 0;
+    y = 0;
+    while (x < 7)
+    {
+        while (y < 5)
+        {
+            if (mini_map_check_wall(var, x, y))
+                draw_square_for_mini(&var->mini_map->img3, x * 40, y * 40);
+            y++;
+        }
+        y = 0;
+        x++;
+    }
 
-    px = 2;
-    py = 3;
-    while (i > 0 && s)
-    {
-        if (var->map[i][j] == '1')
-            draw_square_for_mini(&var->mini_map->img3, px * 40, py * 40);
-        s--;
-        i--;
-        px --;
-    }
-    while (var->map[i] && s)
-    {
-        if (var->map[i][j] == '1')
-            draw_square_for_mini(&var->mini_map->img3, px * 40, py * 40);
-        s--;
-        i++;
-        px ++;
-    }
+    (void)i;
+    (void)j;
+    // while (var->map[i] && s)
+    // {
+    //     if (var->map[i][j] == '1')
+    //         draw_square_for_mini(&var->mini_map->img3, px * 40, py * 40);
+    //     s--;
+    //     i++;
+    //     px ++;
+    // }
     return 0;
 }
 
@@ -67,6 +95,8 @@ int draw_the_mini_map(t_main_s *var)
     new_y = (var->p_infos->y  * scale_of_minimap) + sin(var->p_infos->rotation_angle) * 10;
     // draw_disk(var, (int)var->p_infos->y  * scale_of_minimap  , (int)var->p_infos->x * scale_of_minimap  , player_radius);
     // draw_a_line(var, var->p_infos->y * scale_of_minimap , var->p_infos->x * scale_of_minimap , new_y, new_x, 0xF0F000);
+    (void)new_x;
+    (void)new_y;
     return (0);
 }
 
@@ -159,7 +189,11 @@ void work_of_art(t_main_s *var)
     paintit(&var->img2,0x0F0FF00F,  (var->window_height) /2,  (var->window_width) );
     // paintit(&var->img3,0x0F0FF00F,  (var->window_height * scale_of_minimap) / 2,  (var->window_width * scale_of_minimap) );
     draw_the_mini_map(var);
+
+
     draw_mini_map2(var);
+    
+    
     shoot_the_rays(var);
     wall_rendering(var);
     mlx_put_image_to_window(var->mlx, var->mlx_win, var->img2.img, 0, 0);

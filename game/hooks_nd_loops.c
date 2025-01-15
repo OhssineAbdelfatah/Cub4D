@@ -2,7 +2,6 @@
 
 int key_hook(int key, t_main_s *ptr)
 {
-    (void)ptr;
     if (key == ESC)
         exit(1);
     if (key == left_arrow)
