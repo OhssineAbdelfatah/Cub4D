@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infos_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/15 09:26:03 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/16 00:55:00 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,7 @@ char *fetch_index_splited(char *str, int index, char set)
 {
 	char **strs;
 	char *new;
-	int i ;
 
-	i = 0;
 	strs = ft_split(str, set);
 	if(index > ft_strslen(strs) || index < 0)
 		return (free_split(strs), NULL);

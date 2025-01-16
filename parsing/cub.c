@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/15 09:20:04 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/16 00:52:19 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_parse_data	*parse(int ac, char **av)
 		if (cube(av[1], data))
 		{
 			ft_putstr_fd("\033[0;31m Error\033[0m \n", 2);
-			// free_data(data);
+			// free_da	ta(data);
 			// free(data);
 			exit(1);
 		}
