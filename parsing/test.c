@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:59 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/15 09:08:38 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/16 01:08:56 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/parsing.h"
+#include "../includes/parsing.h"
 
 /*  print   test    only    */
 
