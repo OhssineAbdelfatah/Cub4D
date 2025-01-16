@@ -73,7 +73,8 @@ int loop_hook(t_main_s *var)
         var->img2.img = mlx_new_image(var->mlx, var->window_width, var->window_height);
         var->img2.addr = mlx_get_data_addr(var->img2.img, &var->img2.bits_per_pixel, &var->img2.line_length, &var->img2.endian);
         
-        var->mini_map->img3.img = mlx_new_image(var->mlx, 280, 200);
+        // var->mini_map->img3.img = mlx_new_image(var->mlx, 280, 200);
+        var->mini_map->img3.img = mlx_new_image(var->mlx, var->mini_map->minimap_width, var->mini_map->minimap_height);
         var->mini_map->img3.addr = mlx_get_data_addr(var->mini_map->img3.img, &var->mini_map->img3.bits_per_pixel, &var->mini_map->img3.line_length, &var->mini_map->img3.endian);
         
         work_of_art(var);

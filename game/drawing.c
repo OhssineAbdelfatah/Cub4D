@@ -162,21 +162,21 @@ void draw_disk3(t_test *var, int x_c, int y_c, int radius)
 
 
 
-void draw_square_for_mini(t_data *img, int x, int y)
+void draw_square_for_mini(t_data *img, int x, int y, int color)
 {
     int i;
     int j;
 
     i = 0;
     j = 0;
-    while (i < 40 )
+    while (i < 32)
     {
-        while (j < (40 ) -1)
+        while (j < 32 - 1)
         {
-            my_mlx_pixel_put(img, x + i, y + j, 0x000000FF);
+            my_mlx_pixel_put(img, x + i, y + j, color);
             j++;
         }
-        my_mlx_pixel_put(img, x + i, y + j, 0x000000FF);
+        my_mlx_pixel_put(img, x + i, y + j, color);
         j = 0;
         i++;
     }
@@ -188,13 +188,13 @@ void  draw_empty_square_for_mini(t_data *img,  int  y, int x)
     int i;
 
     i = 0;
-    while (i < 40 )
+    while (i < 32 )
     {
         my_mlx_pixel_put(img, y  + i, x , 0x000000FF);
         i++;
     }
     i = 0;
-    while (i < 40 )
+    while (i < 32 )
     {
         my_mlx_pixel_put(img, y ,x + i, 0x000000FF);
         i++;

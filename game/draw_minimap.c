@@ -40,29 +40,33 @@ int draw_mini_map2(t_main_s *var)
     int i, j,x, y, check, new_y, new_x;
     // printf("height of  minimap:%d ,width : %d \n", var->mini_map->minimap_height, var->mini_map->minimap_width);
     paintit(&var->mini_map->img3, 0x00E0E0E0, var->mini_map->minimap_height , var->mini_map->minimap_width);
-    draw_disk11(&var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
-    i = floor(var->p_infos->x) / square_len;
-    j = floor(var->p_infos->y) / square_len;
+    // draw_disk11(&var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
     x = 0;
     y = 0;
-    // printf("py >> %d ,px %d \n", var->mini_map->p_y,var->mini_map->p_x);
+    printf("py >> %d ,px %d \n", var->mini_map->p_y,var->mini_map->p_x);
+    printf("py >> %f ,px %f \n", var->p_infos->y,var->p_infos->x);
     new_x  = var->mini_map->p_x + sin(var->p_infos->rotation_angle) * 15;
     new_y  = var->mini_map->p_y + cos(var->p_infos->rotation_angle) * 15;
-    draw_a_line2(var, var->mini_map->p_x , var->mini_map->p_y, new_x, new_y, 0x00F0FF,&var->mini_map->img3);
+    // draw_a_line2(var, var->mini_map->p_x , var->mini_map->p_y, new_x, new_y, 0x00F0FF,&var->mini_map->img3);
     while (x < 7)
     {
         while (y < 5)
         {
             check = mini_map_check_wall(var, x, y);
             if (1 == check)
-                draw_square_for_mini(&var->mini_map->img3, x * 40, y * 40);
+                draw_square_for_mini(&var->mini_map->img3, x * var->mini_map->mini_square_len, y * var->mini_map->mini_square_len, 0x000000FF);
             if (check == 0)
-                draw_empty_square_for_mini(&var->mini_map->img3, x * 40, y * 40);
+            {
+                draw_square_for_mini(&var->mini_map->img3, x * var->mini_map->mini_square_len, y * var->mini_map->mini_square_len, 0x00C0C0C0);
+                // draw_empty_square_for_mini(&var->mini_map->img3, x * 40, y * 40);
+            }
             y++;
         }
         y = 0;
         x++;
     }
+    draw_disk11(&var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
+    draw_a_line2(var, var->mini_map->p_x , var->mini_map->p_y, new_x, new_y, 0x00F0FF,&var->mini_map->img3);
     (void)i;
     (void)j;
     return 0;
@@ -168,7 +172,9 @@ void work_of_art(t_main_s *var)
     draw_the_mini_map(var);
 
 
-    draw_mini_map2(var);
+    // draw_mini_map2(var);
+
+    draw_mini_map_42(var);
     
     
     shoot_the_rays(var);
