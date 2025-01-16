@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/15 00:09:43 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/16 02:13:57 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ struct s_parse_data
 /*  cub */
 int							cube(char *ext, t_parse_data** data);
 int							check_ext(char *ext, char *base_ext);
+void 						free_data(t_parse_data* data);
 
 /*  inofs parse */
 t_pre_data					*read_file(char *file);

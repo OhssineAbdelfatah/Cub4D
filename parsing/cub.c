@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/16 00:52:19 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/16 02:20:38 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void free_data(t_parse_data* data)
 	free(data->tex_no);
 	free(data->clr_c);
 	free(data->clr_f);
+	free(data->pos);
 	free_split(data->map);
+	free(data);
 	return ;
 }
 

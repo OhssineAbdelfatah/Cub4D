@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/16 00:55:00 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/16 02:22:41 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,22 +188,22 @@ t_pre_data	*read_file(char *file)
 	fd_map = safe_open(file, dt);
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
-		return (free_map(dt->info), free(dt),printf("unicty err\n"), NULL);
+		return (free_map(dt->info), free(dt->data), free(dt),printf("unicty err\n"), NULL);
 	if (dt->info)
 	{
 		dt->map = check_map(fd_map);
 		if (!dt->map)
-			return (close(fd_map), free_map(dt->info), free_map(dt->map),
+			return (close(fd_map), free_map(dt->info), free(dt->data), free_map(dt->map),
 				free(dt),printf("dt.map NULL \n") ,NULL);
 		if( parse_map(dt->map) )
-			return (close(fd_map), free_map(dt->info), free_map(dt->map),
+			return (close(fd_map), free_map(dt->info), free(dt->data), free_map(dt->map),
 				free(dt),printf("parse map err\n") ,NULL);
 		dt->data->map = list_to_array(dt->map);
 		if (!dt->data->map)
-			return (free_split(dt->data->map), close(fd_map), free_map(dt->info),
+			return (free_split(dt->data->map), free(dt->data), close(fd_map), free_map(dt->info),
 				free_map(dt->map), free(dt),  printf("list to array NULL\n"),NULL);
 		if (valid_map(dt->data->map))
-			return (free_split(dt->data->map), close(fd_map), free_map(dt->info),
+			return (free_split(dt->data->map), free(dt->data), close(fd_map), free_map(dt->info),
 				free_map(dt->map), free(dt), printf("invalid map\n"),NULL);
 			
 	}

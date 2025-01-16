@@ -30,41 +30,42 @@ ASCII_ART = "\033[31m\n"\
 "\__| \_,_|_.__/___/ |___/  \n"\
 "  \033[0m "                          
 
-GNL = lib/gnl/get_next_line.c lib/gnl/get_next_line_utils.c
+GNL = ../lib/gnl/get_next_line.c ../lib/gnl/get_next_line_utils.c
 
-GAME_FILES = game/hooks_nd_loops.c game/casting.c game/tools.c game/walls_rendering.c game/rays.c \
-			 game/drawing.c game/draw_minimap.c game/constructors.c game/main.c
+# GAME_FILES = game/hooks_nd_loops.c game/casting.c game/tools.c game/walls_rendering.c game/rays.c \
+# 			 game/drawing.c game/draw_minimap.c game/constructors.c game/main.c
 			 
 
-PARSING = 	parsing/cub.c          parsing/infos_utils2.c parsing/map_check.c	\
-			parsing/infos_parse.c  parsing/list_init.c    parsing/map_parse.c	\
-			parsing/valid_map.c    parsing/infos_utils.c  parsing/list_utils.c	\
-			parsing/safe_func.c    parsing/main.c test.c
+PARSING = 	cub.c          infos_utils2.c map_check.c	\
+			infos_parse.c  list_init.c    map_parse.c	\
+			valid_map.c    infos_utils.c  list_utils.c	\
+			safe_func.c    main.c test.c
 			
-CFILES = ${PARSING} ${GNL} ${GAME_FILES} main.c
+CFILES = ${PARSING} ${GNL}  main.c
  
 OBJ = $(CFILES:.c=.o)
 NAME = cub3D
 
-My_lib = lib/libft/libft.a
+My_lib = ../lib/libft/libft.a
+FOLDER_LIBFT = ../lib/libft
 
 all : $(My_lib) $(NAME)
 
 %.o : %.c  Makefile ${HEADERS}
-	$(CC)  $(CFLAGS) $(FFLAG)  $(MLXFLAGS_OBJ) -c  $< -o $@
+	$(CC)  $(CFLAGS) $(FFLAG)  -c  $< -o $@
 
 $(My_lib) : 
-	make -C lib/libft
+	make -C $(FOLDER_LIBFT)
 
 $(NAME) : $(OBJ) $(My_lib) 
-	$(CC) $^ $(CFLAGS) $(My_lib) $(MLXFLAGS_LINK)  -o $@
+	$(CC) $^ $(CFLAGS) $(My_lib)  -o $@
 
 clean :
-	make clean -C lib/libft
+	make clean -C $(FOLDER_LIBFT)
 	rm -rf $(OBJ)
 
 fclean : clean
-	make fclean -C lib/libft
+	make fclean -C $(FOLDER_LIBFT)
 	rm -rf $(NAME)
 
 re : fclean all
