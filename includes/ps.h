@@ -31,7 +31,7 @@ void draw_disk1(t_main_s *var, int x_c, int y_c, int radius);
 void draw_disk11(t_data *img ,int x_c, int y_c, int radius, int color);
 void draw_disk2(t_test *var, int x_c, int y_c, int radius);
 void draw_disk3(t_test *var, int x_c, int y_c, int radius);
-void draw_square_for_mini(t_data *img, int x, int y);
+void draw_square_for_mini(t_data *img, int x, int y, int color);
 void  draw_empty_square_for_mini(t_data *img,  int  y, int x);
 void draw_a_line2(t_main_s *var, int s_x, int s_y, int f_x, int f_y, int color, t_data *img);
 
@@ -86,6 +86,10 @@ int        go_back(t_main_s *ptr);
 int        go_forward(t_main_s *ptr);
 
 
+/****************************************************/
+//          >> DRAW_MINI_MAP  <<
+/****************************************************/
+int draw_mini_map_42(t_main_s *var);
 
 /****************************TMP************ */
 void fill_map(char **av,t_main_s *var);
