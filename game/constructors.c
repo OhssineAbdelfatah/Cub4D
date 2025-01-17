@@ -34,17 +34,25 @@ t_mini_map *init_mini_map(void *mlx, int width, int height)
     var = malloc(sizeof(t_mini_map));
     if (!var)
         panic("malloc faild !\n");
-    var->mini_square_len = 40;
-    var->minimap_height = 200;
-    var->minimap_width = 280;
-    var->p_x = 280 / 2;
-    var->p_y = 200 / 2;
-    var->img3.img = mlx_new_image(mlx, 280, 200);
+    var->mini_square_len = 32;
+    var->minimap_height = 32 * 5;
+    var->minimap_width = 32 * 7;
+    var->p_y = var->minimap_height / 2;
+    var->p_x = var->minimap_width / 2;
+    var->img3.img = mlx_new_image(mlx, var->minimap_width, var->minimap_height);
     var->img3.addr = mlx_get_data_addr(var->img3.img, &var->img3.bits_per_pixel, &var->img3.line_length, &var->img3.endian);
     printf("bits per pixel :: >>%d\n" , var->img3.bits_per_pixel);
     (void)height;
     (void)width;
     return var;
+}
+
+void init_textures(t_main_s *var)
+{
+    var->text.height = 64;
+    var->text.width = 64;
+    var->text.img_hor = mlx_xpm_file_to_image(var->mlx, "", &var->text.width, &var->text.height);
+    var->text.img_hor = mlx_xpm_file_to_image(var->mlx, "", &var->text.width, &var->text.height);
 }
 
 t_main_s *init_main_var(char **av)
@@ -66,13 +74,10 @@ t_main_s *init_main_var(char **av)
    
     var->img2.img = mlx_new_image(var->mlx, var->window_width, var->window_height);
     var->img2.addr = mlx_get_data_addr(var->img2.img, &var->img2.bits_per_pixel, &var->img2.line_length, &var->img2.endian);
-   
-   
+
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
     var->mouse_x = (var->window_width * square_len) / 2;
-   
-    // var->img3.img = mlx_new_image(var->mlx, (var->window_width * scale_of_minimap), var->window_height * scale_of_minimap);
-    // var->img3.addr = mlx_get_data_addr(var->img3.img, &var->img3.bits_per_pixel, &var->img3.line_length, &var->img3.endian);
+    init_textures(var);
     return var;
 }
 

@@ -11,6 +11,7 @@ typedef struct s_ray_info t_ray_info ;
 typedef struct s_casting t_casting;
 typedef struct s_walls_rendering t_walls;
 typedef struct s_mini_map t_mini_map;
+typedef struct s_textures_imgs t_textures_img;
 
 
 
@@ -83,9 +84,12 @@ struct s_main_struct
     char **map;
     void *mlx;
     void *mlx_win;
+    void *img_ver;
+    void *img_hor;
     t_data img;
     t_data img2;
     // t_data img3;
+    t_textures_img text;
     t_mini_map *mini_map;
     t_player_infos *p_infos;
 };
@@ -99,6 +103,14 @@ struct s_casting
     double xintersection;
     double yintersection;
     double tan_angle;
+};
+
+struct s_textures_imgs
+{
+    int height;
+    int width;
+    void *img_ver;
+    void *img_hor;
 };
 
 struct s_walls_rendering
