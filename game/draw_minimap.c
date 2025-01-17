@@ -90,7 +90,7 @@ int draw_the_mini_map(t_main_s *var)
                 draw_empty_square(var, y* square_len * scale_of_minimap , x* square_len * scale_of_minimap);
             else if (var->map[x][y] == '1')
                 draw_square(var, y * square_len  * scale_of_minimap , x   * scale_of_minimap * square_len);
-            if (var->map[x][y] != '1' && var->map[x][y] != '0')
+            if (var->map[x][y] != '1' && var->map[x][y] != '0' && var->map[x][y] !=  32)
             {
                 if (var->p_infos == NULL)
                     var->p_infos = init_player_struct(var->map[x][y], ((x  * square_len) + (square_len / 2)), ((y * square_len) + (square_len / 2)));

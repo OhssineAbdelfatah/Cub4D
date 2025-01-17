@@ -53,6 +53,9 @@ struct s_ray_info
     bool facing_left;
     bool facing_right;
     bool facing_down;
+    /*
+        x and y intersection with wall
+    */
     int horzt_or_vert;
     double distance;
     double angle;
@@ -72,6 +75,14 @@ struct s_player_infos
     double rotation_angle;
     double fov;
     t_ray_info *rays;
+};
+
+struct s_textures_imgs
+{
+    int height;
+    int width;
+    void *img_ver;
+    void *img_hor;
 };
 
 struct s_main_struct
@@ -105,13 +116,6 @@ struct s_casting
     double tan_angle;
 };
 
-struct s_textures_imgs
-{
-    int height;
-    int width;
-    void *img_ver;
-    void *img_hor;
-};
 
 struct s_walls_rendering
 {

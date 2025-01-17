@@ -1,5 +1,6 @@
 #include "../includes/ps.h"
-
+// y is top 
+// j
 void draw_rectangle(t_main_s *var, int x, int y, int len, int width, int color)
 {
     int j,i;
@@ -10,17 +11,13 @@ void draw_rectangle(t_main_s *var, int x, int y, int len, int width, int color)
     {
         while (j < len)
         {
+            // get color(pixel) from image
             my_mlx_pixel_put(&var->img2, x + i , y + j, color);
             j++;
         }
         j = 0;
         i ++;
     }
-    (void)y;
-    (void)x;
-    (void)len;
-    (void)var;
-    (void)width;
 }
 
 double adjust_distance(t_main_s *var, int i)
@@ -87,6 +84,9 @@ void wall_rendering(t_main_s *var)
             b =150;
         color = create_trgb(transparency, 51, 255, b);
         draw_rectangle(var, j, y, walls->wall_hight, 1,color);
+        /*
+            get Xint and y of 
+        */
         i--;
         j++;
     }

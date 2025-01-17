@@ -33,8 +33,8 @@ ASCII_ART = "\033[31m\n"\
 GNL = lib/gnl/get_next_line.c lib/gnl/get_next_line_utils.c
 
 GAME_FILES = game/hooks_nd_loops.c game/casting.c game/tools.c game/walls_rendering.c game/rays.c \
-			 game/drawing.c game/draw_minimap.c game/constructors.c game/main.c
-			 
+			game/drawing.c game/draw_minimap.c game/draw_mini_map_pro.c game/constructors.c game/main.c
+			
 
 PARSING = 	parsing/cub.c          parsing/infos_utils2.c parsing/map_check.c	\
 			parsing/infos_parse.c  parsing/list_init.c    parsing/map_parse.c	\
@@ -42,7 +42,7 @@ PARSING = 	parsing/cub.c          parsing/infos_utils2.c parsing/map_check.c	\
 			parsing/safe_func.c    parsing/main.c #test.c
 			
 CFILES = ${PARSING} ${GNL} ${GAME_FILES} main.c
- 
+
 OBJ = $(CFILES:.c=.o)
 NAME = cub3D
 
