@@ -7,15 +7,15 @@ CFLAGS = #-Wall -Werror -Wextra #-fsanitize=address -g
 
 #######################################
 # FOR LINUX :
-MLXFLAGS_OBJ = -Imlx_linux
-MLXFLAGS_LINK = -Lmlx -lmlx -L/usr/lib -lXext -lX11 -lm -lz
+# MLXFLAGS_OBJ = -Imlx_linux
+# MLXFLAGS_LINK = -Lmlx -lmlx -L/usr/lib -lXext -lX11 -lm -lz
 ########################################  
 
 
 #########################################
 # FOR MAC :
-# MLXFLAGS_OBJ = -Imlx
-# MLXFLAGS_LINK = -L. -lmlx -framework OpenGL -framework AppKit
+MLXFLAGS_OBJ = -Imlx
+MLXFLAGS_LINK = -L. -lmlx -framework OpenGL -framework AppKit
 ############################################
 
 

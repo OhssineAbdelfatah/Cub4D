@@ -80,6 +80,7 @@ void wall_rendering(t_main_s *var)
         if (walls->wall_hight > var->window_height)
             walls->wall_hight = var->window_height;
         y = (var->window_height) / 2 - (walls->wall_hight / 2);
+        // just coloring
         transparency = get_transparency(adjusted_distance);
         b = 255;
         if (var->p_infos->rays[i].horzt_or_vert == 'v')
