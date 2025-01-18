@@ -97,7 +97,7 @@ void    wall_rendering(t_main_s *var)
         
         x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays+i, walls->wall_hight, 64); //  0 stands for img width
         draw_rectangle(var, j, y, walls->wall_hight, 1,color);
-        exit(0);
+        // exit(0);
 
         // if (j == moy)
         //     printf("x :: %f , y:: %f",var->p_infos->rays[j].x_last_intersection, var->p_infos->rays[j].y_last_intersection);

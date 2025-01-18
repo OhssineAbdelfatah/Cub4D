@@ -22,12 +22,9 @@ int need_update(t_player_infos * var, char **map)
         if (var->move_left_right || var->move_up_down)
         {
             check = is_there_a_wall(new_x, new_y, map);
-            // printf("check one ::%d\n", check);
-            // if (!is_there_a_wall(new_x, new_y, map) && !check_teleportation(var, map))
             if (!check)
             {
                 check =  check_teleportation(var, map);
-                // printf("check two ::%d\n", check);
                 if (check == 0)
                 {
                     var->x = new_x;
