@@ -70,7 +70,9 @@ void    wall_rendering(t_main_s *var)
     int i;
     int j;
     int b;
+    int moy;
     i = var->p_infos->nbr_rays-1;
+    moy = i /2;
     j = 0;
     walls = init_walls(var);
     while (i >= 0)
@@ -95,7 +97,8 @@ void    wall_rendering(t_main_s *var)
         // x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays[i], walls->wall_hight, 0); //  0 stands for img width
         // draw_rectangle(var, x_img, y, walls->wall_hight, 1,color);
 
-
+        // if (j == moy)
+        //     printf("x :: %f , y:: %f",var->p_infos->rays[j].x_last_intersection, var->p_infos->rays[j].y_last_intersection);
         draw_rectangle(var, j, y, walls->wall_hight, 1,color);
         i--;
         j++;

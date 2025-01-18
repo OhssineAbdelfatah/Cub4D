@@ -59,11 +59,12 @@ double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy)
         up_down = -1;
     while (cst.xintersection >= 0 && cst.yintersection >= 0)
     {
-       
             if (hit_a_wall(var,cst.xintersection + up_down, cst.yintersection , i))
             {
-                xy->x = cst.xintersection;
-                xy->y = cst.yintersection;
+                // xy->x = cst.xintersection;
+                // xy->y = cst.yintersection;
+                xy->y = cst.xintersection;
+                xy->x = cst.yintersection;
                 break;
             }
         cst.xintersection += (cst.xsteps * up_down);
@@ -113,8 +114,10 @@ double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy)
     {
         if (hit_a_wall(var, cst.xintersection, cst.yintersection + left_right, i))
         {
-            xy->x = cst.xintersection;
-            xy->y = cst.yintersection;
+            // xy->x = cst.xintersection;
+            // xy->y = cst.yintersection;
+            xy->y = cst.xintersection;
+            xy->x = cst.yintersection;
             break;
         }
         cst.xintersection += cst.xsteps;
