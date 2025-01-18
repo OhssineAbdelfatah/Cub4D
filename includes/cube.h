@@ -4,6 +4,9 @@
 // #include "mlx.h"
 // #include <mlx.h>
 #include "parsing.h"
+#include "game_structs.h"
+#include "stdbool.h"
+#include "textures.h"
 #include "macros.h"
 
 #define square_len 64

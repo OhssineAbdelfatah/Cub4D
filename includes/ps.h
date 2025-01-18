@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <mlx.h>
+#include "textures.h"
 #include <math.h>
 #include "parsing.h"
 #include "macros.h"

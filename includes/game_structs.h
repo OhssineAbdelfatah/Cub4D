@@ -56,6 +56,8 @@ struct s_ray_info
     /*
         x and y intersection with wall
     */
+    int x_hor;
+    int y_ver;
     int horzt_or_vert;
     double distance;
     double angle;

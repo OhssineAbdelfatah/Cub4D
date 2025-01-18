@@ -1,6 +1,8 @@
 #include "../includes/ps.h"
+
 // y is top 
 // j
+
 void draw_rectangle(t_main_s *var, int x, int y, int len, int width, int color)
 {
     int j,i;
@@ -57,13 +59,14 @@ int get_transparency(double distance)
     return (i);
 }
 
-void wall_rendering(t_main_s *var)
+void    wall_rendering(t_main_s *var)
 {
     t_walls *walls;
     double adjusted_distance;
     int color;
     int transparency;
     int y;
+    int x_img;
     int i;
     int j;
     int b;
@@ -81,12 +84,14 @@ void wall_rendering(t_main_s *var)
         transparency = get_transparency(adjusted_distance);
         b = 255;
         if (var->p_infos->rays[i].horzt_or_vert == 'v')
-            b =150;
-        color = create_trgb(transparency, 51, 255, b);
-        draw_rectangle(var, j, y, walls->wall_hight, 1,color);
+        b =150;
+        // color = create_trgb(transparency, 51, 255, b);
+        color = create_trgb(transparency, 51, 255, b);// rgba 
         /*
             get Xint and y of 
         */
+        x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays[i], walls->wall_hight, 0); //  0 stands for img width
+        draw_rectangle(var, x_img, y, walls->wall_hight, 1,color);
         i--;
         j++;
     }
