@@ -1,6 +1,8 @@
 #ifndef TEXTURES_h
 #define TEXTURES_h
 
+#include "game_structs.h"
+// 
 
 typedef struct s_img t_img;
 

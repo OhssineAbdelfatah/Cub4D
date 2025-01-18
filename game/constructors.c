@@ -41,7 +41,6 @@ t_mini_map *init_mini_map(void *mlx, int width, int height)
     var->p_x = var->minimap_width / 2;
     var->img3.img = mlx_new_image(mlx, var->minimap_width, var->minimap_height);
     var->img3.addr = mlx_get_data_addr(var->img3.img, &var->img3.bits_per_pixel, &var->img3.line_length, &var->img3.endian);
-    printf("bits per pixel :: >>%d\n" , var->img3.bits_per_pixel);
     (void)height;
     (void)width;
     return var;
@@ -95,6 +94,8 @@ t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double angle_incremet)
         var[i].horzt_or_vert = 0;
         var[i].facing_left = false;
         var[i].facing_right = false;
+        var[i].x_last_intersection = 0;
+        var[i].y_last_intersection = 0;
         i++;
         ray_angle += angle_incremet; 
     }

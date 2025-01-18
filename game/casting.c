@@ -41,13 +41,12 @@ void init_cst_horiz(t_casting *cst, t_main_s *var, int i)
         cst->yintersection = var->p_infos->y +  ((var->p_infos->x - cst->xintersection)  / cst->tan_angle);
     }
     cst->xsteps = square_len;
-  
     cst->ysteps = cst->xsteps / cst->tan_angle;
     if (var->p_infos->rays[i].facing_down)
         cst->ysteps *= -1;
 }
 
-double cast_horizontally(t_main_s *var, int i)
+double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy)
 {
     double up_down;
     t_casting cst;
@@ -61,9 +60,12 @@ double cast_horizontally(t_main_s *var, int i)
     while (cst.xintersection >= 0 && cst.yintersection >= 0)
     {
        
-            if (hit_a_wall
-            (var,cst.xintersection + up_down, cst.yintersection , i))
+            if (hit_a_wall(var,cst.xintersection + up_down, cst.yintersection , i))
+            {
+                xy->x = cst.xintersection;
+                xy->y = cst.yintersection;
                 break;
+            }
         cst.xintersection += (cst.xsteps * up_down);
         cst.yintersection += cst.ysteps ;
     }
@@ -98,7 +100,7 @@ void init_cst_vert(t_casting *cst, t_main_s *var, int i)
 }
 
 
-double cast_vertically(t_main_s *var, int i)
+double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy)
 {
     t_casting cst;
     double left_right;
@@ -111,6 +113,8 @@ double cast_vertically(t_main_s *var, int i)
     {
         if (hit_a_wall(var, cst.xintersection, cst.yintersection + left_right, i))
         {
+            xy->x = cst.xintersection;
+            xy->y = cst.yintersection;
             break;
         }
         cst.xintersection += cst.xsteps;

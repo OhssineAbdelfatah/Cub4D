@@ -90,11 +90,17 @@ void    wall_rendering(t_main_s *var)
         /*
             get Xint and y of 
         */
-        x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays[i], walls->wall_hight, 0); //  0 stands for img width
-        draw_rectangle(var, x_img, y, walls->wall_hight, 1,color);
+        
+        
+        // x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays[i], walls->wall_hight, 0); //  0 stands for img width
+        // draw_rectangle(var, x_img, y, walls->wall_hight, 1,color);
+
+
+        draw_rectangle(var, j, y, walls->wall_hight, 1,color);
         i--;
         j++;
     }
+    (void)x_img;
     free(var->p_infos->rays);
     free(walls);
 }

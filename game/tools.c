@@ -1,5 +1,12 @@
 #include "../includes/ps.h"
 
+int is_it_the_player(char c)
+{
+    if (c == 'W' || c == 'N' || c == 'S' || c == 'E')
+        return 1;
+    return 0;
+}
+
 void panic(char *s)
 {
     if (s)

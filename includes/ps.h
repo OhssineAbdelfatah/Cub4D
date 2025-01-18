@@ -59,6 +59,7 @@ t_walls *init_walls(t_main_s *ptr);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 double adjust_angle(double angle);
 void panic(char *s);
+int is_it_the_player(char c);
 
 
 
@@ -68,8 +69,8 @@ void panic(char *s);
 void init_cst_vert(t_casting *cst, t_main_s *var, int i);
 void init_cst_horiz(t_casting *cst, t_main_s *var, int i);
 // int hit_a_wall(t_casting *cst, t_main_s *var, int i, int ref);
-double cast_vertically(t_main_s *var, int i);
-double cast_horizontally(t_main_s *var, int i);
+double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy);
+double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy);
 int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i);
 
 

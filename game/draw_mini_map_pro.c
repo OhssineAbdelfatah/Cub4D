@@ -46,7 +46,6 @@ int draw_mini_map_42(t_main_s *var)
 
     x = 0;
     y = 0;
-    printf("minimap px : %d,mini_map py %d\n", var->mini_map->p_x, var->mini_map->p_y);
     while(x < var->mini_map->minimap_width)
     {
         while(y < var->mini_map->minimap_height)

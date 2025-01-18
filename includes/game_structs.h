@@ -12,9 +12,13 @@ typedef struct s_casting t_casting;
 typedef struct s_walls_rendering t_walls;
 typedef struct s_mini_map t_mini_map;
 typedef struct s_textures_imgs t_textures_img;
+typedef struct s_x_and_y_d t_x_and_y_d;
 
-
-
+struct s_x_and_y_d
+{
+    double x;
+    double y; 
+};
 
 struct	s_data {
 	void	*img;
@@ -56,6 +60,8 @@ struct s_ray_info
     /*
         x and y intersection with wall
     */
+    double x_last_intersection;
+    double y_last_intersection;
     int x_hor;
     int y_ver;
     int horzt_or_vert;
