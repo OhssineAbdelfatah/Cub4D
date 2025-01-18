@@ -1,4 +1,5 @@
-#include"cube.h"
+#include"../includes/cube.h"
+#include"math.h"
 
 
 // inter[0] => x_inter
@@ -10,12 +11,14 @@ int calc_x_img(char hor_or_ver, t_ray_info *ray, int wall_hiegt, int img_w)
 
     if(hor_or_ver == 'v')
     {
-        a = ray->x_hor / wall_hiegt;
+        a = ray->x_last_intersection / (double)wall_hiegt;
+        printf("---------Xinter [%f]\n", a);
         x_img = (a) - floor(a);
     }else if(hor_or_ver == 'h')
     {
-        a = ray->y_ver / wall_hiegt;
+        a = ray->y_last_intersection / (double)wall_hiegt;
         x_img = (a) - floor(a);
+        printf("---------Yinter [%f]\n", x_img);
     }
     return (int)(x_img * img_w);
 }

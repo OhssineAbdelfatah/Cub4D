@@ -13,6 +13,6 @@ struct s_img {
 
 
 int calc_x_img(char hor_or_ver, t_ray_info *ray, int wall_hiegt, int img_w);
-int calc_y_img(int *inter,int top, int y_proj ,int wall_hiegt , int img_h);
+int calc_y_img(int top, int y_proj ,int wall_hiegt , int img_h);
 
 #endif
