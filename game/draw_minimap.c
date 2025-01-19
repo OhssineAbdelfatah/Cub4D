@@ -167,7 +167,7 @@ int check_teleportation(t_player_infos *var, char **map)
 
 void work_of_art(t_main_s *var)
 {
-    paintit(var->img2,0x0F0FF00F,  (var->window_height) /2,  (var->window_width) );
+    paintit(var->img2,0x0FF00FC0,  (var->window_height) /2,  (var->window_width) );
     // paintit(&var->img3,0x0F0FF00F,  (var->window_height * scale_of_minimap) / 2,  (var->window_width * scale_of_minimap) );
     draw_the_mini_map(var);
 
@@ -183,6 +183,8 @@ void work_of_art(t_main_s *var)
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img2.img, 0, 0);
 
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img.img, 0, 0);
+    // mlx_image_to_window(var->mlx, var->img, 0, 0);
+
     
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
     mlx_image_to_window(var->mlx, var->mini_map->img3, 0, 0);

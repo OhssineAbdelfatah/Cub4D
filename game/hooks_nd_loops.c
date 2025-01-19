@@ -62,9 +62,9 @@ void key_hook(mlx_key_data_t key, void *var)
     t_main_s *ptr;
 
     ptr = (t_main_s *)var;
-    if (key.key == MLX_KEY_B)
+    if (key.key == MLX_KEY_ESCAPE)
         exit(1);
-    if ( key.key == left_arrow)
+    if (key.key == left_arrow)
         ptr->p_infos->turn_arround = 1;
     if (key.key == right_arrow)
         ptr->p_infos->turn_arround = -1;
@@ -76,7 +76,6 @@ void key_hook(mlx_key_data_t key, void *var)
         ptr->p_infos->move_left_right = 1;
     if (key.key == D)
         ptr->p_infos->move_left_right = -1;
-    // return 0;
 }
 
 void loop_hook(void *ptr)
@@ -94,6 +93,7 @@ void loop_hook(void *ptr)
         mlx_delete_image(var->mlx,var->img2);
         mlx_delete_image(var->mlx,var->mini_map->img3);
         var->img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
+        // var->img = mlx_new_image(var->mlx, (10 *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
         // var->img.img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
         // var->img.addr = mlx_get_data_addr(var->img.img, &var->img.bits_per_pixel, &var->img.line_length, &var->img.endian);
         

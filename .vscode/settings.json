@@ -61,6 +61,8 @@
     "cube.h": "c",
     "ps.h": "c",
     "mlx42.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "textures.h": "c",
+    "game_structs.h": "c"
   }
 }

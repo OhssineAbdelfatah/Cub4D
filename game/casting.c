@@ -7,7 +7,9 @@ int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i)
 
     x = (int)floor(xintersection / square_len);
     y = (int)floor(yintersection / square_len);
-    if (y < 0 || x < 0 || x >= var->map_hight || y > var->map_width)
+    // if (y < 0 || x < 0 || x >= var->map_hight || y > var->m ap_width)
+    // map_h = ft_dstr_len()
+    if (y < 0 || x < 0 || x >= var->map_hight || y > (int)ft_strlen(var->map[x]))
         return 1;
     if (var->map[x][y] == '1')
         return 1;
@@ -23,12 +25,6 @@ void init_cst_horiz(t_casting *cst, t_main_s *var, int i)
     angle =  var->p_infos->rays[i].angle + (M_PI /2.00);
     angle =  adjust_angle(angle);
     cst->tan_angle = tan(angle);
-    if (0.00 == cst->tan_angle || - 0.00 == cst->tan_angle)
-    {
-        printf("BREAKING POINT \n");
-        cst->distance = -1;
-        return;
-    }
     cst->xintersection = floor(var->p_infos->x / floor(square_len)) * floor(square_len);
     if (var->p_infos->rays[i].facing_down)
         cst->xintersection += square_len;

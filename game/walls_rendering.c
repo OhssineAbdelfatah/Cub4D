@@ -38,27 +38,21 @@ double adjust_distance(t_main_s *var, int i)
 
 int	create_trgb(int t, int r, int g, int b)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+	return (r << 24 | g << 16 | b << 8 | t);
 }
 
 int get_transparency(double distance)
 {
-    static int ss;
+    // static int ss;
     int i, distance2;
     i = 0;
     distance2 = (int)floor(distance);
     while (i < distance2)
         i++;
-    if (ss == 0)
-    {
-        printf("I >> %d\n", i);
-        printf("%d dstance2 , distance %f\n", distance2, distance);
-        ss++;
-    }
     i /= 5;
     if (i > 255)
         i = 255;
-    return (i);
+    return (255 - i);
 }
 
 void    wall_rendering(t_main_s *var)
@@ -86,6 +80,7 @@ void    wall_rendering(t_main_s *var)
         y = (var->window_height) / 2 - (walls->wall_hight / 2);
         // just coloring
         transparency = get_transparency(adjusted_distance);
+        // transparency = 255;
         b = 255;
         if (var->p_infos->rays[i].horzt_or_vert == 'v')
         b =150;
