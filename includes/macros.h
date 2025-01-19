@@ -3,13 +3,13 @@
 
 
 // FOR macOS
-# define A 0
-# define D 2
-# define S 1
-# define W 13
-# define ESC 53
-#define right_arrow 124
-#define left_arrow 123
+// # define A 0
+// # define D 2
+// # define S 1
+// # define W 13
+// # define ESC 53
+// #define right_arrow 124
+// #define left_arrow 123
 
 //for linux (debian)
 // # define A 97
@@ -20,6 +20,15 @@
 // #define right_arrow  65363
 // #define left_arrow  65361
 
+
+// FOR NEW MLX
+# define A 65
+# define D 68
+# define S 83
+# define W 87
+# define ESC 66
+#define right_arrow  262
+#define left_arrow  263
 
 #define square_len 64
 #define player_radius 5

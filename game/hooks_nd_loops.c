@@ -37,21 +37,42 @@ int need_update(t_player_infos * var, char **map)
     return 0;
 }
 
-int key_hook(int key, t_main_s *ptr)
+// int key_hook(int key, t_main_s *ptr)
+// {
+//     printf(">>>>%d \n", key);
+//     if (key == ESC)
+//         exit(1);
+//     if (key == left_arrow)
+//         ptr->p_infos->turn_arround = 1;
+//     if (key == right_arrow)
+//         ptr->p_infos->turn_arround = -1;
+//     if (key == W)
+//         ptr->p_infos->move_up_down = 1;
+//     if (key == S)
+//         ptr->p_infos->move_up_down = -1;
+//     if (key == A)
+//         ptr->p_infos->move_left_right = 1;
+//     if (key == D)
+//         ptr->p_infos->move_left_right = -1;
+//     return 0;
+// }
+
+mlx_keyfunc key_hook(mlx_key_data_t key, t_main_s *ptr)
 {
-    if (key == ESC)
+    printf(">>>>%d \n", key);
+    if (key.key == MLX_KEY_B)
         exit(1);
-    if (key == left_arrow)
+    if ( key.key == left_arrow)
         ptr->p_infos->turn_arround = 1;
-    if (key == right_arrow)
+    if (key.key == right_arrow)
         ptr->p_infos->turn_arround = -1;
-    if (key == W)
+    if (key.key == W)
         ptr->p_infos->move_up_down = 1;
-    if (key == S)
+    if (key.key == S)
         ptr->p_infos->move_up_down = -1;
-    if (key == A)
+    if (key.key == A)
         ptr->p_infos->move_left_right = 1;
-    if (key == D)
+    if (key.key == D)
         ptr->p_infos->move_left_right = -1;
     return 0;
 }
@@ -92,6 +113,7 @@ void loop_hook(void *ptr)
 }
 void mlx_loops_and_hooks(t_main_s *var)
 {
+    mlx_key_hook(var->mlx, key_hook, var);
     // mlx_hook(var->mlx_win, 2, 1L<<0, key_hook, var);
     mlx_loop_hook(var->mlx, loop_hook, var);
     mlx_loop(var->mlx); 
