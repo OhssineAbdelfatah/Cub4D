@@ -57,9 +57,11 @@ int need_update(t_player_infos * var, char **map)
 //     return 0;
 // }
 
-mlx_keyfunc key_hook(mlx_key_data_t key, t_main_s *ptr)
+void key_hook(mlx_key_data_t key, void *var)
 {
-    printf(">>>>%d \n", key);
+    t_main_s *ptr;
+
+    ptr = (t_main_s *)var;
     if (key.key == MLX_KEY_B)
         exit(1);
     if ( key.key == left_arrow)
@@ -74,7 +76,7 @@ mlx_keyfunc key_hook(mlx_key_data_t key, t_main_s *ptr)
         ptr->p_infos->move_left_right = 1;
     if (key.key == D)
         ptr->p_infos->move_left_right = -1;
-    return 0;
+    // return 0;
 }
 
 void loop_hook(void *ptr)

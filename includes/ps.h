@@ -79,7 +79,7 @@ int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i)
 //            >>   HOOKS_ND_LOOPS.C     <<
 /*************************************************/
 // int key_hook(int key, t_main_s *ptr);
-mlx_keyfunc key_hook(mlx_key_data_t key, t_main_s *ptr);
+void key_hook(mlx_key_data_t key, void *var);
 // int loop_hook(t_main_s *var);
 void loop_hook(void *ptr);
 void mlx_loops_and_hooks(t_main_s *var);
