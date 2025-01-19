@@ -32,11 +32,14 @@ void draw_the_pixel_for_minimap(t_main_s *var, int x, int y)
     
     check = check_the_pixel(var, x, y); 
     if (check == 0)
-        my_mlx_pixel_put(&var->mini_map->img3, x, y, 0x00C0C0C0);
+        mlx_put_pixel(var->mini_map->img3, x, y, 0x00C0C0C0);
+        // my_mlx_pixel_put(&var->mini_map->img3, x, y, 0x00C0C0C0);
     else if (check == 1)
-        my_mlx_pixel_put(&var->mini_map->img3, x, y, 0x000000FF);
+        mlx_put_pixel(var->mini_map->img3, x, y, 0x000000FF);
+        // my_mlx_pixel_put(&var->mini_map->img3, x, y, 0x000000FF);
     else if (check == -1)
-        my_mlx_pixel_put(&var->mini_map->img3, x, y, 0x00606060);
+        mlx_put_pixel(var->mini_map->img3, x, y, 0x00606060);
+        // my_mlx_pixel_put(&var->mini_map->img3, x, y, 0x00606060);
 }
 
 int draw_mini_map_42(t_main_s *var)
@@ -59,7 +62,7 @@ int draw_mini_map_42(t_main_s *var)
 
     new_x = var->mini_map->p_x + sin(var->p_infos->rotation_angle) * 10;
     new_y = var->mini_map->p_y + cos(var->p_infos->rotation_angle) * 10 ;
-    draw_disk11(&var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
-    draw_a_line2(var, var->mini_map->p_x , var->mini_map->p_y, new_x, new_y, 0x00F0FF,&var->mini_map->img3);
+    draw_disk11(var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
+    draw_a_line2(var, var->mini_map->p_x , var->mini_map->p_y, new_x, new_y, 0x00F0FF,var->mini_map->img3);
     return 0;
 }

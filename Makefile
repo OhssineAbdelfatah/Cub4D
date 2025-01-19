@@ -2,8 +2,7 @@ CC = cc
 
 CFLAGS = #-Wall -Werror -Wextra #-fsanitize=address -g
 
-
-
+LIBMLX = ./lib/mlx
 
 #######################################
 # FOR LINUX :
@@ -14,8 +13,12 @@ CFLAGS = #-Wall -Werror -Wextra #-fsanitize=address -g
 
 #########################################
 # FOR MAC :
-MLXFLAGS_OBJ = -Imlx
-MLXFLAGS_LINK = -L. -lmlx -framework OpenGL -framework AppKit
+##########FOR OLD MLX
+# MLXFLAGS_OBJ = -Imlx
+# MLXFLAGS_LINK = -L. -lmlx -framework OpenGL -framework AppKit
+
+######### FOR NEW MLX
+MLXFLAGS_LINK = $(LIBMLX)/build/libmlx42.a -L /Users/ilaasri/.brew/Cellar/glfw/3.4/lib/ -lglfw -pthread -lm 
 ############################################
 
 
@@ -52,7 +55,7 @@ My_lib = lib/libft/libft.a
 all : $(My_lib) $(NAME)
 
 %.o : %.c  Makefile ${HEADERS}
-	$(CC)  $(CFLAGS) $(FFLAG)  $(MLXFLAGS_OBJ) -c  $< -o $@
+	$(CC)  $(CFLAGS) $(FFLAG)   -c  $< -o $@
 
 $(My_lib) : 
 	make -C lib/libft

@@ -2,6 +2,7 @@
 #define GAME_STRUCTS_H
 
 #include <stdbool.h>
+#include "../lib/mlx/include/MLX42/MLX42.h"
 
 typedef struct s_main_struct t_main_s;
 typedef struct s_player_infos t_player_infos;
@@ -47,7 +48,8 @@ struct s_mini_map
     int minimap_width;
     int minimap_height;
     int mini_square_len;
-    t_data img3;
+    // t_data img3;
+    mlx_image_t *img3;
 };
 
 
@@ -57,9 +59,6 @@ struct s_ray_info
     bool facing_left;
     bool facing_right;
     bool facing_down;
-    /*
-        x and y intersection with wall
-    */
     double x_last_intersection;
     double y_last_intersection;
     int x_hor;
@@ -101,12 +100,15 @@ struct s_main_struct
     int map_width;
     int mouse_x;
     char **map;
-    void *mlx;
+    mlx_t *mlx;
+    // void *mlx;
     void *mlx_win;
     void *img_ver;
     void *img_hor;
-    t_data img;
-    t_data img2;
+    // t_data img;
+    // t_data img2;
+    mlx_image_t *img;
+    mlx_image_t *img2;
     // t_data img3;
     t_textures_img text;
     t_mini_map *mini_map;

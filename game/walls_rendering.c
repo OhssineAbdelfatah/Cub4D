@@ -15,7 +15,8 @@ void draw_rectangle(t_main_s *var, int x, int y, int len, int width, int color)
         while (j < len)
         {
             // get color(pixel) from image
-            my_mlx_pixel_put(&var->img2, x + i , y + j, color);
+            // my_mlx_pixel_put(&var->img2, x + i , y + j, color);
+            mlx_put_pixel(var->img2, x + i , y + j, color);
             j++;
         }
         j = 0;
