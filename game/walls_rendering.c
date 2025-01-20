@@ -4,9 +4,10 @@
 // y is top 
 // j
 
-void draw_rectangle(t_main_s *var, int x, int y, int len, int width, int color)
+void draw_rectangle(t_main_s *var, int x, int y, int len, int width, int color, int x_img, t_ray_info *ray, double wall_h, double img_h)
 {
     int j,i;
+    int y_img;
     
     i = 0;
     j = 0;
@@ -15,11 +16,14 @@ void draw_rectangle(t_main_s *var, int x, int y, int len, int width, int color)
         while (j < len)
         {
             // get color(pixel) from image
+            y_img = calc_y_img(j, wall_h, img_h);
+            // create rgba
             my_mlx_pixel_put(&var->img2, x + i , y + j, color);
             j++;
         }
         j = 0;
         i ++;
+        // exit(0);
     }
 }
 
@@ -90,14 +94,10 @@ void    wall_rendering(t_main_s *var)
         b =150;
         // color = create_trgb(transparency, 51, 255, b);
         color = create_trgb(transparency, 51, 255, b);// rgba 
-        /*
-            get Xint and y of 
-        */
-        
-        
+        // get img to be used here
         x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays+i, walls->wall_hight, 64); //  0 stands for img width
-        draw_rectangle(var, j, y, walls->wall_hight, 1,color);
-        exit(0);
+        // printf("---------Yinter [%d]\n", x_img);
+        draw_rectangle(var, j, y, walls->wall_hight, 1,color, x_img, var->p_infos->rays+i, walls->wall_hight, 64);
 
         // if (j == moy)
         //     printf("x :: %f , y:: %f",var->p_infos->rays[j].x_last_intersection, var->p_infos->rays[j].y_last_intersection);

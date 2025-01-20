@@ -2,7 +2,8 @@
 #define PS_H
 
 #include <stdio.h>
-#include <mlx.h>
+// #include <mlx.h>
+#include"../lib/mlx/include/MLX42/MLX42.h"
 #include <math.h>
 #include "parsing.h"
 #include "macros.h"

@@ -71,7 +71,9 @@ t_main_s *init_main_var(char **av)
     var->img.addr = mlx_get_data_addr(var->img.img, &var->img.bits_per_pixel, &var->img.line_length, &var->img.endian);
    
    
-    var->img2.img = mlx_new_image(var->mlx, var->window_width, var->window_height);
+    // var->img2.img = mlx_new_image(var->mlx, var->window_width, var->window_height);
+    mlx_texture_t *img22;
+    var->img2.img = mlx_load_png(var->mlx, var->window_width, var->window_height);
     var->img2.addr = mlx_get_data_addr(var->img2.img, &var->img2.bits_per_pixel, &var->img2.line_length, &var->img2.endian);
 
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);

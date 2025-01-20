@@ -3,6 +3,7 @@
 
 // #include "mlx.h"
 // #include <mlx.h>
+#include"../lib/mlx/include/MLX42/MLX42.h"
 #include "parsing.h"
 #include "game_structs.h"
 #include "stdbool.h"
