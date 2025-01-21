@@ -12,6 +12,11 @@
         data = parse(ac, av)
     */
 
+// void	ff(void)
+// {
+// 	system("leaks -q cub3D ");
+// }
+
 int main(int ac, char **av)
 {
     t_main_s *var;

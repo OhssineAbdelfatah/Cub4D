@@ -31,7 +31,7 @@ double adjust_angle(double angle)
     return angle;
 }
 
-void paintit(t_data *img, int color, int hight, int width)
+void paintit(mlx_image_t *img, int color, int hight, int width)
 {
     int i = 0;
     int j = 0;
@@ -39,7 +39,8 @@ void paintit(t_data *img, int color, int hight, int width)
     {
         while (j < width)
         {
-            my_mlx_pixel_put(img, j, i, color);
+            // my_mlx_pixel_put(img, j, i, color);
+            mlx_put_pixel(img, j, i, color);
             j ++;
         }
         j = 0;

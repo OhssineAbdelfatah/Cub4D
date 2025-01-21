@@ -51,12 +51,12 @@ void fill_map(char **av,t_main_s *var)
 
     // var->map_hight = 0;
     // var->map_width = 0;
-}
+} 
 
-void	ff(void)
-{
-	system("leaks -q cub3D ");
-}
+// void	ff(void)
+// {
+// 	system("leaks -q cub3D ");
+// }
 
     /*
         replace  with parse
@@ -71,7 +71,6 @@ void	ff(void)
 // int main(int ac, char **av)
 // {
 //     t_main_s *var;
-
 //     // atexit(ff);
 //     if (ac != 2)
 //         return (perror("need path of valid map\n"),1);

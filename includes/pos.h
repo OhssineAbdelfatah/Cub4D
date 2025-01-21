@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #ifndef POS_H
 #define POS_H
 
@@ -27,3 +28,5 @@ int        turn_right(t_main_s *ptr);
 int        go_back(t_main_s *ptr);
 int        go_forward(t_main_s *ptr);
 #endif
+=======
+>>>>>>> 0abe56a661b7d000c2c9d1c85f534567ccc110a1

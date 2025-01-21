@@ -39,7 +39,7 @@ int draw_mini_map2(t_main_s *var)
 {
     int i, j,x, y, check, new_y, new_x;
     // printf("height of  minimap:%d ,width : %d \n", var->mini_map->minimap_height, var->mini_map->minimap_width);
-    paintit(&var->mini_map->img3, 0x00E0E0E0, var->mini_map->minimap_height , var->mini_map->minimap_width);
+    paintit(var->mini_map->img3, 0x00E0E0E0, var->mini_map->minimap_height , var->mini_map->minimap_width);
     // draw_disk11(&var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
     x = 0;
     y = 0;
@@ -54,10 +54,10 @@ int draw_mini_map2(t_main_s *var)
         {
             check = mini_map_check_wall(var, x, y);
             if (1 == check)
-                draw_square_for_mini(&var->mini_map->img3, x * var->mini_map->mini_square_len, y * var->mini_map->mini_square_len, 0x000000FF);
+                draw_square_for_mini(var->mini_map->img3, x * var->mini_map->mini_square_len, y * var->mini_map->mini_square_len, 0x000000FF);
             if (check == 0)
             {
-                draw_square_for_mini(&var->mini_map->img3, x * var->mini_map->mini_square_len, y * var->mini_map->mini_square_len, 0x00C0C0C0);
+                draw_square_for_mini(var->mini_map->img3, x * var->mini_map->mini_square_len, y * var->mini_map->mini_square_len, 0x00C0C0C0);
                 // draw_empty_square_for_mini(&var->mini_map->img3, x * 40, y * 40);
             }
             y++;
@@ -65,8 +65,8 @@ int draw_mini_map2(t_main_s *var)
         y = 0;
         x++;
     }
-    draw_disk11(&var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
-    draw_a_line2(var, var->mini_map->p_x , var->mini_map->p_y, new_x, new_y, 0x00F0FF,&var->mini_map->img3);
+    draw_disk11(var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
+    draw_a_line2(var, var->mini_map->p_x , var->mini_map->p_y, new_x, new_y, 0x00F0FF,var->mini_map->img3);
     (void)i;
     (void)j;
     return 0;
@@ -143,6 +143,7 @@ int direction(double angle)
         return UP_LEFT;
     if (angle >  M_PI + (M_PI / 2) && angle < 2 * M_PI )
         return DOWN_LEFT;
+
     if (angle > 0 && angle < M_PI / 2)
         return DOWN_RIGHT;
     return NONE;
@@ -167,7 +168,7 @@ int check_teleportation(t_player_infos *var, char **map)
 
 void work_of_art(t_main_s *var)
 {
-    paintit(&var->img2,0x0F0FF00F,  (var->window_height) /2,  (var->window_width) );
+    paintit(var->img2,0x0FF00FC0,  (var->window_height) /2,  (var->window_width) );
     // paintit(&var->img3,0x0F0FF00F,  (var->window_height * scale_of_minimap) / 2,  (var->window_width * scale_of_minimap) );
     draw_the_mini_map(var);
 
@@ -178,10 +179,18 @@ void work_of_art(t_main_s *var)
     
     
     shoot_the_rays(var);
+
+    var->text = mlx_load_png("assets/textures/zalij1.png");
     wall_rendering(var);
-    mlx_put_image_to_window(var->mlx, var->mlx_win, var->img2.img, 0, 0);
+    mlx_image_to_window(var->mlx, var->img2, 0, 0);
+    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img2.img, 0, 0);
+
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img.img, 0, 0);
-    mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
+    // mlx_image_to_window(var->mlx, var->img, 0, 0);
+
+    
+    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
+    mlx_image_to_window(var->mlx, var->mini_map->img3, 0, 0);
 
 
     // mlx_put_image_to_window(var->mlx, var->mlx_win, alo.img, 0, 0);

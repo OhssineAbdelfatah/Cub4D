@@ -10,10 +10,12 @@ void draw_square(t_main_s *var, int x, int y)
     {
         while (j < (square_len * scale_of_minimap  ) -1)
         {
-            my_mlx_pixel_put(&var->img, x + i, y + j, 0x000000FF);
+            mlx_put_pixel(var->img, x + i, y + j, 0x000000FF);
+            // my_mlx_pixel_put(&var->img, x + i, y + j, 0x000000FF);
             j++;
         }
-        my_mlx_pixel_put(&var->img, x + i, y + j, 0x000000FF);
+        mlx_put_pixel(var->img, x + i, y + j, 0x000000FF);
+        // my_mlx_pixel_put(&var->img, x + i, y + j, 0x000000FF);
         j = 0;
         i++;
     }
@@ -26,13 +28,16 @@ void  draw_empty_square(t_main_s *var,  int  y, int x)
     i = 0;
     while (i < square_len  * scale_of_minimap )
     {
-        my_mlx_pixel_put(&var->img, y  + i, x , 0x000000FF);
+        
+        // my_mlx_pixel_put(&var->img, y  + i, x , 0x000000FF);
+        mlx_put_pixel(var->img, y  + i, x , 0x000000FF);
         i++;
     }
     i = 0;
     while (i < square_len  * scale_of_minimap )
     {
-        my_mlx_pixel_put(&var->img, y ,x + i, 0x000000FF);
+        // my_mlx_pixel_put(&var->img, y ,x + i, 0x000000FF);
+        mlx_put_pixel(var->img, y ,x + i, 0x000000FF);
         i++;
     }
 }
@@ -55,7 +60,8 @@ void draw_a_line(t_main_s *var, int s_x, int s_y, int f_x, int f_y, int color)
         //     break; 
         if (var->window_height <= s_y || var->window_width <=  s_x)
             break;
-        my_mlx_pixel_put(&var->img, s_x, s_y, color);
+        // my_mlx_pixel_put(&var->img, s_x, s_y, color);
+        mlx_put_pixel(var->img, s_x, s_y, color);
         int e2 = 2 * err;
         if (e2 > -dy)
         {
@@ -80,7 +86,8 @@ draw_disk(t_main_s *var, int x_c, int y_c, int radius)
         x = -radius;
         while (x <= radius) {
             if (x * x + y * y <= radius * radius) {
-                my_mlx_pixel_put(&var->img, x_c + x, y_c + y, 0x000000FF);
+                mlx_put_pixel(var->img, x_c + x, y_c + y, 0x000000FF);
+                // my_mlx_pixel_put(&var->img, x_c + x, y_c + y, 0x000000FF);
             }
             x++;
         }
@@ -99,7 +106,8 @@ void draw_disk1(t_main_s *var, int x_c, int y_c, int radius)
         x = -radius;
         while (x <= radius) {
             if (x * x + y * y <= radius * radius) {
-                my_mlx_pixel_put(&var->mini_map->img3, x_c + x, y_c + y, 0x000000FF);
+                mlx_put_pixel(var->mini_map->img3, x_c + x, y_c + y, 0x000000FF);
+                // my_mlx_pixel_put(&var->mini_map->img3, x_c + x, y_c + y, 0x000000FF);
             }
             x++;
         }
@@ -108,7 +116,7 @@ void draw_disk1(t_main_s *var, int x_c, int y_c, int radius)
 }
 
 
-void draw_disk11(t_data *img, int x_c, int y_c, int radius, int color)
+void draw_disk11(mlx_image_t *img, int x_c, int y_c, int radius, int color)
 {
     int x, y;
 
@@ -118,7 +126,8 @@ void draw_disk11(t_data *img, int x_c, int y_c, int radius, int color)
         x = -radius;
         while (x <= radius) {
             if (x * x + y * y <= radius * radius) {
-                my_mlx_pixel_put(img, x_c + x, y_c + y, color);
+                // my_mlx_pixel_put(img, x_c + x, y_c + y, color);
+                mlx_put_pixel(img, x_c + x, y_c + y, color);
             }
             x++;
         }
@@ -137,6 +146,7 @@ void draw_disk2(t_test *var, int x_c, int y_c, int radius)
         while (x <= radius) {
             if (x * x + y * y <= radius * radius) {
                 my_mlx_pixel_put(&var->img, x_c + x, y_c + y, 0x000000FF);
+                // mlx_put_pixel(var->img, x_c + x, y_c + y, 0x000000FF);
             }
             x++;
         }
@@ -162,7 +172,7 @@ void draw_disk3(t_test *var, int x_c, int y_c, int radius)
 
 
 
-void draw_square_for_mini(t_data *img, int x, int y, int color)
+void draw_square_for_mini(mlx_image_t *img, int x, int y, int color)
 {
     int i;
     int j;
@@ -173,37 +183,41 @@ void draw_square_for_mini(t_data *img, int x, int y, int color)
     {
         while (j < 32 - 1)
         {
-            my_mlx_pixel_put(img, x + i, y + j, color);
+            // my_mlx_pixel_put(img, x + i, y + j, color);
+            mlx_put_pixel(img, x + i, y + j, color);
             j++;
         }
-        my_mlx_pixel_put(img, x + i, y + j, color);
+        mlx_put_pixel(img, x + i, y + j, color);
+        // my_mlx_pixel_put(img, x + i, y + j, color);
         j = 0;
         i++;
     }
 }
 
 
-void  draw_empty_square_for_mini(t_data *img,  int  y, int x)
+void  draw_empty_square_for_mini(mlx_image_t *img,  int  y, int x)
 {
     int i;
 
     i = 0;
     while (i < 32 )
     {
-        my_mlx_pixel_put(img, y  + i, x , 0x000000FF);
+        mlx_put_pixel(img, y  + i, x , 0x000000FF);
+        // my_mlx_pixel_put(img, y  + i, x , 0x000000FF);
         i++;
     }
     i = 0;
     while (i < 32 )
     {
-        my_mlx_pixel_put(img, y ,x + i, 0x000000FF);
+        mlx_put_pixel(img, y ,x + i, 0x000000FF);
+        // my_mlx_pixel_put(img, y ,x + i, 0x000000FF);
         i++;
     }
 }
 
 
 
-void draw_a_line2(t_main_s *var, int s_x, int s_y, int f_x, int f_y, int color, t_data *img)
+void draw_a_line2(t_main_s *var, int s_x, int s_y, int f_x, int f_y, int color, mlx_image_t *img)
 {
     int dx = abs(f_x - s_x);
     int dy = abs(f_y - s_y);
@@ -220,7 +234,8 @@ void draw_a_line2(t_main_s *var, int s_x, int s_y, int f_x, int f_y, int color, 
         //     break; 
         if (var->window_height <= s_y || var->window_width <=  s_x)
             break;
-        my_mlx_pixel_put(img, s_x, s_y, color);
+        // my_mlx_pixel_put(img, s_x, s_y, color);
+        mlx_put_pixel(img, s_x, s_y, color);
         int e2 = 2 * err;
         if (e2 > -dy)
         {

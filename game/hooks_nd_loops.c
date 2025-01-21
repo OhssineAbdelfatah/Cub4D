@@ -22,12 +22,9 @@ int need_update(t_player_infos * var, char **map)
         if (var->move_left_right || var->move_up_down)
         {
             check = is_there_a_wall(new_x, new_y, map);
-            // printf("check one ::%d\n", check);
-            // if (!is_there_a_wall(new_x, new_y, map) && !check_teleportation(var, map))
             if (!check)
             {
                 check =  check_teleportation(var, map);
-                // printf("check two ::%d\n", check);
                 if (check == 0)
                 {
                     var->x = new_x;
@@ -40,53 +37,86 @@ int need_update(t_player_infos * var, char **map)
     return 0;
 }
 
-int key_hook(int key, t_main_s *ptr)
+// int key_hook(int key, t_main_s *ptr)
+// {
+//     printf(">>>>%d \n", key);
+//     if (key == ESC)
+//         exit(1);
+//     if (key == left_arrow)
+//         ptr->p_infos->turn_arround = 1;
+//     if (key == right_arrow)
+//         ptr->p_infos->turn_arround = -1;
+//     if (key == W)
+//         ptr->p_infos->move_up_down = 1;
+//     if (key == S)
+//         ptr->p_infos->move_up_down = -1;
+//     if (key == A)
+//         ptr->p_infos->move_left_right = 1;
+//     if (key == D)
+//         ptr->p_infos->move_left_right = -1;
+//     return 0;
+// }
+
+void key_hook(mlx_key_data_t key, void *var)
 {
-    if (key == ESC)
+    t_main_s *ptr;
+
+    ptr = (t_main_s *)var;
+    if (key.key == MLX_KEY_ESCAPE)
         exit(1);
-    if (key == left_arrow)
+    if (key.key == left_arrow)
         ptr->p_infos->turn_arround = 1;
-    if (key == right_arrow)
+    if (key.key == right_arrow)
         ptr->p_infos->turn_arround = -1;
-    if (key == W)
+    if (key.key == W)
         ptr->p_infos->move_up_down = 1;
-    if (key == S)
+    if (key.key == S)
         ptr->p_infos->move_up_down = -1;
-    if (key == A)
+    if (key.key == A)
         ptr->p_infos->move_left_right = 1;
-    if (key == D)
+    if (key.key == D)
         ptr->p_infos->move_left_right = -1;
-    return 0;
 }
 
-int loop_hook(t_main_s *var)
+void loop_hook(void *ptr)
 {
+    t_main_s *var;
+
+    var = (t_main_s *)ptr;
     if (need_update(var->p_infos, var->map))
     {
-        mlx_destroy_image(var->mlx, var->mini_map->img3.img);
-        mlx_destroy_image(var->mlx, var->img.img);
-        mlx_destroy_image(var->mlx, var->img2.img);
-        mlx_clear_window(var->mlx, var->mlx_win);
-        var->img.img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
-        var->img.addr = mlx_get_data_addr(var->img.img, &var->img.bits_per_pixel, &var->img.line_length, &var->img.endian);
+        // mlx_destroy_image(var->mlx, var->mini_map->img3.img);
+        // mlx_destroy_image(var->mlx, var->img.img);
+        // mlx_destroy_image(var->mlx, var->img2.img);
+        // mlx_clear_window(var->mlx, var->mlx_win);
+        mlx_delete_image(var->mlx,var->img);
+        mlx_delete_image(var->mlx,var->img2);
+        mlx_delete_image(var->mlx,var->mini_map->img3);
+        var->img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
+        // var->img = mlx_new_image(var->mlx, (10 *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
+        // var->img.img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
+        // var->img.addr = mlx_get_data_addr(var->img.img, &var->img.bits_per_pixel, &var->img.line_length, &var->img.endian);
         
-        var->img2.img = mlx_new_image(var->mlx, var->window_width, var->window_height);
-        var->img2.addr = mlx_get_data_addr(var->img2.img, &var->img2.bits_per_pixel, &var->img2.line_length, &var->img2.endian);
+        var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
+        // var->img2.img = mlx_new_image(var->mlx, var->window_width, var->window_height);
+        // var->img2.addr = mlx_get_data_addr(var->img2.img, &var->img2.bits_per_pixel, &var->img2.line_length, &var->img2.endian);
         
         // var->mini_map->img3.img = mlx_new_image(var->mlx, 280, 200);
-        var->mini_map->img3.img = mlx_new_image(var->mlx, var->mini_map->minimap_width, var->mini_map->minimap_height);
-        var->mini_map->img3.addr = mlx_get_data_addr(var->mini_map->img3.img, &var->mini_map->img3.bits_per_pixel, &var->mini_map->img3.line_length, &var->mini_map->img3.endian);
+        var->mini_map->img3 = mlx_new_image(var->mlx, var->mini_map->minimap_width, var->mini_map->minimap_height);
+        // var->mini_map->img3.img = mlx_new_image(var->mlx, var->mini_map->minimap_width, var->mini_map->minimap_height);
+        // var->mini_map->img3.addr = mlx_get_data_addr(var->mini_map->img3.img, &var->mini_map->img3.bits_per_pixel, &var->mini_map->img3.line_length, &var->mini_map->img3.endian);
         
         work_of_art(var);
         var->p_infos->move_up_down  = 0;
         var->p_infos->move_left_right  = 0;
         var->p_infos->turn_arround  = 0;
     }
-    return 0;
+    // return NULL;
 }
 void mlx_loops_and_hooks(t_main_s *var)
 {
-    mlx_hook(var->mlx_win, 2, 1L<<0, key_hook, var);
+    mlx_key_hook(var->mlx, key_hook, var);
+    // mlx_hook(var->mlx_win, 2, 1L<<0, key_hook, var);
     mlx_loop_hook(var->mlx, loop_hook, var);
     mlx_loop(var->mlx); 
 }

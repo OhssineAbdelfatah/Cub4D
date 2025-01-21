@@ -3,28 +3,47 @@
 
 // y is top 
 // j
-
-void draw_rectangle(t_main_s *var, int x, int y, int len, int width, int color, int x_img, t_ray_info *ray, double wall_h, double img_h)
+int	gettt_rgba(uint8_t *color)
 {
-    int j,i;
+	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | color[3]);
+}
+
+
+// void draw_rectangle(t_main_s *var, int x, int top, int buttom, int width, int color, int x_img, t_ray_info *ray, double wall_h, double img_h, t_text *imgs)
+void draw_rectangle(t_main_s *var,int x, int top , int buttom, int x_img, int color)
+{
+    int j; 
+    // int i;
     int y_img;
     
-    i = 0;
-    j = 0;
-    while (i < width)
-    {
-        while (j < len)
+    // i = 0;
+    j = top;
+    // while (i < width)
+    // {
+        while (j < buttom)
         {
             // get color(pixel) from image
-            y_img = calc_y_img(j, wall_h, img_h);
+            y_img = calc_y_img(j - top, buttom - top, var->text->height);
+            // y_img = ((j - top) / (buttom - top)) * var->text->height;
+            // printf("y_img : %d\n", y_img);
             // create rgba
-            my_mlx_pixel_put(&var->img2, x + i , y + j, color);
+            // my_mlx_pixel_put(&var->img2, x + i , y + j, color);
+            // my_mlx_pixel_put(&var->img2, x + i , y + j, color);
+            if (j >= 0 && j <= 800)
+            {
+                if ((y_img * var->text->width + x_img)  <= var->text->width * var->text->height)
+                {
+                    color = gettt_rgba( &var->text->pixels[(y_img * var->text->width + x_img) * 4]);
+                mlx_put_pixel(var->img2, x , j , color);
+
+                }
+            }
             j++;
         }
-        j = 0;
-        i ++;
+        // j = 0;
+        // i ++;
         // exit(0);
-    }
+    // }
 }
 
 double adjust_distance(t_main_s *var, int i)
@@ -39,38 +58,32 @@ double adjust_distance(t_main_s *var, int i)
     return adjusted_distance; 
 }
 
-int	create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
+
 
 int get_transparency(double distance)
 {
-    static int ss;
+    // static int ss;
     int i, distance2;
     i = 0;
     distance2 = (int)floor(distance);
     while (i < distance2)
         i++;
-    if (ss == 0)
-    {
-        printf("I >> %d\n", i);
-        printf("%d dstance2 , distance %f\n", distance2, distance);
-        ss++;
-    }
     i /= 5;
     if (i > 255)
         i = 255;
-    return (i);
+    return (255 - i);
 }
+
 
 void    wall_rendering(t_main_s *var)
 {
     t_walls *walls;
+    t_text *imgs;
     double adjusted_distance;
-    int color;
+    int color = 0 ;
     int transparency;
     int y;
+    int x;
     int x_img;
     int i;
     int j;
@@ -80,6 +93,8 @@ void    wall_rendering(t_main_s *var)
     moy = i /2;
     j = 0;
     walls = init_walls(var);
+
+    imgs = get_images(var);
     while (i >= 0)
     {
         adjusted_distance = adjust_distance(var, i);
@@ -87,17 +102,22 @@ void    wall_rendering(t_main_s *var)
         if (walls->wall_hight > var->window_height)
             walls->wall_hight = var->window_height;
         y = (var->window_height) / 2 - (walls->wall_hight / 2);
+        x = (var->window_height) / 2 + (walls->wall_hight / 2);
         // just coloring
         transparency = get_transparency(adjusted_distance);
+        // transparency = 255;
         b = 255;
         if (var->p_infos->rays[i].horzt_or_vert == 'v')
         b =150;
         // color = create_trgb(transparency, 51, 255, b);
-        color = create_trgb(transparency, 51, 255, b);// rgba 
+        // color = create_trgb(transparency, 51, 255, b);// rgba 
         // get img to be used here
-        x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays+i, walls->wall_hight, 64); //  0 stands for img width
-        // printf("---------Yinter [%d]\n", x_img);
-        draw_rectangle(var, j, y, walls->wall_hight, 1,color, x_img, var->p_infos->rays+i, walls->wall_hight, 64);
+        // x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays+i, walls->wall_hight, imgs[0].width); //  0 stands for img width
+        x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays+i, 64, var->text->width); //  test
+        // printf("%d\n", x_img);
+        // t_main_s *var,int x, int top , int buttom, int x_img, int color
+        draw_rectangle(var, j, y, x, x_img, color);
+        // exit(0);
 
         // if (j == moy)
         //     printf("x :: %f , y:: %f",var->p_infos->rays[j].x_last_intersection, var->p_infos->rays[j].y_last_intersection);
