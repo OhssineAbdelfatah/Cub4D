@@ -33,13 +33,10 @@ void draw_the_pixel_for_minimap(t_main_s *var, int x, int y)
     check = check_the_pixel(var, x, y); 
     if (check == 0)
         mlx_put_pixel(var->mini_map->img3, x, y, 0x00C0C0C0);
-        // my_mlx_pixel_put(&var->mini_map->img3, x, y, 0x00C0C0C0);
     else if (check == 1)
         mlx_put_pixel(var->mini_map->img3, x, y, 0x000000FF);
-        // my_mlx_pixel_put(&var->mini_map->img3, x, y, 0x000000FF);
     else if (check == -1)
         mlx_put_pixel(var->mini_map->img3, x, y, 0x00606060);
-        // my_mlx_pixel_put(&var->mini_map->img3, x, y, 0x00606060);
 }
 
 int draw_mini_map_42(t_main_s *var)

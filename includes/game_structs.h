@@ -2,6 +2,7 @@
 #define GAME_STRUCTS_H
 
 #include <stdbool.h>
+#include "parsing.h"
 #include "../lib/mlx/include/MLX42/MLX42.h"
 
 typedef struct s_main_struct t_main_s;
@@ -102,7 +103,7 @@ struct s_main_struct
     char **map;
     mlx_t *mlx;
     // void *mlx;
-    void *mlx_win;
+    // void *mlx_win;
     void *img_ver;
     void *img_hor;
     // t_data img;
@@ -113,6 +114,7 @@ struct s_main_struct
     t_textures_img text;
     t_mini_map *mini_map;
     t_player_infos *p_infos;
+    t_parse_data *parse;
 };
 
 

@@ -46,7 +46,7 @@ int draw_the_mini_map(t_main_s *var);
 //            >>    CONSTRUCTORS.C     <<
 /*************************************************/
 
-t_main_s *init_main_var(char **av);
+t_main_s *init_main_var(char **av, t_parse_data *parse);
 t_player_infos *init_player_struct(char c, int x, int y);
 t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double ray_increment);
 t_walls *init_walls(t_main_s *ptr);

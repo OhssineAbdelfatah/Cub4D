@@ -57,7 +57,7 @@ void init_textures(t_main_s *var)
     var->text.img_ver = NULL;
 }
 
-t_main_s *init_main_var(char **av)
+t_main_s *init_main_var(char **av, t_parse_data *parse)
 {
     t_main_s *var;
     var = malloc(sizeof(*var));
@@ -68,8 +68,7 @@ t_main_s *init_main_var(char **av)
     var->p_infos = NULL;
     fill_map(av, var);
     var->mlx = mlx_init( var->window_width,  var->window_height, "cub3D", false);
-    // var->mlx = mlx_init();
-    var->mlx_win = NULL;
+    var->parse = parse;
     // var->mlx_win = mlx_new_window(var->mlx, var->window_width, var->window_height , "cub3D");
     // var->img.img = mlx_new_image(var->mlx, (var->map_width  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
     // var->img.addr = mlx_get_data_addr(var->img.img, &var->img.bits_per_pixel, &var->img.line_length, &var->img.endian);
@@ -85,6 +84,7 @@ t_main_s *init_main_var(char **av)
 
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
     var->mouse_x = (var->window_width * square_len) / 2;
+
     init_textures(var);
     return var;
 }

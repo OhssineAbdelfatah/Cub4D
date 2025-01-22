@@ -7,8 +7,6 @@ int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i)
 
     x = (int)floor(xintersection / square_len);
     y = (int)floor(yintersection / square_len);
-    // if (y < 0 || x < 0 || x >= var->map_hight || y > var->m ap_width)
-    // map_h = ft_dstr_len()
     if (y < 0 || x < 0 || x >= var->map_hight || y > (int)ft_strlen(var->map[x]))
         return 1;
     if (var->map[x][y] == '1')
@@ -57,8 +55,6 @@ double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy)
     {
             if (hit_a_wall(var,cst.xintersection + up_down, cst.yintersection , i))
             {
-                // xy->x = cst.xintersection;
-                // xy->y = cst.yintersection;
                 xy->y = cst.xintersection;
                 xy->x = cst.yintersection;
                 break;
@@ -110,8 +106,6 @@ double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy)
     {
         if (hit_a_wall(var, cst.xintersection, cst.yintersection + left_right, i))
         {
-            // xy->x = cst.xintersection;
-            // xy->y = cst.yintersection;
             xy->y = cst.xintersection;
             xy->x = cst.yintersection;
             break;
