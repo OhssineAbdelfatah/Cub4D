@@ -173,32 +173,22 @@ void work_of_art(t_main_s *var)
     
     color = create_trgb(255, var->parse->clr_c[0],var->parse->clr_c[1], var->parse->clr_c[2]); 
     paintit(var->img2,color,  (var->window_height) /2,  (var->window_width) );
-    // paintit(var->img2,0x0FF00FC0,  (var->window_height) /2,  (var->window_width) );
-    // get_co
-
 
     if (var->p_infos == NULL)
     {
-        printf("path[0], %s\n path[1] : %s\n", var->parse->tex_no, var->parse->tex_we);
-        printf("dir : %c, x : %d, y: %d ", var->parse->dir, var->parse->pos->x_hor, var->parse->pos->y_ver);
+        // printf("path[0], %s\n path[1] : %s\n", var->parse->tex_no, var->parse->tex_we);
+        // printf("dir : %c, x : %d, y: %d ", var->parse->dir, var->parse->pos->x_hor, var->parse->pos->y_ver);
         var->p_infos=  init_player_struct(var->parse->dir, ((var->parse->pos->y_ver * square_len) + (square_len / 2)), ((var->parse->pos->x_hor * square_len) + (square_len / 2)));
     }
     // paintit(&var->img3,0x0F0FF00F,  (var->window_height * scale_of_minimap) / 2,  (var->window_width * scale_of_minimap) );
     
-    // draw_the_mini_map(var);
-
-
-    // draw_mini_map2(var);
-    
-    draw_mini_map_42(var);
-    
-    
     shoot_the_rays(var);
 
     // var->text = mlx_load_png("assets/textures/zalij1.png");
-    var->text = mlx_load_png("assets/textures/zalij3.png");
-    printf("BPP>>>%d\n", var->text->bytes_per_pixel);
+    var->text = mlx_load_png("assets/textures/red_wall.png");
+    // printf("BPP>>>%d\n", var->text->bytes_per_pixel);
     wall_rendering(var);
+    draw_mini_map_42(var);
     mlx_image_to_window(var->mlx, var->img2, 0, 0);
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img2.img, 0, 0);
 

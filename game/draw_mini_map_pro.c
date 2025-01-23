@@ -6,7 +6,6 @@ int check_the_pixel(t_main_s *var, int x, int y)
 
     diff_x = (x - var->mini_map->p_x) * 2;
     diff_y = (y - var->mini_map->p_y) * 2;
-
     diff_x = (int)floor(var->p_infos->y) + diff_x;
     diff_y = (int)floor(var->p_infos->x) + diff_y;
     if (diff_x < 0 || diff_y < 0)

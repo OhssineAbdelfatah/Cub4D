@@ -16,13 +16,13 @@ t_player_infos *init_player_struct(char c, int x, int y)
     var->rays = NULL;
     var->nbr_rays = 0;
     var->fov = (M_PI / 180) * 60;
-    if (c == 'N')
-        var->rotation_angle = M_PI / 2; 
-    if (c == 'S')
-        var->rotation_angle = M_PI + (M_PI / 2);
     if (c == 'E')
-        var->rotation_angle = M_PI ;
+        var->rotation_angle = M_PI / 2; 
     if (c == 'W')
+        var->rotation_angle = M_PI + (M_PI / 2);
+    if (c == 'N')
+        var->rotation_angle = M_PI ;
+    if (c == 'S')
         var->rotation_angle = 0;
     return (var);
 }
@@ -80,10 +80,8 @@ t_main_s *init_main_var(t_parse_data *parse)
 
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
 
-
     //  BONUS PART :: 
     var->mouse_x = (var->window_width * square_len) / 2;
-
     init_textures(var);
     return var;
 }
@@ -104,6 +102,7 @@ t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double angle_incremet)
         var[i].facing_right = false;
         var[i].x_last_intersection = 0;
         var[i].y_last_intersection = 0;
+        var[i].wall_dir = 0;
         i++;
         ray_angle += angle_incremet; 
     }

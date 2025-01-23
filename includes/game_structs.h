@@ -67,6 +67,7 @@ struct s_ray_info
     int horzt_or_vert;
     double distance;
     double angle;
+    char wall_dir;
 };
 
 struct s_player_infos

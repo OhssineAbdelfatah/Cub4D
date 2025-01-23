@@ -93,6 +93,8 @@ void init_cst_vert(t_casting *cst, t_main_s *var, int i)
 }
 
 
+// void_var
+
 double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy)
 {
     t_casting cst;
