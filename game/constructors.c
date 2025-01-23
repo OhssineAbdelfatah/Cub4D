@@ -47,17 +47,17 @@ t_mini_map *init_mini_map(void *mlx, int width, int height)
     return var;
 }
 
-void init_textures(t_main_s *var)
+void init_textures( __unused t_main_s *var)
 {
-    var->text.height = 64;
-    var->text.width = 64;
+    // var->text.height = 64;
+    // var->text.width = 64;
     // var->text.img_hor = mlx_xpm_file_to_image(var->mlx, "", &var->text.width, &var->text.height);
     // var->text.img_ver = mlx_xpm_file_to_image(var->mlx, "", &var->text.width, &var->text.height);
-    var->text.img_hor = NULL;
-    var->text.img_ver = NULL;
+    // var->text.img_hor = NULL;
+    // var->text.img_ver = NULL;
 }
 
-t_main_s *init_main_var(char **av, t_parse_data *parse)
+t_main_s *init_main_var(t_parse_data *parse)
 {
     t_main_s *var;
     var = malloc(sizeof(*var));
@@ -66,23 +66,22 @@ t_main_s *init_main_var(char **av, t_parse_data *parse)
     var->window_height = 800;
     var->window_width = 1400;
     var->p_infos = NULL;
-    fill_map(av, var);
-    var->mlx = mlx_init( var->window_width,  var->window_height, "cub3D", false);
     var->parse = parse;
-    // var->mlx_win = mlx_new_window(var->mlx, var->window_width, var->window_height , "cub3D");
-    // var->img.img = mlx_new_image(var->mlx, (var->map_width  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
-    // var->img.addr = mlx_get_data_addr(var->img.img, &var->img.bits_per_pixel, &var->img.line_length, &var->img.endian);
+    var->map = parse->map;
+
+    var->map_hight = ft_dstr_len(var->map);
+    var->map_width = ft_strlen(var->map[0]);
+
+    var->mlx = mlx_init(var->window_width,  var->window_height, "cub3D", false);
    
-   
-    // var->img = mlx_new_image(var->mlx, (var->map_width  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
     var->img = mlx_new_image(var->mlx, (10  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
    
-    // var->img2.img = mlx_new_image(var->mlx, var->window_width, var->window_height);
-    // var->img2.addr = mlx_get_data_addr(var->img2.img, &var->img2.bits_per_pixel, &var->img2.line_length, &var->img2.endian);
-
     var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
 
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
+
+
+    //  BONUS PART :: 
     var->mouse_x = (var->window_width * square_len) / 2;
 
     init_textures(var);

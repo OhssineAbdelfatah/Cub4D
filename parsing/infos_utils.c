@@ -42,11 +42,11 @@ int	handel_file(char *texture)
 		printf("texture ext error\n");
 		return (1);
 	}
-	if (access(texture, R_OK) != 0)
-	{
-		printf("texture permission error\n");
-		return (1);
-	}
+	// if (access(texture, R_OK) != 0)
+	// {
+	// 	printf("texture permission error\n");
+	// 	return (1);
+	// }
 	return (0);
 }
 

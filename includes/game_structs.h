@@ -99,22 +99,21 @@ struct s_main_struct
     int window_height;
     int map_hight;
     int map_width;
-    int mouse_x;
-    char **map;
+
+    char **map;// eq alo.map
     mlx_t *mlx;
-    // void *mlx;
-    // void *mlx_win;
     void *img_ver;
     void *img_hor;
-    // t_data img;
-    // t_data img2;
     mlx_image_t *img;
     mlx_image_t *img2;
-    // t_data img3;
-    t_textures_img text;
+    mlx_texture_t *text;
     t_mini_map *mini_map;
     t_player_infos *p_infos;
     t_parse_data *parse;
+    /***********/
+    //bonus
+    /***********/
+    int mouse_x;
 };
 
 

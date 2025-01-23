@@ -1,7 +1,7 @@
-NO ../assets/textures/EA.png
-SO ../assets/textures/EA.png
-WE ../assets/textures/EA.png
-EA ../assets/textures/EA.png
+NO ../assets/textures/red_wall.png
+SO ../assets/textures/red_wall.png
+WE ../assets/textures/brick.png
+EA ../assets/textures/brick.png
 C 205,111,221
 F 0,1,2
 

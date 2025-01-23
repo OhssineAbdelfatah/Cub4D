@@ -86,12 +86,13 @@ int draw_the_mini_map(t_main_s *var)
         
         while (var->map[x][y] && var->map[x][y] != '\n')
         {
-            if (var->map[x][y] != '1')
-                draw_empty_square(var, y* square_len * scale_of_minimap , x* square_len * scale_of_minimap);
-            else if (var->map[x][y] == '1')
-                draw_square(var, y * square_len  * scale_of_minimap , x   * scale_of_minimap * square_len);
+            // if (var->map[x][y] != '1')
+            //     draw_empty_square(var, y* square_len * scale_of_minimap , x* square_len * scale_of_minimap);
+            // else if (var->map[x][y] == '1')
+            //     draw_square(var, y * square_len  * scale_of_minimap , x   * scale_of_minimap * square_len);
             if (var->map[x][y] != '1' && var->map[x][y] != '0' && var->map[x][y] !=  32)
             {
+                printf("\nx :: %d,y :: %d \n", x, y);
                 if (var->p_infos == NULL)
                     var->p_infos = init_player_struct(var->map[x][y], ((x  * square_len) + (square_len / 2)), ((y * square_len) + (square_len / 2)));
             }
@@ -102,8 +103,8 @@ int draw_the_mini_map(t_main_s *var)
     }
     new_x = (var->p_infos->x  * scale_of_minimap ) + cos(var->p_infos->rotation_angle) * 20;
     new_y = (var->p_infos->y  * scale_of_minimap) + sin(var->p_infos->rotation_angle) * 20;
-    draw_disk(var, (int)var->p_infos->y  * scale_of_minimap  , (int)var->p_infos->x * scale_of_minimap  , player_radius);
-    draw_a_line(var, var->p_infos->y * scale_of_minimap , var->p_infos->x * scale_of_minimap , new_y, new_x, 0xF0F000);
+    // draw_disk(var, (int)var->p_infos->y  * scale_of_minimap  , (int)var->p_infos->x * scale_of_minimap  , player_radius);
+    // draw_a_line(var, var->p_infos->y * scale_of_minimap , var->p_infos->x * scale_of_minimap , new_y, new_x, 0xF0F000);
     (void)new_x;
     (void)new_y;
     return (0);
@@ -143,6 +144,7 @@ int direction(double angle)
         return UP_LEFT;
     if (angle >  M_PI + (M_PI / 2) && angle < 2 * M_PI )
         return DOWN_LEFT;
+
     if (angle > 0 && angle < M_PI / 2)
         return DOWN_RIGHT;
     return NONE;
@@ -167,17 +169,35 @@ int check_teleportation(t_player_infos *var, char **map)
 
 void work_of_art(t_main_s *var)
 {
-    paintit(var->img2,0x0FF00FC0,  (var->window_height) /2,  (var->window_width) );
+    int color;
+    
+    color = create_trgb(255, var->parse->clr_c[0],var->parse->clr_c[1], var->parse->clr_c[2]); 
+    paintit(var->img2,color,  (var->window_height) /2,  (var->window_width) );
+    // paintit(var->img2,0x0FF00FC0,  (var->window_height) /2,  (var->window_width) );
+    // get_co
+
+
+    if (var->p_infos == NULL)
+    {
+        printf("path[0], %s\n path[1] : %s\n", var->parse->tex_no, var->parse->tex_we);
+        printf("dir : %c, x : %d, y: %d ", var->parse->dir, var->parse->pos->x_hor, var->parse->pos->y_ver);
+        var->p_infos=  init_player_struct(var->parse->dir, ((var->parse->pos->y_ver * square_len) + (square_len / 2)), ((var->parse->pos->x_hor * square_len) + (square_len / 2)));
+    }
     // paintit(&var->img3,0x0F0FF00F,  (var->window_height * scale_of_minimap) / 2,  (var->window_width * scale_of_minimap) );
-    draw_the_mini_map(var);
+    
+    // draw_the_mini_map(var);
 
 
     // draw_mini_map2(var);
-
+    
     draw_mini_map_42(var);
     
     
     shoot_the_rays(var);
+
+    // var->text = mlx_load_png("assets/textures/zalij1.png");
+    var->text = mlx_load_png("assets/textures/zalij3.png");
+    printf("BPP>>>%d\n", var->text->bytes_per_pixel);
     wall_rendering(var);
     mlx_image_to_window(var->mlx, var->img2, 0, 0);
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img2.img, 0, 0);
