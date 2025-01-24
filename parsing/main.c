@@ -12,7 +12,7 @@
 // 	// atexit(ff);
 //     data = parse(ac , av);
 //     printf("%d\n", ft_strslen(data->map));
-// 	print_data(data);
+// 	// print_data(data);
 // 	free_data(data);
 //     // free_split(data->map);
 //     // free(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/16 02:20:38 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/23 13:47:38 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,11 @@ int	check_ext(char *ext, char *base_ext)
 	return (0);
 }
 
-
-
 int	cube(char *ext, t_parse_data** data)
 {
 	t_pre_data	*dt;
 
-	if (check_ext(ext, ".cub"))
+	if (check_ext(ext, ".cub") ) 
 		return (printf("ext err\n"),1);
 	dt = read_file(ext);
 		// return ((printf("alo\n")), 1);
@@ -66,6 +64,8 @@ void free_data(t_parse_data* data)
 	free(data);
 	return ;
 }
+
+// int is_file_exist()
 
 t_parse_data	*parse(int ac, char **av)
 {

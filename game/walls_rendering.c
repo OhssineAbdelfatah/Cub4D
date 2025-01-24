@@ -23,19 +23,22 @@ void draw_rectangle(t_main_s *var,int x, int top , int buttom, int x_img, int co
         while (j < buttom)
         {
             // get color(pixel) from image
+
             y_img = calc_y_img(j - top, buttom - top, var->text->height);
             // y_img = ((j - top) / (buttom - top)) * var->text->height;
             // printf("y_img : %d\n", y_img);
             // create rgba
             // my_mlx_pixel_put(&var->img2, x + i , y + j, color);
             // my_mlx_pixel_put(&var->img2, x + i , y + j, color);
-            if (j >= 0 && j <= 800)
+            if (j >= 0 && j <= var->window_height) // window hieght
             {
                 if ((y_img * var->text->width + x_img)  <= var->text->width * var->text->height)
                 {
                     color = gettt_rgba( &var->text->pixels[(y_img * var->text->width + x_img) * 4]);
-                mlx_put_pixel(var->img2, x , j , color);
+                    if(j >= 0 &&  j < var->window_height)
+                        mlx_put_pixel(var->img2, x , j , color);
 
+                        // continue;
                 }
             }
             j++;
@@ -99,8 +102,8 @@ void    wall_rendering(t_main_s *var)
     {
         adjusted_distance = adjust_distance(var, i);
         walls->wall_hight = (square_len / adjusted_distance) * walls->distance_prj_plane;
-        if (walls->wall_hight > var->window_height)
-            walls->wall_hight = var->window_height;
+        // if (walls->wall_hight > var->window_height)
+        //     walls->wall_hight = var->window_height;
         y = (var->window_height) / 2 - (walls->wall_hight / 2);
         x = (var->window_height) / 2 + (walls->wall_hight / 2);
         // just coloring

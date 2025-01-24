@@ -86,10 +86,10 @@ int draw_the_mini_map(t_main_s *var)
         
         while (var->map[x][y] && var->map[x][y] != '\n')
         {
-            if (var->map[x][y] != '1')
-                draw_empty_square(var, y* square_len * scale_of_minimap , x* square_len * scale_of_minimap);
-            else if (var->map[x][y] == '1')
-                draw_square(var, y * square_len  * scale_of_minimap , x   * scale_of_minimap * square_len);
+            // if (var->map[x][y] != '1')
+            //     draw_empty_square(var, y* square_len * scale_of_minimap , x* square_len * scale_of_minimap);
+            // else if (var->map[x][y] == '1')
+            //     draw_square(var, y * square_len  * scale_of_minimap , x   * scale_of_minimap * square_len);
             if (var->map[x][y] != '1' && var->map[x][y] != '0' && var->map[x][y] !=  32)
             {
                 if (var->p_infos == NULL)
@@ -102,8 +102,8 @@ int draw_the_mini_map(t_main_s *var)
     }
     new_x = (var->p_infos->x  * scale_of_minimap ) + cos(var->p_infos->rotation_angle) * 20;
     new_y = (var->p_infos->y  * scale_of_minimap) + sin(var->p_infos->rotation_angle) * 20;
-    draw_disk(var, (int)var->p_infos->y  * scale_of_minimap  , (int)var->p_infos->x * scale_of_minimap  , player_radius);
-    draw_a_line(var, var->p_infos->y * scale_of_minimap , var->p_infos->x * scale_of_minimap , new_y, new_x, 0xF0F000);
+    // draw_disk(var, (int)var->p_infos->y  * scale_of_minimap  , (int)var->p_infos->x * scale_of_minimap  , player_radius);
+    // draw_a_line(var, var->p_infos->y * scale_of_minimap , var->p_infos->x * scale_of_minimap , new_y, new_x, 0xF0F000);
     (void)new_x;
     (void)new_y;
     return (0);
