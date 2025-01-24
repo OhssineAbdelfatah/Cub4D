@@ -23,6 +23,7 @@ int check_teleportation(t_player_infos *var, char **map);
 /*************************************************/
 //            >>    DRAWING.C     <<
 /*************************************************/
+
 void draw_square(t_main_s *var, int x, int y);
 void draw_a_line(t_main_s *var, int s_x, int s_y, int f_x, int f_y, int color);
 void  draw_empty_square(t_main_s *var,int  y, int x);
@@ -50,6 +51,9 @@ t_player_infos *init_player_struct(char c, int x, int y);
 t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double ray_increment);
 t_walls *init_walls(t_main_s *ptr);
 
+
+t_text *get_image(mlx_texture_t *text);
+int **gat_pixles(mlx_texture_t* img, int w, int h);
 /*************************************************/
 //            >>    TOOLS.C     <<
 /*************************************************/
@@ -99,5 +103,14 @@ void fill_map(char **av,t_main_s *var);
 void work_of_art(t_main_s *var);
 void wall_rendering(t_main_s *var);
 void paintit(mlx_image_t *img, int color, int hight, int width);
+
+
+/************************************************************/
+//                      >> BONUS.C <<
+/************************************************************/
+
+
+void fps_hands_rendring(t_main_s *var);
+
 
 #endif

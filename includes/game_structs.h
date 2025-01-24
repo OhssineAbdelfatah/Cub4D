@@ -56,7 +56,7 @@ struct s_x_and_y_d
 struct s_bonus
 {
     int mouse_x;
-    mlx_image_t *hands_img;
+    mlx_texture_t *img;
     mlx_texture_t *door;
     mlx_texture_t *key;
     mlx_texture_t *gun_in_hand;

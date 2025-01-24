@@ -188,9 +188,15 @@ void work_of_art(t_main_s *var)
 
     // var->text = mlx_load_png("assets/textures/zalij1.png");
     // printf("BPP>>>%d\n", var->text->bytes_per_pixel);
-    wall_rendering(var);
     draw_mini_map_42(var);
+    // fps_hands_rendring(var);
+
+
     mlx_image_to_window(var->mlx, var->img2, 0, 0);
+
+    wall_rendering(var);
+
+
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img2.img, 0, 0);
 
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img.img, 0, 0);
