@@ -8,18 +8,18 @@ int **gat_pixles(mlx_texture_t* img, int w, int h)
     int j;
 
     i = 0 ;
-    pixs = malloc(sizeof(int *) * h);
-    if(pixs)
-        return NULL ;
-    while(i < h)
+    pixs = malloc(sizeof(int *) * h );
+    if(!pixs)
+        return (printf("malooc in pix int** failed")), NULL ;
+    while(i < h )
     {
         j = 0 ;
-        while(j < w)
+        pixs[i] = (int *)malloc(sizeof(int) * w);
+        if(!pixs)
+            return (printf("malooc in pix int* failed")), NULL ;
+        while(j < w )
         {
-            pixs[i] = (int *)malloc(sizeof(int) * w);
-            if(pixs)
-                return NULL ;
-            pixs[i][j] = gettt_rgba( &img->pixels[(i * w + j) * 4] );
+            pixs[i][j] = gettt_rgba( &img->pixels[((i * w) + j) * 4] );
             j++;
         }
         i++;
@@ -104,6 +104,24 @@ mlx_texture_t *safe_load(char *path)
         panic ("load png failed !\n");
     return img ;
 }
+
+
+void print_pixesl(t_text *img)
+{
+    int i ,j ;
+
+    i = 0;
+    while(i < img->hieght)
+    {
+        j= 0;
+        while(j < img->width)
+        {
+            printf("pix[%d][%d] |%d|\n",i , j , img->pixels[i][j]);
+            j++;
+        }
+        i++;
+    }
+}
 t_text *init_textures(t_main_s *var)
 {
     t_text *text;
@@ -115,6 +133,7 @@ t_text *init_textures(t_main_s *var)
     // texture duplicate : mlx_texture_t => t_text
     img = safe_load(var->parse->tex_no);
     text[0] = *get_image(img);
+    // print_pixesl(text);
     img = safe_load(var->parse->tex_ea);
     text[1] = *get_image(img);
     img = safe_load(var->parse->tex_so);
