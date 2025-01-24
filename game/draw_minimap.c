@@ -167,6 +167,8 @@ int check_teleportation(t_player_infos *var, char **map)
 }
 
 
+
+
 void work_of_art(t_main_s *var)
 {
     int color;
@@ -185,7 +187,6 @@ void work_of_art(t_main_s *var)
     shoot_the_rays(var);
 
     // var->text = mlx_load_png("assets/textures/zalij1.png");
-    // var->text = mlx_load_png("assets/textures/red_wall.png");
     // printf("BPP>>>%d\n", var->text->bytes_per_pixel);
     wall_rendering(var);
     draw_mini_map_42(var);

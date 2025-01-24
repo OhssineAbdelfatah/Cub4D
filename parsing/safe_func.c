@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:02:39 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/13 18:44:30 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/22 22:41:00 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	safe_open(char *file, t_pre_data *dt)
 	if (fd == -1)
 	{
 		free(dt);
+		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
 	return (fd);

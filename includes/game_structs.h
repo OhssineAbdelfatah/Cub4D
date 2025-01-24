@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "parsing.h"
+#include "ps.h"
 #include "../lib/mlx/include/MLX42/MLX42.h"
 
 typedef struct s_main_struct t_main_s;
@@ -16,6 +17,33 @@ typedef struct s_mini_map t_mini_map;
 typedef struct s_textures_imgs t_textures_img;
 typedef struct s_x_and_y_d t_x_and_y_d;
 typedef struct s_bonus t_bonus;
+
+
+
+/* TEXTURES */
+
+typedef struct s_img t_img;
+typedef struct s_text t_text;
+
+struct s_img {
+    double x_img;
+    double y_img;
+};
+
+struct s_text {
+    int **pixels;
+    int width;
+    int hieght;
+};
+
+int     create_trgb(int t, int r, int g, int b);
+int     calc_x_img(int hor_or_ver, t_ray_info *ray, double wall_hiegt, double img_w);
+int     calc_y_img(int y_proj ,int wall_hiegt , int img_h);
+t_text  *get_images(mlx_texture_t* text);
+int     gettt_rgba(uint8_t *color);
+
+
+/***************************/
 
 struct s_x_and_y_d
 {
@@ -120,7 +148,7 @@ struct s_main_struct
     void *img_hor;
     mlx_image_t *img;
     mlx_image_t *img2;
-    mlx_texture_t *text;
+    t_text *text;
     t_mini_map *mini_map;
     t_player_infos *p_infos;
     t_parse_data *parse;

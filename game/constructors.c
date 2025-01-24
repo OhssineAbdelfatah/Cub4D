@@ -1,5 +1,49 @@
 #include "../includes/ps.h"
 
+int **gat_pixles(mlx_texture_t* img, int w, int h)
+{
+    (void)img;
+    int **pixs;
+    int i;
+    int j;
+
+    i = 0 ;
+    pixs = malloc(sizeof(int *) * h );
+    if(!pixs)
+        return (printf("malooc in pix int** failed")), NULL ;
+    while(i < h )
+    {
+        j = 0 ;
+        pixs[i] = (int *)malloc(sizeof(int) * w);
+        if(!pixs)
+            return (printf("malooc in pix int* failed")), NULL ;
+        while(j < w )
+        {
+            pixs[i][j] = gettt_rgba( &img->pixels[((i * w) + j) * 4] );
+            j++;
+        }
+        i++;
+    }
+    return pixs;
+}
+t_text *get_image(mlx_texture_t *text)
+{
+    int i = 0 ;
+    i = 0 ;
+    t_text *img;
+
+
+    // mlx_image_t* img;
+
+    img = malloc(sizeof(t_text));
+    if(!img )
+        return NULL;
+    img[i].pixels = gat_pixles(text, text->width, text->height);
+    img[i].hieght = text->height;
+    img[i].width = text->width;
+    return img;
+}
+
 t_player_infos *init_player_struct(char c, int x, int y)
 {
     t_player_infos *var;
@@ -63,8 +107,60 @@ t_mini_map *init_mini_map(void *mlx, int width, int height)
     return var;
 }
 
-void init_textures( __unused t_main_s *var)
+/***
+ * images stored in array in a strict order 
+ * following real direction N -> E -> S -> W 
+*/
+mlx_texture_t *safe_load(char *path)
 {
+    mlx_texture_t *img;
+
+    img = mlx_load_png(path);
+    if(!img)
+        panic ("load png failed !\n");
+    return img ;
+}
+
+
+void print_pixesl(t_text *img)
+{
+    int i ,j ;
+
+    i = 0;
+    while(i < img->hieght)
+    {
+        j= 0;
+        while(j < img->width)
+        {
+            printf("pix[%d][%d] |%d|\n",i , j , img->pixels[i][j]);
+            j++;
+        }
+        i++;
+    }
+}
+t_text *init_textures(t_main_s *var)
+{
+    t_text *text;
+    mlx_texture_t *img;
+
+    text = malloc(sizeof(t_text) * 4);
+    if(!text)
+        panic("malloc failed !\n");
+    // texture duplicate : mlx_texture_t => t_text
+    img = safe_load(var->parse->tex_no);
+    text[0] = *get_image(img);
+    // print_pixesl(text);
+    img = safe_load(var->parse->tex_ea);
+    text[1] = *get_image(img);
+    img = safe_load(var->parse->tex_so);
+    text[2] = *get_image(img);
+    img = safe_load(var->parse->tex_we);
+    text[3] = *get_image(img);
+    return text;
+    // safe_load();
+    // safe_load();
+    // safe_load();
+        
     // var->text.height = 64;
     // var->text.width = 64;
     // var->text.img_hor = mlx_xpm_file_to_image(var->mlx, "", &var->text.width, &var->text.height);
@@ -72,6 +168,8 @@ void init_textures( __unused t_main_s *var)
     // var->text.img_hor = NULL;
     // var->text.img_ver = NULL;
 }
+
+
 
 t_main_s *init_main_var(t_parse_data *parse)
 {
@@ -95,12 +193,10 @@ t_main_s *init_main_var(t_parse_data *parse)
     var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
 
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
-
-    var->text = mlx_load_png("assets/textures/red_wall.png");
+    var->text = init_textures(var);
     //  BONUS PART :: 
     // var->mouse_x = (var->window_width * square_len) / 2;
-    init_textures(var);
-    var->bonus = init_bonus(var);
+    // init_textures(var);
     return var;
 }
 

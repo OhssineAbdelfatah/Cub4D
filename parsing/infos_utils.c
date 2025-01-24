@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:02:25 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/14 23:06:45 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:52:05 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ int	valid_set(char *set)
 	free_split(sets);
 	return (0);
 }
+int file_exist(char *path)
+{
+	int fd ;
+
+	fd = open(path, O_RDONLY);
+	if(fd == -1)
+		return 1;
+	return 0;
+}
 
 int	handel_file(char *texture)
 {
@@ -42,11 +51,13 @@ int	handel_file(char *texture)
 		printf("texture ext error\n");
 		return (1);
 	}
+		
 	// if (access(texture, R_OK) != 0)
-	// {
-	// 	printf("texture permission error\n");
-	// 	return (1);
-	// }
+	if(file_exist(texture))
+	{
+		printf("texture permission error\n");
+		return (1);
+	}
 	return (0);
 }
 
