@@ -12,7 +12,7 @@ t_player_infos *init_player_struct(char c, int x, int y)
     var->move_left_right = 0;
     var->turn_arround = 0; 
     var->speed = 6;
-    var->rotation_speed = (M_PI / 180) * 2;
+    var->rotation_speed = (M_PI / 180) * 3;
     var->rays = NULL;
     var->nbr_rays = 0;
     var->fov = (M_PI / 180) * 60;
@@ -24,6 +24,22 @@ t_player_infos *init_player_struct(char c, int x, int y)
         var->rotation_angle = M_PI ;
     if (c == 'S')
         var->rotation_angle = 0;
+    return (var);
+}
+
+
+t_bonus *init_bonus(t_main_s *main)
+{
+    t_bonus *var;
+
+    var = (t_bonus *)malloc(sizeof(t_bonus));
+    if (!var)
+        panic("malloc faild! \n");
+    var->door = NULL;
+    var->gun_in_hand =  mlx_load_png("assets/textures/shoot1.png");
+    var->hands_img = NULL;
+    var->key = NULL;
+    var->mouse_x = (main->window_width * square_len) / 2;
     return (var);
 }
 
@@ -80,9 +96,11 @@ t_main_s *init_main_var(t_parse_data *parse)
 
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
 
+    var->text = mlx_load_png("assets/textures/red_wall.png");
     //  BONUS PART :: 
-    var->mouse_x = (var->window_width * square_len) / 2;
+    // var->mouse_x = (var->window_width * square_len) / 2;
     init_textures(var);
+    var->bonus = init_bonus(var);
     return var;
 }
 

@@ -171,7 +171,7 @@ void work_of_art(t_main_s *var)
 {
     int color;
     
-    color = create_trgb(255, var->parse->clr_c[0],var->parse->clr_c[1], var->parse->clr_c[2]); 
+    color = create_trgb(var->parse->clr_c[0],var->parse->clr_c[1], var->parse->clr_c[2], 255); 
     paintit(var->img2,color,  (var->window_height) /2,  (var->window_width) );
 
     if (var->p_infos == NULL)
@@ -185,7 +185,7 @@ void work_of_art(t_main_s *var)
     shoot_the_rays(var);
 
     // var->text = mlx_load_png("assets/textures/zalij1.png");
-    var->text = mlx_load_png("assets/textures/red_wall.png");
+    // var->text = mlx_load_png("assets/textures/red_wall.png");
     // printf("BPP>>>%d\n", var->text->bytes_per_pixel);
     wall_rendering(var);
     draw_mini_map_42(var);

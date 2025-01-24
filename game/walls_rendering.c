@@ -29,12 +29,12 @@ void draw_rectangle(t_main_s *var,int x, int top , int buttom, int x_img, int co
             // create rgba
             // my_mlx_pixel_put(&var->img2, x + i , y + j, color);
             // my_mlx_pixel_put(&var->img2, x + i , y + j, color);
-            if (j >= 0 && j <= 800)
+            if (j >= 0 && j < var->window_height)
             {
                 if ((y_img * var->text->width + x_img)  <= var->text->width * var->text->height)
                 {
                     color = gettt_rgba( &var->text->pixels[(y_img * var->text->width + x_img) * 4]);
-                mlx_put_pixel(var->img2, x , j , color);
+                    mlx_put_pixel(var->img2, x , j , color);
 
                 }
             }
@@ -57,6 +57,8 @@ double adjust_distance(t_main_s *var, int i)
     adjusted_distance = cos(teta_angle) * var->p_infos->rays[i].distance;
     return adjusted_distance; 
 }
+
+
 
 
 
@@ -99,8 +101,8 @@ void    wall_rendering(t_main_s *var)
     {
         adjusted_distance = adjust_distance(var, i);
         walls->wall_hight = (square_len / adjusted_distance) * walls->distance_prj_plane;
-        if (walls->wall_hight > var->window_height)
-            walls->wall_hight = var->window_height;
+        // if (walls->wall_hight > var->window_height)
+        //     walls->wall_hight = var->window_height;
         y = (var->window_height) / 2 - (walls->wall_hight / 2);
         x = (var->window_height) / 2 + (walls->wall_hight / 2);
         // just coloring
@@ -117,11 +119,6 @@ void    wall_rendering(t_main_s *var)
         // printf("%d\n", x_img);
         // t_main_s *var,int x, int top , int buttom, int x_img, int color
         draw_rectangle(var, j, y, x, x_img, color);
-        // exit(0);
-
-        // if (j == moy)
-        //     printf("x :: %f , y:: %f",var->p_infos->rays[j].x_last_intersection, var->p_infos->rays[j].y_last_intersection);
-        // draw_rectangle(var, j, y, walls->wall_hight, 1,color);
         i--;
         j++;
     }
@@ -129,4 +126,3 @@ void    wall_rendering(t_main_s *var)
     free(var->p_infos->rays);
     free(walls);
 }
-

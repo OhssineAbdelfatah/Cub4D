@@ -35,9 +35,9 @@ int calc_y_img(int y_proj ,int wall_hiegt , int img_h)
 }
 
 
-int	create_trgb(int t, int r, int g, int b)
+int	create_trgb(int r, int g, int b, int a)
 {
-	return (r << 24 | g << 16 | b << 8 | t);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 /***
@@ -59,16 +59,17 @@ int **gat_pixles(mlx_texture_t* img, int w, int h)
 
     i = 0 ;
     pixs = malloc(sizeof(int *) * h);
-    if(pixs)
+    if(!pixs)
         return NULL ;
     while(i < h)
-    {
+    {  
+        pixs[i] = (int *)malloc(sizeof(int) * w);
         j = 0 ;
+        if(pixs)
+            return NULL ;
         while(j < w)
         {
-            pixs[i] = (int *)malloc(sizeof(int) * w);
-            if(pixs)
-                return NULL ;
+          
             // pixs[i][j] = gettt_rgba( &img->pixels[(i * w + j) * 4] );
             j++;
         }
