@@ -27,14 +27,27 @@
 int main(__unused int ac, char **av)
 {
     t_main_s *var;
+    t_parse_data *data;
+
+    data = parse(ac, av);
+    var = init_main_var(data);
+    
+    work_of_art(var);
+    mlx_loops_and_hooks(var);
+    (void)data;
+    (void)ac;
+}
+
+
+
 
     // atexit(ff);
     // if (ac != 2)
     //     return (perror("need path of valid map\n"),1);
-    var = init_main_var(av);
-    work_of_art(var);
-    mlx_loops_and_hooks(var);
-}
+//     var = init_main_var(av);
+//     work_of_art(var);
+//     mlx_loops_and_hooks(var);
+// }
 
 
 /**

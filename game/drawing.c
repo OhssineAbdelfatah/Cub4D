@@ -28,15 +28,12 @@ void  draw_empty_square(t_main_s *var,  int  y, int x)
     i = 0;
     while (i < square_len  * scale_of_minimap )
     {
-        
-        // my_mlx_pixel_put(&var->img, y  + i, x , 0x000000FF);
         mlx_put_pixel(var->img, y  + i, x , 0x000000FF);
         i++;
     }
     i = 0;
     while (i < square_len  * scale_of_minimap )
     {
-        // my_mlx_pixel_put(&var->img, y ,x + i, 0x000000FF);
         mlx_put_pixel(var->img, y ,x + i, 0x000000FF);
         i++;
     }

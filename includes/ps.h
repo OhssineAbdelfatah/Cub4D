@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 // #include <mlx.h>
-#include "textures.h"
 #include <math.h>
 #include "parsing.h"
 #include "macros.h"
@@ -46,7 +45,7 @@ int draw_the_mini_map(t_main_s *var);
 //            >>    CONSTRUCTORS.C     <<
 /*************************************************/
 
-t_main_s *init_main_var(char **av);
+t_main_s *init_main_var(t_parse_data *parse);
 t_player_infos *init_player_struct(char c, int x, int y);
 t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double ray_increment);
 t_walls *init_walls(t_main_s *ptr);
@@ -55,7 +54,7 @@ t_walls *init_walls(t_main_s *ptr);
 //            >>    TOOLS.C     <<
 /*************************************************/
 
-
+int ft_dstr_len(char **av);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 double adjust_angle(double angle);
 void panic(char *s);

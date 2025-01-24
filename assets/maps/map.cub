@@ -1,10 +1,9 @@
-NO ../assets/textures/.png
-SO ../assets/textures/1.png
-WE ../assets/textures/2.png
-EA ../assets/textures/3.png
+NO ./assets/textures/red_wall.png
+SO ./assets/textures/red_wall.png
+WE ./assets/textures/brick.png
+EA ./assets/textures/brick.png
 C 205,111,221
 F 0,1,2
-
 
 
 1111111111111111111111111111

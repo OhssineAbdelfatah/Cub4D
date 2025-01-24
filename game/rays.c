@@ -26,6 +26,26 @@ void set_ray_direction(t_ray_info *var, double ray_angle)
 }
 
 
+void set_ray_infos(t_ray_info *ray, char which_one, t_x_and_y_d x_y, int distance)
+{
+    ray->distance = distance;
+    ray->horzt_or_vert = which_one;
+    ray->x_last_intersection = x_y.x;
+    ray->y_last_intersection = x_y.y;
+    if (which_one == 'h')
+    {
+        ray->wall_dir = 'S';
+        if (ray->facing_up && which_one == 'h')
+            ray->wall_dir = 'N';
+    }
+    if (which_one == 'v')
+    {
+        ray->wall_dir = 'W';
+        if (ray->facing_right && which_one == 'v')
+            ray->wall_dir = 'E';
+    }
+}
+
 
 void cast_ray(t_main_s *var, int i)
 {
@@ -34,35 +54,24 @@ void cast_ray(t_main_s *var, int i)
     double distance1, distance2;
     distance1 = 0;
     distance2 = 0;
-    // var->p_infos->rays[i].distance = 1000;
     if (fabs(var->p_infos->rays[i].angle - M_PI) < EPSILON || fabs(var->p_infos->rays[i].angle) < -EPSILON)
     {
-        var->p_infos->rays[i].distance = cast_horizontally(var, i, &h_xy);
-        var->p_infos->rays[i].horzt_or_vert = 'h';
+        distance1 = cast_horizontally(var, i, &h_xy);
+        set_ray_infos(&var->p_infos->rays[i],'h', h_xy, distance1 );
         return;
     }
     if (fabs(var->p_infos->rays[i].angle - M_PI / 2) < EPSILON || fabs(var->p_infos->rays[i].angle - (M_PI + M_PI / 2)) < EPSILON)
     {
-        var->p_infos->rays[i].distance = cast_vertically(var, i, &v_xy);
-        var->p_infos->rays[i].horzt_or_vert = 'v';
+         distance1 = cast_vertically(var, i, &v_xy);
+        set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance1 );
         return;
     }
     distance1=  cast_horizontally(var, i, &h_xy);
     distance2 = cast_vertically(var, i, &v_xy);
     if (distance1 < distance2 || distance2 < 0 || distance1 == distance2)
-    {
-        var->p_infos->rays[i].distance = distance1;
-        var->p_infos->rays[i].horzt_or_vert = 'h';
-        var->p_infos->rays[i].x_last_intersection = h_xy.x;
-        var->p_infos->rays[i].y_last_intersection = h_xy.y;
-    }
+        set_ray_infos(&var->p_infos->rays[i],'h', h_xy, distance1 );
     else if (distance1 > distance2 || distance1 < 0)
-    {
-        var->p_infos->rays[i].distance = distance2;
-        var->p_infos->rays[i].horzt_or_vert = 'v';
-        var->p_infos->rays[i].x_last_intersection = v_xy.x;
-        var->p_infos->rays[i].y_last_intersection = v_xy.y;
-    }
+        set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance2 );
 }
 void shoot_the_rays(t_main_s * var)
 {

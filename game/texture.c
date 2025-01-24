@@ -1,4 +1,4 @@
-#include"../includes/cube.h"
+#include"../includes/ps.h"
 #include"math.h"
 
 
@@ -50,54 +50,3 @@ int	create_trgb(int t, int r, int g, int b)
 // 	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | color[3]);
 // }
 
-int **gat_pixles(mlx_texture_t* img, int w, int h)
-{
-    (void)img;
-    int **pixs;
-    int i;
-    int j;
-
-    i = 0 ;
-    pixs = malloc(sizeof(int *) * h);
-    if(pixs)
-        return NULL ;
-    while(i < h)
-    {
-        j = 0 ;
-        while(j < w)
-        {
-            pixs[i] = (int *)malloc(sizeof(int) * w);
-            if(pixs)
-                return NULL ;
-            // pixs[i][j] = gettt_rgba( &img->pixels[(i * w + j) * 4] );
-            j++;
-        }
-        i++;
-    }
-    return pixs;
-}
-t_text *get_images( t_main_s *var)
-{
-    int i = 0 ;
-    i = 0 ;
-    t_text *text;
-
-
-    // mlx_image_t* img;
-
-    text = malloc(sizeof(t_text));
-    if(!text )
-        return NULL;
-    // exit(0);
-    // img = mlx_texture_to_image(mlx, tmp);
-    // while(i < 4)
-    // {
-        // mlx_delete_texture(tmp);
-        text[i].pixels = gat_pixles(var->text, var->text->width, var->text->height);
-        text[i].hieght = var->text->height;
-        text[i].width = var->text->width;
-        // mlx_delete_image(mlx, img);
-        // i++;
-    // }
-    return text;
-}

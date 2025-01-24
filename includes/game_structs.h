@@ -2,7 +2,8 @@
 #define GAME_STRUCTS_H
 
 #include <stdbool.h>
-// #include "textures.h"
+#include "parsing.h"
+#include "ps.h"
 #include "../lib/mlx/include/MLX42/MLX42.h"
 
 typedef struct s_main_struct t_main_s;
@@ -15,6 +16,33 @@ typedef struct s_walls_rendering t_walls;
 typedef struct s_mini_map t_mini_map;
 typedef struct s_textures_imgs t_textures_img;
 typedef struct s_x_and_y_d t_x_and_y_d;
+
+
+
+/* TEXTURES */
+
+typedef struct s_img t_img;
+typedef struct s_text t_text;
+
+struct s_img {
+    double x_img;
+    double y_img;
+};
+
+struct s_text {
+    int **pixels;
+    int width;
+    int hieght;
+};
+
+int     create_trgb(int t, int r, int g, int b);
+int     calc_x_img(int hor_or_ver, t_ray_info *ray, double wall_hiegt, double img_w);
+int     calc_y_img(int y_proj ,int wall_hiegt , int img_h);
+t_text  *get_images(mlx_texture_t* text);
+int     gettt_rgba(uint8_t *color);
+
+
+/***************************/
 
 struct s_x_and_y_d
 {
@@ -67,6 +95,7 @@ struct s_ray_info
     int horzt_or_vert;
     double distance;
     double angle;
+    char wall_dir;
 };
 
 struct s_player_infos
@@ -99,24 +128,21 @@ struct s_main_struct
     int window_height;
     int map_hight;
     int map_width;
-    int mouse_x;
+
     char **map;// eq alo.map
     mlx_t *mlx;
-    // void *mlx;
-    void *mlx_win;
     void *img_ver;
     void *img_hor;
-    // t_text *img;
-    // t_data img2;
     mlx_image_t *img;
     mlx_image_t *img2;
-    // t_data img3;
-    mlx_texture_t *text;
+    t_text *text;
     t_mini_map *mini_map;
     t_player_infos *p_infos;
-
-
-    //s_parse_data *alo;
+    t_parse_data *parse;
+    /***********/
+    //bonus
+    /***********/
+    int mouse_x;
 };
 
 

@@ -1,4 +1,4 @@
-#include"../includes/cube.h"
+// #include"../includes/cube.h"
 
 // void	ff(void)
 // {

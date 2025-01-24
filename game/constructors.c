@@ -1,5 +1,49 @@
 #include "../includes/ps.h"
 
+int **gat_pixles(mlx_texture_t* img, int w, int h)
+{
+    (void)img;
+    int **pixs;
+    int i;
+    int j;
+
+    i = 0 ;
+    pixs = malloc(sizeof(int *) * h);
+    if(pixs)
+        return NULL ;
+    while(i < h)
+    {
+        j = 0 ;
+        while(j < w)
+        {
+            pixs[i] = (int *)malloc(sizeof(int) * w);
+            if(pixs)
+                return NULL ;
+            pixs[i][j] = gettt_rgba( &img->pixels[(i * w + j) * 4] );
+            j++;
+        }
+        i++;
+    }
+    return pixs;
+}
+t_text *get_image(mlx_texture_t *text)
+{
+    int i = 0 ;
+    i = 0 ;
+    t_text *img;
+
+
+    // mlx_image_t* img;
+
+    img = malloc(sizeof(t_text));
+    if(!img )
+        return NULL;
+    img[i].pixels = gat_pixles(text, text->width, text->height);
+    img[i].hieght = text->height;
+    img[i].width = text->width;
+    return img;
+}
+
 t_player_infos *init_player_struct(char c, int x, int y)
 {
     t_player_infos *var;
@@ -16,13 +60,13 @@ t_player_infos *init_player_struct(char c, int x, int y)
     var->rays = NULL;
     var->nbr_rays = 0;
     var->fov = (M_PI / 180) * 60;
-    if (c == 'N')
-        var->rotation_angle = M_PI / 2; 
-    if (c == 'S')
-        var->rotation_angle = M_PI + (M_PI / 2);
     if (c == 'E')
-        var->rotation_angle = M_PI ;
+        var->rotation_angle = M_PI / 2; 
     if (c == 'W')
+        var->rotation_angle = M_PI + (M_PI / 2);
+    if (c == 'N')
+        var->rotation_angle = M_PI ;
+    if (c == 'S')
         var->rotation_angle = 0;
     return (var);
 }
@@ -47,8 +91,41 @@ t_mini_map *init_mini_map(void *mlx, int width, int height)
     return var;
 }
 
-void init_textures( __unused t_main_s *var)
+/***
+ * images stored in array in a strict order 
+ * following real direction N -> E -> S -> W 
+*/
+mlx_texture_t *safe_load(char *path)
 {
+    mlx_texture_t *img;
+
+    img = mlx_load_png(path);
+    if(!img)
+        panic ("load png failed !\n");
+    return img ;
+}
+t_text *init_textures(t_main_s *var)
+{
+    t_text *text;
+    mlx_texture_t *img;
+
+    text = malloc(sizeof(t_text) * 4);
+    if(!text)
+        panic("malloc failed !\n");
+    // texture duplicate : mlx_texture_t => t_text
+    img = safe_load(var->parse->tex_no);
+    text[0] = *get_image(img);
+    img = safe_load(var->parse->tex_ea);
+    text[1] = *get_image(img);
+    img = safe_load(var->parse->tex_so);
+    text[2] = *get_image(img);
+    img = safe_load(var->parse->tex_we);
+    text[3] = *get_image(img);
+    return text;
+    // safe_load();
+    // safe_load();
+    // safe_load();
+        
     // var->text.height = 64;
     // var->text.width = 64;
     // var->text.img_hor = mlx_xpm_file_to_image(var->mlx, "", &var->text.width, &var->text.height);
@@ -57,7 +134,9 @@ void init_textures( __unused t_main_s *var)
     // var->text.img_ver = NULL;
 }
 
-t_main_s *init_main_var(char **av)
+
+
+t_main_s *init_main_var(t_parse_data *parse)
 {
     t_main_s *var;
     var = malloc(sizeof(*var));
@@ -66,26 +145,23 @@ t_main_s *init_main_var(char **av)
     var->window_height = 800;
     var->window_width = 1400;
     var->p_infos = NULL;
-    fill_map(av, var);
-    var->mlx = mlx_init( var->window_width,  var->window_height, "cub3D", false);
-    // var->mlx = mlx_init();
-    var->mlx_win = NULL;
-    // var->mlx_win = mlx_new_window(var->mlx, var->window_width, var->window_height , "cub3D");
-    // var->img.img = mlx_new_image(var->mlx, (var->map_width  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
-    // var->img.addr = mlx_get_data_addr(var->img.img, &var->img.bits_per_pixel, &var->img.line_length, &var->img.endian);
+    var->parse = parse;
+    var->map = parse->map;
+
+    var->map_hight = ft_dstr_len(var->map);
+    var->map_width = ft_strlen(var->map[0]);
+
+    var->mlx = mlx_init(var->window_width,  var->window_height, "cub3D", false);
    
-   
-    // var->img = mlx_new_image(var->mlx, (var->map_width  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
     var->img = mlx_new_image(var->mlx, (10  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
    
-    // var->img2.img = mlx_new_image(var->mlx, var->window_width, var->window_height);
-    // var->img2.addr = mlx_get_data_addr(var->img2.img, &var->img2.bits_per_pixel, &var->img2.line_length, &var->img2.endian);
-
     var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
 
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
+    var->text = init_textures(var);
+    //  BONUS PART :: 
     var->mouse_x = (var->window_width * square_len) / 2;
-    init_textures(var);
+    // init_textures(var);
     return var;
 }
 
@@ -105,6 +181,7 @@ t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double angle_incremet)
         var[i].facing_right = false;
         var[i].x_last_intersection = 0;
         var[i].y_last_intersection = 0;
+        var[i].wall_dir = 0;
         i++;
         ray_angle += angle_incremet; 
     }
