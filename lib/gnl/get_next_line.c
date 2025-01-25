@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:27:59 by ilaasri           #+#    #+#             */
-/*   Updated: 2024/11/20 21:37:36 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/25 16:23:14 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "../../includes/parsing.h"
+#include "../../mandatory/includes/parsing.h"
 
 void	_freedom(char **zoom, char **chyata, char **res, int howmany)
 {
