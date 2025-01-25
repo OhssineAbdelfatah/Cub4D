@@ -77,10 +77,10 @@ void shoot_the_rays(t_main_s * var)
 {
     double fov, angle_to_start, ray_angle_increment;
     double ray_angle;
-    int wall_strip;
+    // int wall_strip;
     int i, x, y;
 
-    wall_strip = 1;
+    // wall_strip = 1;
     i = 0;
     // var->p_infos->nbr_rays  = (var->map_width * square_len) / wall_strip;
     var->p_infos->nbr_rays  = var->window_width;
