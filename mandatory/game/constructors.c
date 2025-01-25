@@ -26,6 +26,8 @@ int **gat_pixles(mlx_texture_t* img, int w, int h)
     }
     return pixs;
 }
+
+
 t_text *get_image(mlx_texture_t *text)
 {
     int i = 0 ;
@@ -38,6 +40,7 @@ t_text *get_image(mlx_texture_t *text)
     img = malloc(sizeof(t_text));
     if(!img )
         return NULL;
+    
     img[i].pixels = gat_pixles(text, text->width, text->height);
     img[i].hieght = text->height;
     img[i].width = text->width;
@@ -57,7 +60,7 @@ t_player_infos *init_player_struct(char c, int x, int y)
     var->move_left_right = 0;
     var->turn_arround = 0; 
     var->speed = 6;
-    var->rotation_speed = (M_PI / 180) * 2;
+    var->rotation_speed = (M_PI / 180) * 3;
     var->rays = NULL;
     var->nbr_rays = 0;
     var->fov = (M_PI / 180) * 60;
@@ -69,6 +72,35 @@ t_player_infos *init_player_struct(char c, int x, int y)
         var->rotation_angle = M_PI ;
     if (c == 'S')
         var->rotation_angle = 0;
+    return (var);
+}
+
+
+mlx_texture_t *safe_load(char *path)
+{
+    mlx_texture_t *img;
+
+    img = mlx_load_png(path);
+    if(!img)
+    {
+        ft_putstr_fd(path, 2);
+        panic ("load png failed !\n");
+    }
+    return img ;
+}
+
+t_bonus *init_bonus(t_main_s *main)
+{
+    t_bonus *var;
+
+    var = (t_bonus *)malloc(sizeof(t_bonus));
+    if (!var)
+        panic("malloc faild! \n");
+    var->gun_in_hand =  safe_load("../assets/textures/shoot1.png");
+    var->door = NULL;
+    var->img = NULL;
+    var->key = NULL;
+    var->mouse_x = (main->window_width * square_len) / 2;
     return (var);
 }
 
@@ -96,15 +128,6 @@ t_mini_map *init_mini_map(void *mlx, int width, int height)
  * images stored in array in a strict order 
  * following real direction N -> E -> S -> W 
 */
-mlx_texture_t *safe_load(char *path)
-{
-    mlx_texture_t *img;
-
-    img = mlx_load_png(path);
-    if(!img)
-        panic ("load png failed !\n");
-    return img ;
-}
 
 
 void print_pixesl(t_text *img)
@@ -186,8 +209,10 @@ t_main_s *init_main_var(t_parse_data *parse)
 
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
     var->text = init_textures(var);
+
+    var->bonus = init_bonus(var);
     //  BONUS PART :: 
-    var->mouse_x = (var->window_width * square_len) / 2;
+    // var->mouse_x = (var->window_width * square_len) / 2;
     // init_textures(var);
     return var;
 }

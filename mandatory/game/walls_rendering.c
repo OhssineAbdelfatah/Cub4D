@@ -60,6 +60,8 @@ double adjust_distance(t_main_s *var, int i)
 
 
 
+
+
 int get_transparency(double distance)
 {
     // static int ss;
@@ -118,4 +120,3 @@ void    wall_rendering(t_main_s *var)
     free(var->p_infos->rays);
     free(walls);
 }
-

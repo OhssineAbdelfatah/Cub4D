@@ -16,6 +16,7 @@ typedef struct s_walls_rendering t_walls;
 typedef struct s_mini_map t_mini_map;
 typedef struct s_textures_imgs t_textures_img;
 typedef struct s_x_and_y_d t_x_and_y_d;
+typedef struct s_bonus t_bonus;
 
 
 
@@ -49,6 +50,18 @@ struct s_x_and_y_d
 {
     double x;
     double y; 
+};
+
+
+
+struct s_bonus
+{
+    int mouse_x;
+    mlx_texture_t *img;
+    mlx_texture_t *door;
+    mlx_texture_t *key;
+    mlx_texture_t *gun_in_hand;
+    // mlx_image_t *door;
 };
 
 struct	s_data {
@@ -140,10 +153,11 @@ struct s_main_struct
     t_mini_map *mini_map;
     t_player_infos *p_infos;
     t_parse_data *parse;
+    t_bonus *bonus;
     /***********/
     //bonus
     /***********/
-    int mouse_x;
+  
 };
 
 

@@ -35,9 +35,9 @@ int calc_y_img(int y_proj ,int wall_hiegt , int img_h)
 }
 
 
-int	create_trgb(int t, int r, int g, int b)
+int	create_trgb(int r, int g, int b, int a)
 {
-	return (r << 24 | g << 16 | b << 8 | t);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 /***

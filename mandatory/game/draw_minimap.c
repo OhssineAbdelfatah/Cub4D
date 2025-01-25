@@ -173,7 +173,7 @@ void work_of_art(t_main_s *var)
 {
     int color;
     
-    color = create_trgb(255, var->parse->clr_c[0],var->parse->clr_c[1], var->parse->clr_c[2]); 
+    color = create_trgb(var->parse->clr_c[0],var->parse->clr_c[1], var->parse->clr_c[2], 255); 
     paintit(var->img2,color,  (var->window_height) /2,  (var->window_width) );
 
     if (var->p_infos == NULL)
@@ -188,13 +188,15 @@ void work_of_art(t_main_s *var)
 
     // var->text = mlx_load_png("assets/textures/zalij1.png");
     // printf("BPP>>>%d\n", var->text->bytes_per_pixel);
-    
-    
-    wall_rendering(var);
-    
-    // printf("ray  dir : %c\n", var->p_infos->rays[var->p_infos->nbr_rays / 2].wall_dir);
     draw_mini_map_42(var);
+    // fps_hands_rendring(var);
+
+
     mlx_image_to_window(var->mlx, var->img2, 0, 0);
+
+    wall_rendering(var);
+
+
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img2.img, 0, 0);
 
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img.img, 0, 0);
