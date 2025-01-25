@@ -1,5 +1,35 @@
 #include "../includes/ps.h"
 
+
+t_ray_hit_obj *init_obj()
+{
+    t_ray_hit_obj *ret;
+
+    ret  = (t_ray_hit_obj *)malloc(sizeof(t_ray_hit_obj));
+    if (!ret)
+        panic("malloc failed !\n");
+    ret->distance = 0;
+    ret->x_intersection = 0;
+    ret->y_intersection = 0;
+    return ret;
+}
+
+t_rays_bonus *init_bonus_rays()
+{
+    t_rays_bonus *ret;
+
+    ret = (t_rays_bonus *)malloc(sizeof(t_rays_bonus));
+    if (!ret)
+        panic("malloc failed !\n");
+    ret->hit_a_door = false;
+    ret->hit_an_obj = false;
+    ret->hit_an_enemi = false;
+    ret->door = NULL;
+    ret->enemi = NULL;
+    ret->obj = init_obj();
+    return ret;
+}
+
 int **gat_pixles(mlx_texture_t* img, int w, int h)
 {
     (void)img;
@@ -235,6 +265,7 @@ t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double angle_incremet)
         var[i].x_last_intersection = 0;
         var[i].y_last_intersection = 0;
         var[i].wall_dir = 0;
+        var[i].bonus_rays = init_bonus_rays();
         i++;
         ray_angle += angle_incremet; 
     }

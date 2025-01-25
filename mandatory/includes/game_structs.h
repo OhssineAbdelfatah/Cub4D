@@ -16,9 +16,15 @@ typedef struct s_walls_rendering t_walls;
 typedef struct s_mini_map t_mini_map;
 typedef struct s_textures_imgs t_textures_img;
 typedef struct s_x_and_y_d t_x_and_y_d;
-typedef struct s_bonus t_bonus;
 typedef struct s_xy_i t_xy_i ;
 
+
+/********>> BONUS <<*****/
+typedef struct s_bonus t_bonus;
+typedef struct s_ray_hit_obj t_ray_hit_obj;
+typedef struct s_ray_hit_door t_ray_hit_door;
+typedef struct s_ray_hit_enemi t_ray_hit_enemi;
+typedef struct s_rays_bonus t_rays_bonus;
 
 
 /* TEXTURES */
@@ -59,6 +65,38 @@ struct s_x_and_y_d
 };
 
 
+struct s_ray_hit_obj
+{
+    double distance;
+    double x_intersection;
+    double y_intersection;
+};
+
+struct s_ray_hit_door
+{
+    double distance;
+    double x_intersection;
+    double y_intersection;
+};
+
+struct s_ray_hit_enemi
+{
+    double distance;
+    double x_intersection;
+    double y_intersection;
+};
+
+
+struct s_rays_bonus
+{
+    bool hit_a_door;
+    bool hit_an_obj;
+    bool hit_an_enemi;
+
+    t_ray_hit_obj *obj;
+    t_ray_hit_door *door;
+    t_ray_hit_enemi *enemi;
+};
 
 struct s_bonus
 {
@@ -117,6 +155,7 @@ struct s_ray_info
     double distance;
     double angle;
     char wall_dir;
+    t_rays_bonus *bonus_rays;
 };
 
 struct s_player_infos

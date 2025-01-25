@@ -34,25 +34,16 @@ void work_of_art(t_main_s *var)
     paint_floor_celling(var);
     if (var->p_infos == NULL)
         var->p_infos=  init_player_struct(var->parse->dir, ((var->parse->pos->y_ver * square_len) + (square_len / 2)), ((var->parse->pos->x_hor * square_len) + (square_len / 2)));
-
-    // paintit(&var->img3,0x0F0FF00F,  (var->window_height * scale_of_minimap) / 2,  (var->window_width * scale_of_minimap) );
-    
     shoot_the_rays(var);
-
-
     draw_mini_map_42(var);
     wall_rendering(var);
-    
     fps_hands_rendring(var);
-
-
+    
     draw_crosshairs(var, 30, 2, 0x66FF33FF);
 
     mlx_image_to_window(var->mlx, var->img2, 0, 0);
 
     // mlx_image_to_window(var->mlx, var->img, 0, 0);
-
-    
     // mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
     mlx_image_to_window(var->mlx, var->mini_map->img3, 0, 0);
 
