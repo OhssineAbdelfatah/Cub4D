@@ -81,7 +81,10 @@ mlx_texture_t *safe_load(char *path)
 
     img = mlx_load_png(path);
     if(!img)
+    {
+        ft_putstr_fd(path, 2);
         panic ("load png failed !\n");
+    }
     return img ;
 }
 
@@ -92,7 +95,7 @@ t_bonus *init_bonus(t_main_s *main)
     var = (t_bonus *)malloc(sizeof(t_bonus));
     if (!var)
         panic("malloc faild! \n");
-    var->gun_in_hand =  safe_load("assets/textures/shoot1.png");
+    var->gun_in_hand =  safe_load("../assets/textures/shoot1.png");
     var->door = NULL;
     var->img = NULL;
     var->key = NULL;
@@ -151,6 +154,7 @@ t_text *init_textures(t_main_s *var)
     if(!text)
         panic("malloc failed !\n");
     // texture duplicate : mlx_texture_t => t_text
+    printf("");
     img = safe_load(var->parse->tex_no);
     text[0] = *get_image(img);
     // print_pixesl(text);

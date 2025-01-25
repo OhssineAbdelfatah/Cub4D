@@ -34,8 +34,8 @@
 # include <unistd.h>
 
 /*   LIB   */
-# include "../lib/gnl/get_next_line.h"
-# include "../lib/libft/libft.h"
+# include "../../lib/gnl/get_next_line.h"
+# include "../../lib/libft/libft.h"
 
 /*   STRUCT MAP   */
 typedef struct s_map_lst	t_map_lst;

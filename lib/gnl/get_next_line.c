@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "../../includes/parsing.h"
+#include "../../mandatory/includes/parsing.h"
 
 void	_freedom(char **zoom, char **chyata, char **res, int howmany)
 {

@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "parsing.h"
 #include "ps.h"
-#include "../lib/mlx/include/MLX42/MLX42.h"
+#include "../../lib/mlx/include/MLX42/MLX42.h"
 
 typedef struct s_main_struct t_main_s;
 typedef struct s_player_infos t_player_infos;

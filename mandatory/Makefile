@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g
 
-LIBMLX = ./lib/mlx
+LIBMLX = ../lib/mlx
 
 #######################################
 # FOR LINUX :
@@ -34,7 +34,7 @@ ASCII_ART = "\033[31m\n"\
 "\__| \_,_|_.__/___/ |___/  \n"\
 "  \033[0m "                          
 
-GNL = lib/gnl/get_next_line.c lib/gnl/get_next_line_utils.c
+GNL = ../lib/gnl/get_next_line.c ../lib/gnl/get_next_line_utils.c
 
 GAME_FILES = game/hooks_nd_loops.c game/casting.c game/tools.c game/walls_rendering.c game/rays.c \
 			game/drawing.c game/draw_minimap.c game/draw_mini_map_pro.c game/bonus.c \
@@ -53,7 +53,7 @@ CFILES = ${PARSING} ${GNL} ${TEXTURES} ${GAME_FILES} main.c
 OBJ = $(CFILES:.c=.o)
 NAME = cub3D
 
-My_lib = lib/libft/libft.a
+My_lib = ../lib/libft/libft.a
 
 all : $(My_lib) $(NAME)
 
@@ -61,17 +61,17 @@ all : $(My_lib) $(NAME)
 	$(CC)  $(CFLAGS) $(FFLAG)   -c  $< -o $@
 
 $(My_lib) : 
-	make -C lib/libft
+	make -C ../lib/libft
 
 $(NAME) : $(OBJ) $(My_lib) 
 	$(CC) $^ $(CFLAGS) $(My_lib) $(MLXFLAGS_LINK)  -o $@
 
 clean :
-	make clean -C lib/libft
+	make clean -C ../lib/libft
 	rm -rf $(OBJ)
 
 fclean : clean
-	make fclean -C lib/libft
+	make fclean -C ../lib/libft
 	rm -rf $(NAME)
 
 re : fclean all
