@@ -84,7 +84,7 @@ mlx_texture_t *safe_load(char *path)
     if(!img)
     {
         ft_putstr_fd(path, 2);
-        panic ("load png failed !\n");
+        panic (" ,load png failed !\n");
     }
     return img ;
 }
@@ -101,6 +101,7 @@ t_bonus *init_bonus(t_main_s *main)
     var->img = NULL;
     var->key = NULL;
     var->mouse_x = (main->window_width * square_len) / 2;
+    var->gun_in_hand_img = get_image(var->gun_in_hand);
     return (var);
 }
 

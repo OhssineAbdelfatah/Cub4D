@@ -17,6 +17,7 @@ typedef struct s_mini_map t_mini_map;
 typedef struct s_textures_imgs t_textures_img;
 typedef struct s_x_and_y_d t_x_and_y_d;
 typedef struct s_bonus t_bonus;
+typedef struct s_xy_i t_xy_i ;
 
 
 
@@ -28,6 +29,11 @@ typedef struct s_text t_text;
 struct s_img {
     double x_img;
     double y_img;
+};
+
+struct s_xy_i {
+    int x;
+    int y;
 };
 
 struct s_text {
@@ -61,6 +67,7 @@ struct s_bonus
     mlx_texture_t *door;
     mlx_texture_t *key;
     mlx_texture_t *gun_in_hand;
+    t_text *gun_in_hand_img;
     // mlx_image_t *door;
 };
 
@@ -142,21 +149,20 @@ struct s_main_struct
     int window_height;
     int map_hight;
     int map_width;
-
-    char **map;// eq alo.map
-    mlx_t *mlx;
+    char **map;
     void *img_ver;
     void *img_hor;
+    mlx_t *mlx;
     mlx_image_t *img;
     mlx_image_t *img2;
     t_text **text;
     t_mini_map *mini_map;
     t_player_infos *p_infos;
     t_parse_data *parse;
-    t_bonus *bonus;
     /***********/
     //bonus
     /***********/
+    t_bonus *bonus;
   
 };
 

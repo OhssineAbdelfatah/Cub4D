@@ -102,7 +102,8 @@ int draw_mini_map_42(t_main_s *var);
 void fill_map(char **av,t_main_s *var);
 void work_of_art(t_main_s *var);
 void wall_rendering(t_main_s *var);
-void paintit(mlx_image_t *img, int color, int hight, int width);
+// void paintit(mlx_image_t *img, int color, int hight, int width);
+void paintit(mlx_image_t *img, int color, t_xy_i *start, t_xy_i *till);
 
 
 /************************************************************/
@@ -111,6 +112,7 @@ void paintit(mlx_image_t *img, int color, int hight, int width);
 
 
 void fps_hands_rendring(t_main_s *var);
+void draw_crosshairs(t_main_s *var, int len ,int width, int color);
 
 
 #endif

@@ -39,7 +39,11 @@ int draw_mini_map2(t_main_s *var)
 {
     int i, j,x, y, check, new_y, new_x;
     // printf("height of  minimap:%d ,width : %d \n", var->mini_map->minimap_height, var->mini_map->minimap_width);
-    paintit(var->mini_map->img3, 0x00E0E0E0, var->mini_map->minimap_height , var->mini_map->minimap_width);
+    
+    
+    // paintit(var->mini_map->img3, 0x00E0E0E0, var->mini_map->minimap_height , var->mini_map->minimap_width);
+    
+    
     // draw_disk11(&var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
     x = 0;
     y = 0;
@@ -167,47 +171,3 @@ int check_teleportation(t_player_infos *var, char **map)
 }
 
 
-
-
-void work_of_art(t_main_s *var)
-{
-    int color;
-    
-    color = create_trgb(var->parse->clr_c[0],var->parse->clr_c[1], var->parse->clr_c[2], 255); 
-    paintit(var->img2,color,  (var->window_height) /2,  (var->window_width) );
-
-    if (var->p_infos == NULL)
-    {
-        // printf("path[0], %s\n path[1] : %s\n", var->parse->tex_no, var->parse->tex_we);
-        // printf("dir : %c, x : %d, y: %d ", var->parse->dir, var->parse->pos->x_hor, var->parse->pos->y_ver);
-        var->p_infos=  init_player_struct(var->parse->dir, ((var->parse->pos->y_ver * square_len) + (square_len / 2)), ((var->parse->pos->x_hor * square_len) + (square_len / 2)));
-    }
-    // paintit(&var->img3,0x0F0FF00F,  (var->window_height * scale_of_minimap) / 2,  (var->window_width * scale_of_minimap) );
-    
-    shoot_the_rays(var);
-
-    // var->text = mlx_load_png("assets/textures/zalij1.png");
-    // printf("BPP>>>%d\n", var->text->bytes_per_pixel);
-    draw_mini_map_42(var);
-    // fps_hands_rendring(var);
-
-
-    mlx_image_to_window(var->mlx, var->img2, 0, 0);
-
-    wall_rendering(var);
-
-
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img2.img, 0, 0);
-
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img.img, 0, 0);
-    // mlx_image_to_window(var->mlx, var->img, 0, 0);
-
-    
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
-    mlx_image_to_window(var->mlx, var->mini_map->img3, 0, 0);
-
-
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, alo.img, 0, 0);
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img3.img, var->window_width * scale_of_minimap, 0);
-}

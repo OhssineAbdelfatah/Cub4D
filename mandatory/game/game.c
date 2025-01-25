@@ -12,46 +12,60 @@ int ft_dstr_len(char **av)
 }
 
 
-void fill_map(char **av,t_main_s *var)
+
+void paint_floor_celling(t_main_s *var)
 {
-    int fd;
-    int maplen;
-    char *line;
-    int i = 0;
+     int color;
+    t_xy_i start, till;
+     color = create_trgb(var->parse->clr_c[0],var->parse->clr_c[1], var->parse->clr_c[2], 255); 
+    till.x = (var->window_width);
+    till.y = (var->window_height) /2;
+    start.x = 0;
+    start.y = 0;
+    paintit(var->img2,color,  &start, &till );
+    start.y = var->window_height / 2;
+    color = create_trgb(var->parse->clr_f[0],var->parse->clr_c[1], var->parse->clr_c[2], 255); 
+    paintit(var->img2, color, &start, &till);
+}
 
-    maplen = 0;
-    fd = open(av[1], O_RDONLY);
-    if (fd < 0)
-    {
-        perror("path of the file is invalid !");
-       return;
-    }
-    line  = get_next_line(fd);
-    while (line)
-    {
-        if (maplen == 0)
-            maplen++;
-        free(line);
-        line = get_next_line(fd);
-        maplen ++;
-    }
-    close (fd);
-    var->map = (char **)malloc(sizeof (char *) * (maplen + 1));
-    if (!var->map)
-        perror ("malloc failed !\n");
-    fd = open(av[1], O_RDONLY);
-    while (i < maplen)
-    {
-        var->map[i] = get_next_line(fd);
-        i++;
-    }
-    var->map[i] = NULL;
-    var->map_hight = ft_dstr_len(var->map);
-    var->map_width = ft_strlen(var->map[0]) - 1;
 
-    // var->map_hight = 0;
-    // var->map_width = 0;
-} 
+void work_of_art(t_main_s *var)
+{    
+    paint_floor_celling(var);
+    if (var->p_infos == NULL)
+        var->p_infos=  init_player_struct(var->parse->dir, ((var->parse->pos->y_ver * square_len) + (square_len / 2)), ((var->parse->pos->x_hor * square_len) + (square_len / 2)));
+
+    // paintit(&var->img3,0x0F0FF00F,  (var->window_height * scale_of_minimap) / 2,  (var->window_width * scale_of_minimap) );
+    
+    shoot_the_rays(var);
+
+
+    draw_mini_map_42(var);
+    wall_rendering(var);
+    
+    fps_hands_rendring(var);
+
+
+    draw_crosshairs(var, 30, 2, 0x66FF33FF);
+
+    mlx_image_to_window(var->mlx, var->img2, 0, 0);
+
+    // mlx_image_to_window(var->mlx, var->img, 0, 0);
+
+    
+    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
+    mlx_image_to_window(var->mlx, var->mini_map->img3, 0, 0);
+
+
+    // mlx_put_image_to_window(var->mlx, var->mlx_win, alo.img, 0, 0);
+    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
+    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img3.img, var->window_width * scale_of_minimap, 0);
+}
+
+
+
+
+
 
 // void	ff(void)
 // {
