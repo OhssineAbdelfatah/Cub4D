@@ -26,7 +26,7 @@ void set_ray_direction(t_ray_info *var, double ray_angle)
 }
 
 
-void set_ray_infos(t_ray_info *ray, char which_one, t_x_and_y_d x_y, int distance)
+void set_ray_infos(t_ray_info *ray, char which_one, t_x_and_y_d x_y, double distance)
 {
     ray->distance = distance;
     ray->horzt_or_vert = which_one;
@@ -77,14 +77,10 @@ void shoot_the_rays(t_main_s * var)
 {
     double fov, angle_to_start, ray_angle_increment;
     double ray_angle;
-    int wall_strip;
     int i, x, y;
 
-    wall_strip = 1;
     i = 0;
-    // var->p_infos->nbr_rays  = (var->map_width * square_len) / wall_strip;
     var->p_infos->nbr_rays  = var->window_width;
-    // printf(">>>>nbr of rays %d,map_hight %d,map_width %d\n", var->p_infos->nbr_rays, var->map_hight, var->map_width);
     fov = ( M_PI / 180) * 60;
     ray_angle_increment = fov / var->p_infos->nbr_rays;
     var->p_infos->nbr_rays = var->p_infos->nbr_rays;
@@ -92,7 +88,6 @@ void shoot_the_rays(t_main_s * var)
     ray_angle = angle_to_start;
     ray_angle = adjust_angle(ray_angle);
     var->p_infos->rays =  init_rays(var, ray_angle, ray_angle_increment);
-
     x = var->p_infos->x ;
     y = var->p_infos->y ;
     while (i < var->p_infos->nbr_rays)
@@ -101,7 +96,6 @@ void shoot_the_rays(t_main_s * var)
         cast_ray(var,  i);
         x = var->p_infos->x + (cos(ray_angle) * (var->p_infos->rays[i].distance ));
         y = var->p_infos->y + (sin(ray_angle) * (var->p_infos->rays[i].distance ));
-        draw_a_line(var, var->p_infos->y * scale_of_minimap , var->p_infos->x * scale_of_minimap  , y * scale_of_minimap , x * scale_of_minimap , 0xF0000F);
         ray_angle += ray_angle_increment;
         ray_angle = adjust_angle(ray_angle);
         i++;

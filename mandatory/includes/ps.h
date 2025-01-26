@@ -114,5 +114,11 @@ void paintit(mlx_image_t *img, int color, t_xy_i *start, t_xy_i *till);
 void fps_hands_rendring(t_main_s *var);
 void draw_crosshairs(t_main_s *var, int len ,int width, int color);
 
+/************************************************************/
+//                      >> FREEDOM.C <<
+/************************************************************/
+
+void free_rays_bonus(t_ray_info *var);
+void free_rays(t_main_s *var);
 
 #endif

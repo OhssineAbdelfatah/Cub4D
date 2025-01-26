@@ -73,7 +73,7 @@ t_parse_data	*parse(int ac, char **av)
 	t_parse_data *data1;
 	// data = (t_parse_data *)safe_malloc();
 	data = (t_parse_data**)safe__malloc();
-	if (ac == 2)
+	if (ac == 2 || ac == 3)
 	{
 		if (cube(av[1], data))
 		{

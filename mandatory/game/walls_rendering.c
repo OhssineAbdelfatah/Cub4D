@@ -104,10 +104,8 @@ void    wall_rendering(t_main_s *var)
         if (adjusted_distance == 0)
             adjusted_distance = 0.5;
         walls->wall_hight = (square_len / adjusted_distance) * walls->distance_prj_plane;
-    
         y = (var->window_height) / 2 - (walls->wall_hight / 2);
         x = (var->window_height) / 2 + (walls->wall_hight / 2);
-
         x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays+i, square_len, texture->width);
         transparency = get_transparency(adjusted_distance);
         draw_rectangle(var,texture, j, y, x, x_img, color, transparency, i);
@@ -117,6 +115,7 @@ void    wall_rendering(t_main_s *var)
     }
     // write(1, "\n", 1);
     (void)x_img;
-    free(var->p_infos->rays);
+    // free_rays_bonus(var)
+    free_rays(var);
     free(walls);
 }

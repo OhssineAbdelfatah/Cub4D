@@ -67,6 +67,7 @@ struct s_x_and_y_d
 
 struct s_ray_hit_obj
 {
+    int from;
     double distance;
     double x_intersection;
     double y_intersection;
@@ -93,6 +94,7 @@ struct s_rays_bonus
     bool hit_an_obj;
     bool hit_an_enemi;
 
+    // t_ray_hit_obj obj[2];
     t_ray_hit_obj *obj;
     t_ray_hit_door *door;
     t_ray_hit_enemi *enemi;
@@ -192,7 +194,6 @@ struct s_main_struct
     void *img_ver;
     void *img_hor;
     mlx_t *mlx;
-    mlx_image_t *img;
     mlx_image_t *img2;
     t_text **text;
     t_mini_map *mini_map;
@@ -202,7 +203,6 @@ struct s_main_struct
     //bonus
     /***********/
     t_bonus *bonus;
-  
 };
 
 

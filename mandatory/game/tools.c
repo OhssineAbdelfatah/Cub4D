@@ -14,14 +14,6 @@ void panic(char *s)
     exit(1);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
 double adjust_angle(double angle)
 {
     if (angle > (2 * M_PI))
@@ -30,6 +22,14 @@ double adjust_angle(double angle)
         return ((2 * M_PI) + angle);
     return angle;
 }
+
+// void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+// 	*(unsigned int*)dst = color;
+// }
 
 // void paintit(mlx_image_t *img, int color, int hight, int width)
 // {

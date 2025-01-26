@@ -176,7 +176,7 @@ void fill_data(t_pre_data* dt)
 	free(sets);
 }
 
-t_pre_data	*read_file(char *file)
+t_pre_data	* read_file(char *file)
 {
 	int			fd_map;
 	t_pre_data	*dt;

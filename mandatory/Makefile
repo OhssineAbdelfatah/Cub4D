@@ -1,6 +1,7 @@
 CC = cc 
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra #
+-fsanitize=address -g
 
 LIBMLX = ../lib/mlx
 
@@ -38,7 +39,7 @@ GNL = ../lib/gnl/get_next_line.c ../lib/gnl/get_next_line_utils.c
 
 GAME_FILES = game/hooks_nd_loops.c game/casting.c game/tools.c game/walls_rendering.c game/rays.c \
 			game/drawing.c game/draw_minimap.c game/draw_mini_map_pro.c game/bonus.c \
-			game/constructors.c \
+			game/constructors.c game/freedom.c\
 			game/game.c
 
 TEXTURES	= game/texture.c 		

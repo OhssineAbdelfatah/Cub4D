@@ -59,6 +59,14 @@
   "files.associations": {
     "ps.h": "c",
     "parsing.h": "c",
-    "fcntl.h": "c"
-  }
+    "fcntl.h": "c",
+    "atomic": "cpp",
+    "cstdlib": "cpp",
+    "locale": "cpp",
+    "ostream": "cpp",
+    "algorithm": "cpp",
+    "complex": "cpp",
+    "new": "cpp"
+  },
+  "cmake.sourceDirectory": "/Users/ilaasri/Desktop/C_cursus/42_Cube3D/lib/mlx"
 }

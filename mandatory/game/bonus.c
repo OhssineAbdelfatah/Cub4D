@@ -1,6 +1,82 @@
 # include "../includes/ps.h"
 
 
+double get_ideal_distance(t_main_s  *var, int i)
+{
+    double new_y, new_x;
+    new_y = var->p_infos->rays[i].bonus_rays->obj->x_intersection / square_len;
+    (void)new_x;
+    (void)new_y;
+    return 0.0;
+}
+
+void rays_check_for_obj(t_main_s *var)
+{
+    int i = 0;
+    double inc_to_adj_dstc;
+    int first, last, moy;
+    first = -1;
+    last = -1;
+
+    while (i < var->p_infos->nbr_rays)
+    {
+        if (var->p_infos->rays[i].bonus_rays->hit_an_obj)
+            first = i;
+        if (!var->p_infos->rays[i].bonus_rays->hit_an_obj && first != -1)
+            last = i;
+        if (last != -1)
+            break;
+        i++;
+    }
+    if (last == -1)
+    {
+        moy = (last - first) / 2;
+        inc_to_adj_dstc = get_ideal_distance(var, first) - var->p_infos->rays[moy].bonus_rays->obj->distance;
+    }
+}
+
+
+void fill_map(char **av,t_main_s *var)
+{
+    int fd;
+    int maplen;
+    char *line;
+    int i = 0;
+
+    maplen = 0;
+    fd = open(av[1], O_RDONLY);
+    if (fd < 0)
+    {
+        perror("path of the file is invalid !");
+       return;
+    }
+    line  = get_next_line(fd);
+    while (line)
+    {
+        if (maplen == 0)
+            maplen++;
+        free(line);
+        line = get_next_line(fd);
+        maplen ++;
+    }
+    close (fd);
+    var->map = (char **)malloc(sizeof (char *) * (maplen + 1));
+    if (!var->map)
+        perror ("malloc failed !\n");
+    fd = open(av[1], O_RDONLY);
+    while (i < maplen)
+    {
+        var->map[i] = get_next_line(fd);
+        i++;
+    }
+    var->map[i] = NULL;
+    var->map_hight = ft_dstr_len(var->map);
+    var->map_width = ft_strlen(var->map[0]) - 1;
+}
+
+
+
+
 
 int hit_some(t_main_s *var, double xintersection, double yintersection)
 {

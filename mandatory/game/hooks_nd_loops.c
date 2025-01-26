@@ -37,25 +37,17 @@ int need_update(t_player_infos * var, char **map)
     return 0;
 }
 
-// int key_hook(int key, t_main_s *ptr)
-// {
-//     printf(">>>>%d \n", key);
-//     if (key == ESC)
-//         exit(1);
-//     if (key == left_arrow)
-//         ptr->p_infos->turn_arround = 1;
-//     if (key == right_arrow)
-//         ptr->p_infos->turn_arround = -1;
-//     if (key == W)
-//         ptr->p_infos->move_up_down = 1;
-//     if (key == S)
-//         ptr->p_infos->move_up_down = -1;
-//     if (key == A)
-//         ptr->p_infos->move_left_right = 1;
-//     if (key == D)
-//         ptr->p_infos->move_left_right = -1;
-//     return 0;
-// }
+void smooth_exit(t_main_s *var)
+{
+    // int i = 0;
+    // if (var->p_infos->rays->bonus_rays)
+    //     free_rays_bonus()
+    free(var->p_infos);
+    free(var->mlx);
+    free(var->parse);
+    free(var->bonus);
+}
+
 
 void key_hook(mlx_key_data_t key, void *var)
 {
@@ -63,7 +55,10 @@ void key_hook(mlx_key_data_t key, void *var)
 
     ptr = (t_main_s *)var;
     if (key.key == MLX_KEY_ESCAPE)
-        exit(1);
+    {
+        // smooth_exit(var);
+        exit(0);
+    }
     if (key.key == left_arrow)
         ptr->p_infos->turn_arround = 1;
     if (key.key == right_arrow)
@@ -85,11 +80,11 @@ void loop_hook(void *ptr)
     var = (t_main_s *)ptr;
     if (need_update(var->p_infos, var->map))
     {
-        mlx_delete_image(var->mlx,var->img);
+        // mlx_delete_image(var->mlx,var->img);
         mlx_delete_image(var->mlx,var->img2);
         mlx_delete_image(var->mlx,var->mini_map->img3);
        
-        var->img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
+        // var->img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
         
         var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
         
@@ -100,10 +95,52 @@ void loop_hook(void *ptr)
         var->p_infos->turn_arround  = 0;
     }
 }
+
+void mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
+{
+    t_main_s *var;
+    int new_x, new_y;
+
+    var = (t_main_s *)param;
+
+    mlx_get_mouse_pos(var->mlx, &new_x, &new_y);
+    // the_origin = var->bonus->mouse_x;
+    // if (new_x < the_origin)
+    //     var->p_infos->turn_arround = -1;
+    // else if (new_x > the_origin)
+    //     var->p_infos->turn_arround = 1;
+    // var->bonus->mouse_x = the_origin;
+    (void)button;
+    (void)action;
+    (void)mods;
+    // printf()
+}
+
+
+void cursor_func(double xpos, double ypos, void* param)
+{
+    t_main_s *var;
+    int the_origin;
+   
+    var = (t_main_s *)param;
+    the_origin = var->bonus->mouse_x;
+    if (xpos < the_origin - 5)
+        var->p_infos->turn_arround = 1;
+    else if (xpos > the_origin + 5)
+        var->p_infos->turn_arround = -1;
+    var->bonus->mouse_x = xpos;
+    if (xpos < 0 || xpos > var->window_width)
+        var->bonus->mouse_x = var->window_width /2;
+    (void)ypos;
+}
+
 void mlx_loops_and_hooks(t_main_s *var)
 {
     mlx_key_hook(var->mlx, key_hook, var);
     // mlx_hook(var->mlx_win, 2, 1L<<0, key_hook, var);
+
+    mlx_mouse_hook(var->mlx, mouse_hook, var);
+    mlx_cursor_hook(var->mlx, cursor_func, var);
     mlx_loop_hook(var->mlx, loop_hook, var);
     mlx_loop(var->mlx); 
 }

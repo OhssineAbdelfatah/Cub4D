@@ -1,5 +1,37 @@
 # include "../includes/ps.h"
 
+
+double get_distance_obj(t_main_s *var, double x, double  y)
+{
+    double ret;
+    ret = sqrt(pow((x - var->p_infos->x), 2) + pow ((y - var->p_infos->y), 2));
+    return (ret);
+}
+
+int hit_an_obj(t_main_s *var, double xintersection, double yintersection, int i, int which)
+{
+    int x;
+    int y;
+
+    x = (int)floor(xintersection)/ square_len;
+    y = (int)floor(yintersection)/ square_len;
+    if (y < 0 || x < 0 || x >= var->map_hight || y > (int)ft_strlen(var->map[x]))
+        return 1;
+    if (var->map[x][y] == 'O')
+    {
+        if(var->p_infos->rays[i].bonus_rays->obj->distance == 0)
+            var->p_infos->rays[i].bonus_rays->obj->distance = get_distance_obj(var, xintersection, yintersection);
+        var->p_infos->rays[i].bonus_rays->hit_an_obj = true;
+        // if (i == 0)
+        //     printf("hited an obj hor\n");
+        // var->p_infos->rays[i].bonus_rays->obj->x_intersection = cst.xintersection;
+        // var->p_infos->rays[i].bonus_rays->obj->y_intersection = cst.yintersection;
+        return 1;
+    }
+    (void)i;
+    (void)which;
+    return 0;
+}
 int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i)
 {
     int x;
@@ -14,7 +46,6 @@ int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i)
     (void)i;
     return 0;
 }
-
 
 void init_cst_horiz(t_casting *cst, t_main_s *var, int i)
 {
@@ -53,6 +84,13 @@ double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy)
         up_down = -1;
     while (cst.xintersection >= 0 && cst.yintersection >= 0)
     {
+        if (hit_an_obj(var,cst.xintersection + up_down, cst.yintersection , i, 0))
+        {
+            if (i == var->p_infos->nbr_rays / 2 && var->p_infos->rays[i].bonus_rays->hit_an_obj)
+                    printf("hited an obj horz, dis : %f\n",var->p_infos->rays[i].bonus_rays->obj->distance);
+            // var->p_infos->rays[i].bonus_rays->obj->x_intersection = cst.xintersection;
+            // var->p_infos->rays[i].bonus_rays->obj->y_intersection = cst.yintersection;
+        }
         if (hit_a_wall(var,cst.xintersection + up_down, cst.yintersection , i))
         {
             xy->y = cst.xintersection;
@@ -92,9 +130,6 @@ void init_cst_vert(t_casting *cst, t_main_s *var, int i)
         cst->xsteps *= -1;
 }
 
-
-// void_var
-
 double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy)
 {
     t_casting cst;
@@ -106,6 +141,14 @@ double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy)
         left_right = -1;
     while (cst.xintersection >= 0.00 && cst.yintersection >= 0.00)
     {
+        if (hit_an_obj(var,cst.xintersection, cst.yintersection + left_right, i, 1))
+        {
+            // var->p_infos->rays[i].bonus_rays->hit_an_obj = true;
+            if (i == var->p_infos->nbr_rays / 2)
+                printf("hited an obj ver, dis : %f\n",var->p_infos->rays[i].bonus_rays->obj->distance);
+            // var->p_infos->rays[i].bonus_rays->obj->x_intersection = cst.xintersection;
+            // var->p_infos->rays[i].bonus_rays->obj->y_intersection = cst.yintersection;
+        }
         if (hit_a_wall(var, cst.xintersection, cst.yintersection + left_right, i))
         {
             xy->y = cst.xintersection;

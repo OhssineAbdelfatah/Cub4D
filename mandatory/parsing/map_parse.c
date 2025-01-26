@@ -19,7 +19,7 @@ int	__direction(char c)
 
 int	is_valid_obj(char c)
 {
-	return (__direction(c) || c == '0' || c == '1' || c == ' ');
+	return (__direction(c) || c == '0' || c == '1' || c == ' ' || c == 'O' || c == '2');
 }
 
 int	contain_line(char *line)
@@ -35,8 +35,11 @@ int	verify_obj(char *arr, int *dir)
 	while (arr[i])
 	{
 		if (!is_valid_obj(arr[i]))
+		{
+			printf(">>>%c", arr[i]);
 			return (1);
-		if (arr[i] == 'N' || arr[i] == 'E' || arr[i] == 'W' || arr[i] == 'S')
+		}
+		if (arr[i] == 'N' || arr[i] == 'E' || arr[i] == 'W' || arr[i] == 'S' || arr[i] == 'O' || arr[i] == '2')
 			(*dir)++;
 		i++;
 	}
@@ -54,7 +57,7 @@ int	parse_map(t_map_lst *map_dbl)
 			return (1);
 		map_dbl = map_dbl->next;
 	}
-	if (dir != 1)
-		return (1);
+	// if (dir < 1)
+	// 	return (1);
 	return (0);
 }

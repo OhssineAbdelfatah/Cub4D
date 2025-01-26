@@ -9,6 +9,7 @@ t_ray_hit_obj *init_obj()
     if (!ret)
         panic("malloc failed !\n");
     ret->distance = 0;
+    ret->from = 0;
     ret->x_intersection = 0;
     ret->y_intersection = 0;
     return ret;
@@ -27,6 +28,7 @@ t_rays_bonus *init_bonus_rays()
     ret->door = NULL;
     ret->enemi = NULL;
     ret->obj = init_obj();
+    // ret->obj = init_obj();
     return ret;
 }
 
@@ -130,7 +132,7 @@ t_bonus *init_bonus(t_main_s *main)
     var->door = NULL;
     var->img = NULL;
     var->key = NULL;
-    var->mouse_x = (main->window_width * square_len) / 2;
+    var->mouse_x = (main->window_width) / 2;
     var->gun_in_hand_img = get_image(var->gun_in_hand);
     return (var);
 }
@@ -148,8 +150,6 @@ t_mini_map *init_mini_map(void *mlx, int width, int height)
     var->p_y = var->minimap_height / 2;
     var->p_x = var->minimap_width / 2;
     var->img3 = mlx_new_image(mlx, var->minimap_width, var->minimap_height);
-    // var->img3.img = mlx_new_image(mlx, var->minimap_width, var->minimap_height);
-    // var->img3.addr = mlx_get_data_addr(var->img3.img, &var->img3.bits_per_pixel, &var->img3.line_length, &var->img3.endian);
     (void)height;
     (void)width;
     return var;
@@ -233,8 +233,7 @@ t_main_s *init_main_var(t_parse_data *parse)
     var->map_width = ft_strlen(var->map[0]);
 
     var->mlx = mlx_init(var->window_width,  var->window_height, "cub3D", false);
-   
-    var->img = mlx_new_image(var->mlx, (10  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
+    // var->img = mlx_new_image(var->mlx, (10  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
    
     var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
 
@@ -266,6 +265,7 @@ t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double angle_incremet)
         var[i].y_last_intersection = 0;
         var[i].wall_dir = 0;
         var[i].bonus_rays = init_bonus_rays();
+        // var[i].bonus_rays = NULL;
         i++;
         ray_angle += angle_incremet; 
     }
@@ -279,8 +279,8 @@ t_walls *init_walls(t_main_s *ptr)
     var = malloc(sizeof(*var));
     if (!var)
         panic("malloc failed !\n");
-    // var->distance_prj_plane = ((ptr->map_width * square_len) / 2) / tan(ptr->p_infos->fov / 2);
     var->distance_prj_plane = (ptr->window_width / 2) / tan(ptr->p_infos->fov / 2);
+    // var->distance_prj_plane /= 2;
     var->wall_hight = 0;
     return var;
 }

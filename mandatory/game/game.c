@@ -12,6 +12,22 @@ int ft_dstr_len(char **av)
 }
 
 
+void obj_rebdering(t_main_s *var)
+{
+    int  i ;
+    int obj_hieght;
+
+    i  = var->p_infos->nbr_rays - 1;
+    while (i >= 0)
+    {
+        if (var->p_infos->rays[i].bonus_rays->hit_an_obj)
+        {
+            obj_hieght = calcul_obj_h
+        }
+        // if ()
+    }
+}
+
 
 void paint_floor_celling(t_main_s *var)
 {
@@ -42,10 +58,7 @@ void work_of_art(t_main_s *var)
     draw_crosshairs(var, 30, 2, 0x66FF33FF);
 
     mlx_image_to_window(var->mlx, var->img2, 0, 0);
-
-    // mlx_image_to_window(var->mlx, var->img, 0, 0);
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
-    mlx_image_to_window(var->mlx, var->mini_map->img3, 0, 0);
+    mlx_image_to_window(var->mlx, var->mini_map->img3, 10, 10);
 
 
     // mlx_put_image_to_window(var->mlx, var->mlx_win, alo.img, 0, 0);

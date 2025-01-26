@@ -30,8 +30,6 @@ int mini_map_check_wall(t_main_s *var, int x, int y)
         return 2;
     if (var->map[square_to_check.y_ver][square_to_check.x_hor] == '\n')
         return 2;
-    // if (var->map[square_to_check.x_hor][square_to_check.y_ver] == '1')
-    //     return 1;
     return 0;
 }
 
@@ -148,7 +146,6 @@ int direction(double angle)
         return UP_LEFT;
     if (angle >  M_PI + (M_PI / 2) && angle < 2 * M_PI )
         return DOWN_LEFT;
-
     if (angle > 0 && angle < M_PI / 2)
         return DOWN_RIGHT;
     return NONE;
