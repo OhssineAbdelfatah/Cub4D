@@ -22,7 +22,6 @@ void	**safe__malloc(void)
 	return (dt);
 }
 
-
 void	*safe_malloc(void)
 {
 	void	**dt;

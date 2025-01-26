@@ -18,19 +18,19 @@ void	clean_map_updown(t_map_lst **map)
 	t_map_lst	*tmp;
 
 	tmp = *map;
-	while (tmp ) 
+	while (tmp)
 	{
 		if (map && *map && tmp && tmp->value && (only_spaces(tmp->value)
 				|| ft_strlen(tmp->value) == 0))
 		{
 			(*map) = (*map)->next;
-			if(*map)
+			if (*map)
 				(*map)->prev = NULL;
 			free(tmp->value);
 			tmp->next = NULL;
 			tmp->prev = NULL;
 			free(tmp);
-			if(*map)
+			if (*map)
 				tmp = (*map);
 		}
 		else
