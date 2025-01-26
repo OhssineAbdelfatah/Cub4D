@@ -12,6 +12,18 @@ int ft_dstr_len(char **av)
 }
 
 
+int calcul_obj_height(t_main_s *var, int i)
+{
+    int res;
+    (void)i;
+    (void)var;
+    res = 0;
+    
+
+    // res = (square_len / var->p_infos->rays[i].bonus_rays->obj->distance) * walls->distance_prj_plane;
+    return res;
+}
+
 void obj_rebdering(t_main_s *var)
 {
     int  i ;
@@ -22,9 +34,10 @@ void obj_rebdering(t_main_s *var)
     {
         if (var->p_infos->rays[i].bonus_rays->hit_an_obj)
         {
-            obj_hieght = calcul_obj_h
+            obj_hieght = calcul_obj_height(var, i);
+            // render_obj(var, obj_hieght, i);
         }
-        // if ()
+        i++;
     }
 }
 
