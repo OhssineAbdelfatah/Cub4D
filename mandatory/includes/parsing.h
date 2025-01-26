@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/25 16:16:02 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:43:26 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,11 @@ int							valid_set(char *set);
 int							chcek_set_len(char **sets);
 int							count_occ(char *set, char c);
 int							return_type(char *tokens);
+int							file_exist(char *path);
+
+void						find_pos(char **map, t_pos *pos);
+char						*find_info_value(int type, t_map_lst *info);
+char						*fetch_index_splited(char *str, int index, char set);
 
 /*  list init   */
 t_map_lst					*create_node(char *value, int type);

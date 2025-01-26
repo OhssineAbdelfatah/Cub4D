@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/16 02:22:41 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/01/26 21:39:48 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,14 @@ int	check_unicty_infos(t_map_lst *list)
 	t_map_lst	*tmp;
 
 	if (list_size(list) != 6)
-	{
-		printf("list size diff 6 error, len list %d\n",  list_size(list));
 		return (1);
-	}
 	while (list)
 	{
 		tmp = list->next;
 		while (tmp)
 		{
 			if (list->type > 5 || list->type == tmp->type)
-				return (printf("more infos or err type\n") ,1);
+				return (1);
 			tmp = tmp->next;
 		}
 		list = list->next;
@@ -79,7 +76,7 @@ t_map_lst	*get_map_infos(int fd_map)
 		dt.line = delete_nl(dt.line);
 		dt.type = get_type(dt.line);
 		if (dt.type == NO_TYPE)
-			return (free_map(dt.map_lst), free(dt.line), get_next_line(-1),printf("no type err\n"),
+			return (free_map(dt.map_lst), free(dt.line), get_next_line(-1),
 				NULL);
 		dt.count++;
 		dt.nd = create_node(dt.line, dt.type);
@@ -88,74 +85,25 @@ t_map_lst	*get_map_infos(int fd_map)
 	return (dt.map_lst);
 }
 
-void	find_pos(char **map, t_pos *pos)
+void	fill_data(t_pre_data *dt)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (__direction(map[i][j]))
-			{
-				pos->x_hor = j;
-				pos->y_ver = i;
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
-	return ;
-}
-// norm
-
-char *find_info_value(int type, t_map_lst* info)
-{
-	while(info)
-	{
-		if(info->type == type)
-			return info->value;
-		info = info->next;
-	}
-	return NULL;
-}
-
-char *fetch_index_splited(char *str, int index, char set)
-{
-	char **strs;
-	char *new;
-
-	strs = ft_split(str, set);
-	if(index > ft_strslen(strs) || index < 0)
-		return (free_split(strs), NULL);
-	new = ft_strdup(strs[index]);
-	return (free_split(strs), new);
-	
-}
-
-void fill_data(t_pre_data* dt)
-{
-	char ***sets;
-	char *set1;
-	char *set2;
-	int count;
+	char	***sets;
+	char	*set1;
+	char	*set2;
+	int		count;
 
 	count = 0;
-	// textures
-	dt->data->tex_ea = fetch_index_splited(find_info_value(IMG_EA, dt->info), 1, ' ');
-	dt->data->tex_so = fetch_index_splited(find_info_value(IMG_SO, dt->info), 1, ' ');
-	dt->data->tex_we = fetch_index_splited(find_info_value(IMG_WE, dt->info), 1, ' ');
-	dt->data->tex_no = fetch_index_splited(find_info_value(IMG_NO, dt->info), 1, ' ');
-	// pos
+	dt->data->tex_ea = fetch_index_splited(find_info_value(IMG_EA, dt->info), 1,
+			' ');
+	dt->data->tex_so = fetch_index_splited(find_info_value(IMG_SO, dt->info), 1,
+			' ');
+	dt->data->tex_we = fetch_index_splited(find_info_value(IMG_WE, dt->info), 1,
+			' ');
+	dt->data->tex_no = fetch_index_splited(find_info_value(IMG_NO, dt->info), 1,
+			' ');
 	dt->data->pos = malloc(sizeof(t_pos));
 	find_pos(dt->data->map, dt->data->pos);
-	// dir
 	dt->data->dir = dt->data->map[dt->data->pos->y_ver][dt->data->pos->x_hor];
-	// colors
 	sets = (char ***)malloc(2 * sizeof(char **));
 	set1 = fetch_index_splited(find_info_value(FLOOR, dt->info), 1, ' ');
 	sets[0] = ft_split(set1, ',');
@@ -163,7 +111,7 @@ void fill_data(t_pre_data* dt)
 	sets[1] = ft_split(set2, ',');
 	dt->data->clr_f = malloc(3 * sizeof(int));
 	dt->data->clr_c = malloc(3 * sizeof(int));
-	while(count < 3)
+	while (count < 3)
 	{
 		dt->data->clr_f[count] = ft_atoi(sets[0][count]);
 		dt->data->clr_c[count] = ft_atoi(sets[1][count]);
@@ -183,34 +131,32 @@ t_pre_data	* read_file(char *file)
 
 	dt = (t_pre_data *)malloc(sizeof(t_pre_data));
 	dt->data = (t_parse_data *)malloc(sizeof(t_parse_data));
-	if(!dt || !dt->data)
-		return NULL;
+	if (!dt || !dt->data)
+		return (NULL);
 	fd_map = safe_open(file, dt);
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
-		return (free_map(dt->info), free(dt->data), free(dt),printf("unicty err\n"), NULL);
+		return (free_map(dt->info), free(dt->data), free(dt),
+			printf("unicty err\n"), NULL);
 	if (dt->info)
 	{
 		dt->map = check_map(fd_map);
 		if (!dt->map)
-			return (close(fd_map), free_map(dt->info), free(dt->data), free_map(dt->map),
-				free(dt),printf("dt.map NULL \n") ,NULL);
-		if( parse_map(dt->map) )
-			return (close(fd_map), free_map(dt->info), free(dt->data), free_map(dt->map),
-				free(dt),printf("parse map err\n") ,NULL);
+			return (close(fd_map), free_map(dt->info), free(dt->data),
+				free_map(dt->map), free(dt), NULL);
+		if (parse_map(dt->map))
+			return (close(fd_map), free_map(dt->info), free(dt->data),
+				free_map(dt->map), free(dt), NULL);
 		dt->data->map = list_to_array(dt->map);
 		if (!dt->data->map)
-			return (free_split(dt->data->map), free(dt->data), close(fd_map), free_map(dt->info),
-				free_map(dt->map), free(dt),  printf("list to array NULL\n"),NULL);
+			return (free_split(dt->data->map), free(dt->data), close(fd_map),
+				free_map(dt->info), free_map(dt->map), free(dt), NULL);
 		if (valid_map(dt->data->map))
-			return (free_split(dt->data->map), free(dt->data), close(fd_map), free_map(dt->info),
-				free_map(dt->map), free(dt), printf("invalid map\n"),NULL);
-			
+			return (free_split(dt->data->map), free(dt->data), close(fd_map),
+				free_map(dt->info), free_map(dt->map), free(dt), NULL);
 	}
-	fill_data(dt);
-	return (free_map(dt->map), close(fd_map), dt);
+	return (fill_data(dt), free_map(dt->map), close(fd_map), dt);
 }
-
 
 // here check the mfc map
 /***

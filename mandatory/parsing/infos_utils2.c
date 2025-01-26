@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infos_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:02:28 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/10 18:02:29 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:38:37 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,16 @@ int	chcek_set_len(char **sets)
 		}
 		i++;
 	}
+	return (0);
+}
+
+int	file_exist(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (1);
+	close(fd);
 	return (0);
 }

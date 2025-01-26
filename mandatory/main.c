@@ -24,7 +24,7 @@ void	ff(void)
 
 */
 
-int main(__unused int ac, char **av)
+int main(int ac, char **av)
 {
     t_main_s *var;
     t_parse_data *data;

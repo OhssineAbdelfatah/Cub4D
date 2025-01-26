@@ -90,9 +90,9 @@ void    wall_rendering(t_main_s *var)
     int i;
     int j;
     // int b;
-    int moy;
+    // int moy;
     i = var->p_infos->nbr_rays-1;
-    moy = i /2;
+    // moy = i /2;
     j = 0;
     walls = init_walls(var);
 

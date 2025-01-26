@@ -74,35 +74,39 @@ void	print_node(t_map_lst *nd)
 	}
 }
 
-
-void print_str(char *str, char *type)
+void	print_str(char *str, char *type)
 {
-	if(!str)
+	if (!str)
 		exit(printf("str %s null\n", type));
-	else 
+	else
 		printf("str %s %s\n", type, str);
 }
 
-void print_data(t_parse_data* data)
+void	print_data(t_parse_data *data)
 {
+	int	i;
+
 	// int oi = 0 ;
-	if(!data)
+	if (!data)
 		printf("data null \n");
-	print_str(data->tex_ea,"EA");
-	print_str(data->tex_we,"WE");
-	print_str(data->tex_so,"SO");
-	print_str(data->tex_no,"NO");
+	print_str(data->tex_ea, "EA");
+	print_str(data->tex_we, "WE");
+	print_str(data->tex_so, "SO");
+	print_str(data->tex_no, "NO");
 	printf("DIR %c\n", data->dir);
 	printf("\n");
-	int i = 0;
-	while(data->map && i < ft_strslen(data->map))
+	i = 0;
+	while (data->map && i < ft_strslen(data->map))
 	{
-		printf("%s\n",data->map[i]);
+		printf("%s\n", data->map[i]);
 		i++;
 	}
 	printf("\n");
-	printf(" color floor %d-%d-%d\n",data->clr_f[0], data->clr_f[1], data->clr_f[2]);
-	printf(" color cieling %d-%d-%d\n", data->clr_c[0], data->clr_c[1], data->clr_c[2]);
-	printf(" player pos x_hor[%d] y_ver[%d]\n", data->pos->x_hor, data->pos->y_ver);
+	printf(" color floor %d-%d-%d\n", data->clr_f[0], data->clr_f[1],
+		data->clr_f[2]);
+	printf(" color cieling %d-%d-%d\n", data->clr_c[0], data->clr_c[1],
+		data->clr_c[2]);
+	printf(" player pos x_hor[%d] y_ver[%d]\n", data->pos->x_hor,
+		data->pos->y_ver);
 }
 /* TEST ONLY***************************************************************/
