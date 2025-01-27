@@ -139,8 +139,8 @@ void mlx_loops_and_hooks(t_main_s *var)
     mlx_key_hook(var->mlx, key_hook, var);
     // mlx_hook(var->mlx_win, 2, 1L<<0, key_hook, var);
 
-    mlx_mouse_hook(var->mlx, mouse_hook, var);
-    mlx_cursor_hook(var->mlx, cursor_func, var);
+    // mlx_mouse_hook(var->mlx, mouse_hook, var);
+    // mlx_cursor_hook(var->mlx, cursor_func, var);
     mlx_loop_hook(var->mlx, loop_hook, var);
     mlx_loop(var->mlx); 
 }

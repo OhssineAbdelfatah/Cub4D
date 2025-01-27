@@ -47,7 +47,7 @@ int draw_the_mini_map(t_main_s *var);
 /*************************************************/
 
 t_main_s *init_main_var(t_parse_data *parse);
-t_player_infos *init_player_struct(char c, int x, int y);
+t_player_infos *init_player_struct(t_main_s *ptr, char c, int x, int y);
 t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double ray_increment);
 t_walls *init_walls(t_main_s *ptr);
 
@@ -113,6 +113,8 @@ void paintit(mlx_image_t *img, int color, t_xy_i *start, t_xy_i *till);
 
 void fps_hands_rendring(t_main_s *var);
 void draw_crosshairs(t_main_s *var, int len ,int width, int color);
+void obj_rebdering(t_main_s *var);
+int get_color(t_main_s *var, t_text *img, int x, int y);
 
 /************************************************************/
 //                      >> FREEDOM.C <<

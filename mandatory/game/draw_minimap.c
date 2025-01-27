@@ -96,7 +96,7 @@ int draw_the_mini_map(t_main_s *var)
             {
                 printf("\nx :: %d,y :: %d \n", x, y);
                 if (var->p_infos == NULL)
-                    var->p_infos = init_player_struct(var->map[x][y], ((x  * square_len) + (square_len / 2)), ((y * square_len) + (square_len / 2)));
+                    var->p_infos = init_player_struct(var,var->map[x][y], ((x  * square_len) + (square_len / 2)), ((y * square_len) + (square_len / 2)));
             }
             y++;
         }

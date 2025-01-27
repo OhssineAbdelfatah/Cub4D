@@ -36,7 +36,7 @@ int	verify_obj(char *arr, int *dir)
 	{
 		if (!is_valid_obj(arr[i]))
 		{
-			printf(">>>%c", arr[i]);
+			// printf(">>>%c", arr[i]);
 			return (1);
 		}
 		if (arr[i] == 'N' || arr[i] == 'E' || arr[i] == 'W' || arr[i] == 'S' || arr[i] == 'O' || arr[i] == '2')

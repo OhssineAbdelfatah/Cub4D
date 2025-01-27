@@ -1,6 +1,20 @@
 #include "../includes/ps.h"
 
 
+
+t_walls *init_walls(t_main_s *ptr)
+{
+    t_walls *var;
+
+    var = malloc(sizeof(*var));
+    if (!var)
+        panic("malloc failed !\n");
+    // var->distance_prj_plane = (ptr->window_width / 2) / tan(ptr->p_infos->fov / 2);
+    var->distance_prj_plane = (ptr->window_width / 2) / tan(((M_PI / 180) * 60 )/ 2);
+    var->wall_hight = 0;
+    return var;
+}
+
 t_ray_hit_obj *init_obj()
 {
     t_ray_hit_obj *ret;
@@ -80,7 +94,7 @@ t_text *get_image(mlx_texture_t *text)
     return img;
 }
 
-t_player_infos *init_player_struct(char c, int x, int y)
+t_player_infos *init_player_struct(t_main_s *ptr,char c, int x, int y)
 {
     t_player_infos *var;
     var = malloc(sizeof(*var));
@@ -104,6 +118,9 @@ t_player_infos *init_player_struct(char c, int x, int y)
         var->rotation_angle = M_PI ;
     if (c == 'S')
         var->rotation_angle = 0;
+    var->walls = init_walls(ptr);
+    // var->walls = NULL;
+    (void)ptr;
     return (var);
 }
 
@@ -134,6 +151,9 @@ t_bonus *init_bonus(t_main_s *main)
     var->key = NULL;
     var->mouse_x = (main->window_width) / 2;
     var->gun_in_hand_img = get_image(var->gun_in_hand);
+    var->pillar_tex = safe_load("../assets/textures/Sprite.png");
+    // var->pillar_tex = safe_load("../assets/textures/Wolf3Dfinalpillar.png");
+    var->pillar_img = get_image(var->pillar_tex);
     return (var);
 }
 
@@ -269,18 +289,5 @@ t_ray_info *init_rays(t_main_s *ptr, double ray_angle, double angle_incremet)
         i++;
         ray_angle += angle_incremet; 
     }
-    return var;
-}
-
-t_walls *init_walls(t_main_s *ptr)
-{
-    t_walls *var;
-
-    var = malloc(sizeof(*var));
-    if (!var)
-        panic("malloc failed !\n");
-    var->distance_prj_plane = (ptr->window_width / 2) / tan(ptr->p_infos->fov / 2);
-    // var->distance_prj_plane /= 2;
-    var->wall_hight = 0;
     return var;
 }

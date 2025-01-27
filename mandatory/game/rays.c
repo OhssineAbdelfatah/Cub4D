@@ -77,7 +77,8 @@ void shoot_the_rays(t_main_s * var)
 {
     double fov, angle_to_start, ray_angle_increment;
     double ray_angle;
-    int i, x, y;
+    int i;
+    // int x, y;
 
     i = 0;
     var->p_infos->nbr_rays  = var->window_width;
@@ -88,14 +89,14 @@ void shoot_the_rays(t_main_s * var)
     ray_angle = angle_to_start;
     ray_angle = adjust_angle(ray_angle);
     var->p_infos->rays =  init_rays(var, ray_angle, ray_angle_increment);
-    x = var->p_infos->x ;
-    y = var->p_infos->y ;
+    // x = var->p_infos->x ;
+    // y = var->p_infos->y ;
     while (i < var->p_infos->nbr_rays)
     {
         set_ray_direction(&var->p_infos->rays[i], ray_angle);
         cast_ray(var,  i);
-        x = var->p_infos->x + (cos(ray_angle) * (var->p_infos->rays[i].distance ));
-        y = var->p_infos->y + (sin(ray_angle) * (var->p_infos->rays[i].distance ));
+        // x = var->p_infos->x + (cos(ray_angle) * (var->p_infos->rays[i].distance ));
+        // y = var->p_infos->y + (sin(ray_angle) * (var->p_infos->rays[i].distance ));
         ray_angle += ray_angle_increment;
         ray_angle = adjust_angle(ray_angle);
         i++;

@@ -33,6 +33,7 @@ void rays_check_for_obj(t_main_s *var)
         moy = (last - first) / 2;
         inc_to_adj_dstc = get_ideal_distance(var, first) - var->p_infos->rays[moy].bonus_rays->obj->distance;
     }
+    (void)inc_to_adj_dstc;
 }
 
 
@@ -97,7 +98,7 @@ int hit_some(t_main_s *var, double xintersection, double yintersection)
 }
 
 
-int get_color(t_main_s *var, int x, int y)
+int get_color(t_main_s *var, t_text *img, int x, int y)
 {
     int color;
     double x_off;
@@ -108,7 +109,7 @@ int get_color(t_main_s *var, int x, int y)
     y_off = (double)y / ((double)(var->window_height) * 0.6);
     x_img = x_off  * (double)(var->bonus->gun_in_hand->width);
     y_img = y_off * (double)(var->bonus->gun_in_hand->height); 
-    color = var->bonus->gun_in_hand_img->pixels[(int)floor(y_img)][(int)floor(x_img)];
+    color = img->pixels[(int)floor(y_img)][(int)floor(x_img)];
     return color;
 }
 
@@ -165,7 +166,7 @@ void fps_hands_rendring(t_main_s *var)
         y = 0;
         while (y < (var->window_height * 0.6))
         {
-            color = get_color(var, x, y);
+            color = get_color(var, var->bonus->gun_in_hand_img, x, y);
             if (color)
                 mlx_put_pixel(var->img2, x + (var->window_width * 0.5)  , y + (var->window_height - (var->window_height * 0.6)) , color);
             y ++;

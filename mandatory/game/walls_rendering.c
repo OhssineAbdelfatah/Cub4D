@@ -116,6 +116,6 @@ void    wall_rendering(t_main_s *var)
     // write(1, "\n", 1);
     (void)x_img;
     // free_rays_bonus(var)
-    free_rays(var);
+    // free_rays(var);
     free(walls);
 }

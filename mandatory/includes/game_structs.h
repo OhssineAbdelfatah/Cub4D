@@ -67,7 +67,7 @@ struct s_x_and_y_d
 
 struct s_ray_hit_obj
 {
-    int from;
+    char from;
     double distance;
     double x_intersection;
     double y_intersection;
@@ -104,10 +104,12 @@ struct s_bonus
 {
     int mouse_x;
     mlx_texture_t *img;
+    mlx_texture_t *pillar_tex;
     mlx_texture_t *door;
     mlx_texture_t *key;
     mlx_texture_t *gun_in_hand;
     t_text *gun_in_hand_img;
+    t_text *pillar_img;
     // mlx_image_t *door;
 };
 
@@ -173,6 +175,7 @@ struct s_player_infos
     double rotation_speed;
     double rotation_angle;
     double fov;
+    t_walls *walls;
     t_ray_info *rays;
 };
 

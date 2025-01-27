@@ -1,19 +1,5 @@
 #include "includes/ps.h"
 
-
-
-    /*
-        replace  with parse
-
-            if (ac != 2)
-                return (perror("need path of valid map\n"),1);
-                
-        t_parse_data *data;
-        data = parse(ac, av)
-        t_parse_data *data;
-        data = parse(ac, av)
-    */
-
 void	ff(void)
 {
 	system("leaks -q cub3D ");
