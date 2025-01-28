@@ -163,7 +163,7 @@ void work_of_art(t_main_s *var)
     wall_rendering(var);
     update_obj_data(var->p_infos, var->p_infos->p_bonus->obj, var->bonus->nbr_obj);
 
-    // obj_rebdering(var);
+    obj_rebdering(var);
 
     //here  i call the function so i can get only the width of the img:
    

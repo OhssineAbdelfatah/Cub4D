@@ -227,12 +227,14 @@ struct s_bonus
 
 struct s_obj
 {
-
     bool visible;
-    int x;
-    int y;
     int x_screen;
     int y_screen;
+    double x;
+    double y;
+    double vector_x;
+    double vector_y;
+    double vector_teta;
     double obj_teta;
     double obj_height;
     double obj_width;

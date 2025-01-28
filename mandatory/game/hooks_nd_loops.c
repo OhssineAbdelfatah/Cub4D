@@ -19,6 +19,8 @@ int need_update(t_player_infos * var, char **map)
         }
         new_x = var->x + cos(tmp_angle) * move_steps ;
         new_y = var->y + sin(tmp_angle) * move_steps ;
+        //  new_x = var->x + sin(var->rotation_angle) * move_steps ;
+        // new_y = var->y + cos(var->rotation_angle) * move_steps ;
         if (var->move_left_right || var->move_up_down)
         {
             check = is_there_a_wall(new_x, new_y, map);
