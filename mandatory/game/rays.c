@@ -62,7 +62,7 @@ void cast_ray(t_main_s *var, int i)
     }
     if (fabs(var->p_infos->rays[i].angle - M_PI / 2) < EPSILON || fabs(var->p_infos->rays[i].angle - (M_PI + M_PI / 2)) < EPSILON)
     {
-         distance1 = cast_vertically(var, i, &v_xy);
+        distance1 = cast_vertically(var, i, &v_xy);
         set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance1 );
         return;
     }

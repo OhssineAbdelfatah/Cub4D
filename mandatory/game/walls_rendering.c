@@ -89,33 +89,26 @@ void    wall_rendering(t_main_s *var)
     int x_img;
     int i;
     int j;
-    // int b;
-    // int moy;
+
     i = var->p_infos->nbr_rays-1;
-    // moy = i /2;
     j = 0;
     walls = init_walls(var);
-
     while (i >= 0)
     {
-        // write(1, &var->p_infos->rays[i].wall_dir, 1);
         texture = which_texture(var->p_infos->rays+i, var->text);
         adjusted_distance = adjust_distance(var, i);
         if (adjusted_distance == 0)
             adjusted_distance = 0.5;
         walls->wall_hight = (square_len / adjusted_distance) * walls->distance_prj_plane;
-        y = (var->window_height) / 2 - (walls->wall_hight / 2);
-        x = (var->window_height) / 2 + (walls->wall_hight / 2);
-        x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays+i, square_len, texture->width);
+        y = ((var->window_height) / 2) - (walls->wall_hight / 2);
+        x = ((var->window_height) / 2) + (walls->wall_hight / 2);
+        x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays + i, square_len, texture->width);
         transparency = get_transparency(adjusted_distance);
         draw_rectangle(var,texture, j, y, x, x_img, color, transparency, i);
 
         i--;
         j++;
     }
-    // write(1, "\n", 1);
     (void)x_img;
-    // free_rays_bonus(var)
-    // free_rays(var);
     free(walls);
 }

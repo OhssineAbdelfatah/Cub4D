@@ -25,8 +25,8 @@ typedef struct s_ray_hit_obj t_ray_hit_obj;
 typedef struct s_ray_hit_door t_ray_hit_door;
 typedef struct s_ray_hit_enemi t_ray_hit_enemi;
 typedef struct s_rays_bonus t_rays_bonus;
-
-
+typedef struct s_obj_infos t_obj_infos;
+typedef struct s_player_bonus t_player_bonus;
 /* TEXTURES */
 
 typedef struct s_img t_img;
@@ -94,7 +94,6 @@ struct s_rays_bonus
     bool hit_an_obj;
     bool hit_an_enemi;
 
-    // t_ray_hit_obj obj[2];
     t_ray_hit_obj *obj;
     t_ray_hit_door *door;
     t_ray_hit_enemi *enemi;
@@ -103,6 +102,8 @@ struct s_rays_bonus
 struct s_bonus
 {
     int mouse_x;
+    int nbr_obj;
+    int nbr_enemi;
     mlx_texture_t *img;
     mlx_texture_t *pillar_tex;
     mlx_texture_t *door;
@@ -223,7 +224,23 @@ struct s_casting
 struct s_walls_rendering
 {
     double distance_prj_plane;
+    double prj_plane_height;
     double wall_hight;
+};
+
+
+
+struct s_obj_infos
+{
+    bool visibale;
+    int x;
+    int y;
+    double distance;
+};
+
+struct s_player_bonus
+{
+    t_obj_infos *obj;
 };
 
 #endif

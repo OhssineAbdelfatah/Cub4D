@@ -12,6 +12,7 @@ t_walls *init_walls(t_main_s *ptr)
     // var->distance_prj_plane = (ptr->window_width / 2) / tan(ptr->p_infos->fov / 2);
     var->distance_prj_plane = (ptr->window_width / 2) / tan(((M_PI / 180) * 60 )/ 2);
     var->wall_hight = 0;
+    var->prj_plane_height = square_len / 2;
     return var;
 }
 
@@ -151,9 +152,13 @@ t_bonus *init_bonus(t_main_s *main)
     var->key = NULL;
     var->mouse_x = (main->window_width) / 2;
     var->gun_in_hand_img = get_image(var->gun_in_hand);
-    var->pillar_tex = safe_load("../assets/textures/Sprite.png");
+    var->pillar_tex = safe_load("../assets/textures/pilaar2.png");
+    // var->pillar_tex = safe_load("../assets/textures/Sprite.png");
     // var->pillar_tex = safe_load("../assets/textures/Wolf3Dfinalpillar.png");
+    
     var->pillar_img = get_image(var->pillar_tex);
+    var->nbr_obj = 0;
+    var->nbr_enemi = 0;
     return (var);
 }
 

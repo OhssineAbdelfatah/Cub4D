@@ -116,13 +116,14 @@ int draw_the_mini_map(t_main_s *var)
 
 int is_there_a_wall(double new_y, double new_x, char **map)
 {
-    int x, y;
+    int x;
+    int y;
 
-    x = new_x / (square_len);
-    y = new_y / (square_len);
-    if (map[y][x] != '1')
-        return 0;
-    return 1;
+    x = (int)floor( new_x / (square_len));
+    y =(int)floor( new_y / (square_len));    
+    if (map[y][x] == '1' || map[y][x] == 'O')
+        return 1;
+    return 0;
 }
 
 int one_of_the_four(double angle)

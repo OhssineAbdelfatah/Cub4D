@@ -17,8 +17,7 @@ double calcul_obj_height(t_main_s *var, int i)
     double height;
     
     height = 0;
-    height = (square_len / var->p_infos->rays[i].bonus_rays->obj->distance) * var->p_infos->walls->distance_prj_plane;
-   
+    height = ((square_len ) / var->p_infos->rays[i].bonus_rays->obj->distance) * var->p_infos->walls->distance_prj_plane;
     (void)i;
     (void)var;
     return height;
@@ -89,7 +88,7 @@ void draw_rec_obj(t_main_s * var, int obj_height, int obj_width, int x, int x_to
         color = get_color_obj(var, obj_height, obj_width, x_to_cal_off, i);
         if (start + i > 0 && start + i < var->window_height)
         {
-            if (color != 0)
+            if (color)
             {
                 mlx_put_pixel(var->img2,var->window_width - x, start + i, color);
                 // if (x == 0)
@@ -124,14 +123,14 @@ void obj_rebdering(t_main_s *var)
         if (var->p_infos->rays[i].bonus_rays->hit_an_obj)
         {
             obj_hieght = floor(calcul_obj_height(var, i));
-            // printf("%d  , ", obj_hieght);
-            draw_rec_obj(var, obj_hieght, obj_width, i, x_to_cal_off);
+            draw_rec_obj(var, obj_hieght, obj_hieght, i, x_to_cal_off);
             x_to_cal_off ++;
         }
 
         // i++;
         i--;
     }
+    printf("> obj h : %d  | obj w : %d ", obj_hieght, obj_width);
     // printf("\n");
 
     (void) obj_hieght;
