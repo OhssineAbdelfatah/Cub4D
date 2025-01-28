@@ -16,8 +16,7 @@ typedef struct s_walls_rendering t_walls;
 typedef struct s_mini_map t_mini_map;
 typedef struct s_textures_imgs t_textures_img;
 typedef struct s_x_and_y_d t_x_and_y_d;
-typedef struct s_xy_i t_xy_i ;
-
+typedef struct s_xy_i t_xy_i;
 
 /********>> BONUS <<*****/
 typedef struct s_bonus t_bonus;
@@ -25,8 +24,15 @@ typedef struct s_ray_hit_obj t_ray_hit_obj;
 typedef struct s_ray_hit_door t_ray_hit_door;
 typedef struct s_ray_hit_enemi t_ray_hit_enemi;
 typedef struct s_rays_bonus t_rays_bonus;
-typedef struct s_obj_infos t_obj_infos;
 typedef struct s_player_bonus t_player_bonus;
+typedef struct s_obj t_obj;
+typedef struct s_enemi t_enemi;
+// {
+//     /* data */
+// };
+
+
+
 /* TEXTURES */
 
 typedef struct s_img t_img;
@@ -48,12 +54,6 @@ struct s_text {
     int width;
     int hieght;
 };
-
-int     create_trgb(int t, int r, int g, int b);
-int     calc_x_img(int hor_or_ver, t_ray_info *ray, double wall_hiegt, double img_w);
-int     calc_y_img(int y_proj ,int wall_hiegt , int img_h);
-t_text  *get_images(mlx_texture_t* text);
-int     gettt_rgba(uint8_t *color);
 
 
 /***************************/
@@ -99,20 +99,6 @@ struct s_rays_bonus
     t_ray_hit_enemi *enemi;
 };
 
-struct s_bonus
-{
-    int mouse_x;
-    int nbr_obj;
-    int nbr_enemi;
-    mlx_texture_t *img;
-    mlx_texture_t *pillar_tex;
-    mlx_texture_t *door;
-    mlx_texture_t *key;
-    mlx_texture_t *gun_in_hand;
-    t_text *gun_in_hand_img;
-    t_text *pillar_img;
-    // mlx_image_t *door;
-};
 
 struct	s_data {
 	void	*img;
@@ -122,17 +108,6 @@ struct	s_data {
 	int		endian;
 };
 
-struct s_test
-{
-    int img_width;
-    int img_hight;
-    int img1_width;
-    int img1_hight;
-    void *mlx;
-    void *win;
-    t_data img;
-    t_data img1;
-};
 
 struct s_mini_map
 {
@@ -178,6 +153,10 @@ struct s_player_infos
     double fov;
     t_walls *walls;
     t_ray_info *rays;
+
+    /***bonus***/
+    int jump_kneel;
+    t_player_bonus *p_bonus;
 };
 
 struct s_textures_imgs
@@ -207,6 +186,7 @@ struct s_main_struct
     //bonus
     /***********/
     t_bonus *bonus;
+
 };
 
 
@@ -229,10 +209,39 @@ struct s_walls_rendering
 };
 
 
-
-struct s_obj_infos
+struct s_bonus
 {
-    bool visibale;
+    int nbr_obj;
+    int nbr_enemi;
+    int mouse_x;
+    mlx_texture_t *img;
+    mlx_texture_t *pillar_tex;
+    mlx_texture_t *door;
+    mlx_texture_t *key;
+    mlx_texture_t *gun_in_hand;
+    t_text *gun_in_hand_img;
+    t_text *pillar_img;
+    // mlx_image_t *door;
+};
+
+
+struct s_obj
+{
+
+    bool visible;
+    int x;
+    int y;
+    int x_screen;
+    int y_screen;
+    double obj_teta;
+    double obj_height;
+    double obj_width;
+    double distance;
+};
+
+struct s_enemi
+{
+    bool visible;
     int x;
     int y;
     double distance;
@@ -240,7 +249,30 @@ struct s_obj_infos
 
 struct s_player_bonus
 {
-    t_obj_infos *obj;
+    t_obj *obj;
+    t_enemi *enemi;
 };
+
+
+
+
+
+int     create_trgb(int t, int r, int g, int b);
+int     calc_x_img(int hor_or_ver, t_ray_info *ray, double wall_hiegt, double img_w);
+int     calc_y_img(int y_proj ,int wall_hiegt , int img_h);
+t_text  *get_images(mlx_texture_t* text);
+int     gettt_rgba(uint8_t *color);
+
+// struct s_test
+// {
+//     int img_width;
+//     int img_hight;
+//     int img1_width;
+//     int img1_hight;
+//     void *mlx;
+//     void *win;
+//     t_data img;
+//     t_data img1;
+// };
 
 #endif

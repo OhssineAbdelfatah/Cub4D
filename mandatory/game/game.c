@@ -114,25 +114,20 @@ void obj_rebdering(t_main_s *var)
     int x_to_cal_off = 0;
 
     i  = var->p_infos->nbr_rays - 1;
-    // i  = 0;
     obj_width = floor(calc_obj_width(var));
-    // obj_width = floor(calc_obj_width(var));
     while (i >= 0)
-    // while (i < var->p_infos->nbr_rays)
     {
         if (var->p_infos->rays[i].bonus_rays->hit_an_obj)
         {
-            obj_hieght = floor(calcul_obj_height(var, i));
-            draw_rec_obj(var, obj_hieght, obj_hieght, i, x_to_cal_off);
+            if (var->p_infos->rays[i].distance > var->p_infos->rays[i].bonus_rays->obj->distance)
+            {
+                obj_hieght = floor(calcul_obj_height(var, i));
+                draw_rec_obj(var, obj_hieght, obj_width, i, x_to_cal_off);
+            }
             x_to_cal_off ++;
         }
-
-        // i++;
         i--;
     }
-    printf("> obj h : %d  | obj w : %d ", obj_hieght, obj_width);
-    // printf("\n");
-
     (void) obj_hieght;
     (void) obj_width;
     (void) var;
@@ -159,11 +154,16 @@ void work_of_art(t_main_s *var)
 {    
     paint_floor_celling(var);
     if (var->p_infos == NULL)
+    {
         var->p_infos=  init_player_struct(var , var->parse->dir, ((var->parse->pos->y_ver * square_len) + (square_len / 2)), ((var->parse->pos->x_hor * square_len) + (square_len / 2)));
+    }
+    // printf("rotation angle >>> %f\n", var->p_infos->rotation_angle);
     shoot_the_rays(var);
     draw_mini_map_42(var);
     wall_rendering(var);
-    obj_rebdering(var);
+    update_obj_data(var->p_infos, var->p_infos->p_bonus->obj, var->bonus->nbr_obj);
+
+    // obj_rebdering(var);
 
     //here  i call the function so i can get only the width of the img:
    

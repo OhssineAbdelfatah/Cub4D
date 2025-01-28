@@ -121,6 +121,13 @@ t_player_infos *init_player_struct(t_main_s *ptr,char c, int x, int y)
         var->rotation_angle = 0;
     var->walls = init_walls(ptr);
     // var->walls = NULL;
+
+
+    /******BONUS*****/
+    var->jump_kneel = 0;
+    // printf("x >>> %f\n", var->p_infos->x);
+
+    var->p_bonus = init_player_bonus(ptr, var);
     (void)ptr;
     return (var);
 }
@@ -152,13 +159,13 @@ t_bonus *init_bonus(t_main_s *main)
     var->key = NULL;
     var->mouse_x = (main->window_width) / 2;
     var->gun_in_hand_img = get_image(var->gun_in_hand);
-    var->pillar_tex = safe_load("../assets/textures/pilaar2.png");
+    var->pillar_tex = safe_load("../assets/textures/Sprite-removebg.png");
     // var->pillar_tex = safe_load("../assets/textures/Sprite.png");
     // var->pillar_tex = safe_load("../assets/textures/Wolf3Dfinalpillar.png");
     
     var->pillar_img = get_image(var->pillar_tex);
-    var->nbr_obj = 0;
     var->nbr_enemi = 0;
+    var->nbr_obj = 0;
     return (var);
 }
 

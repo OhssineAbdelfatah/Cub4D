@@ -177,27 +177,29 @@ void fps_hands_rendring(t_main_s *var)
 
 
 
-
 void count_obj_enemi(t_main_s *var)
 {
-    int x, y, obj, enemi; 
+    int nbr_obj, nbr_enemi;
+    int x, y;
+
     x = 0;
-    y = 0;
-    obj = 0;
-    enemi = 0;
+    y =0;
+    nbr_enemi = 0;
+    nbr_obj = 0;
     while (var->map[y])
     {
+        x = 0;
         while (var->map[y][x])
-        {  
+        {
             if (var->map[y][x] == 'O')
-                obj++;
+                nbr_obj ++;
             if (var->map[y][x] == 'E')
-                enemi ++;
+                nbr_enemi ++;
             x++;
         }
-        x = 0;
         y++;
     }
-    var->bonus->nbr_enemi = enemi;
-    var->bonus->nbr_obj = obj;
+    var->bonus->nbr_enemi = nbr_enemi;
+    var->bonus->nbr_obj = nbr_obj;
 }
+
