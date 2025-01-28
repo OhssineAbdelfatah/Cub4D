@@ -116,6 +116,13 @@ void draw_crosshairs(t_main_s *var, int len ,int width, int color);
 void obj_rebdering(t_main_s *var);
 int get_color(t_main_s *var, t_text *img, int x, int y);
 
+void count_obj_enemi(t_main_s *var);
+t_player_bonus *init_player_bonus(t_main_s *var, t_player_infos *ptr);
+
+
+
+
+void update_obj_data(t_player_infos *p_var, t_obj *obj,int nbr_obj);
 /************************************************************/
 //                      >> FREEDOM.C <<
 /************************************************************/
