@@ -171,7 +171,7 @@ void fps_hands_rendring(t_main_s *var)
                 mlx_put_pixel(var->img2, x + (var->window_width * 0.5)  , y + (var->window_height - (var->window_height * 0.6)) , color);
             y ++;
         }
-        x++;
+        x++; 
     }
 }
 

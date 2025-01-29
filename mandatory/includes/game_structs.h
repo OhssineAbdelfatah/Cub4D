@@ -75,6 +75,7 @@ struct s_ray_hit_obj
 
 struct s_ray_hit_door
 {
+    char from;
     double distance;
     double x_intersection;
     double y_intersection;

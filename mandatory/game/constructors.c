@@ -29,6 +29,20 @@ t_ray_hit_obj *init_obj()
     return ret;
 }
 
+t_ray_hit_door *init_door()
+{
+    t_ray_hit_door *ret;
+
+    ret  = (t_ray_hit_door *)malloc(sizeof(t_ray_hit_door));
+    if (!ret)
+        panic("malloc failed !\n");
+    ret->distance = 0;
+    ret->from = 0;
+    ret->x_intersection = 0;
+    ret->y_intersection = 0;
+    return ret;
+}
+
 t_rays_bonus *init_bonus_rays()
 {
     t_rays_bonus *ret;
@@ -39,7 +53,7 @@ t_rays_bonus *init_bonus_rays()
     ret->hit_a_door = false;
     ret->hit_an_obj = false;
     ret->hit_an_enemi = false;
-    ret->door = NULL;
+    ret->door = init_door();
     ret->enemi = NULL;
     ret->obj = init_obj();
     // ret->obj = init_obj();
