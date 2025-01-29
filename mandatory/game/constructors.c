@@ -9,7 +9,6 @@ t_walls *init_walls(t_main_s *ptr)
     var = malloc(sizeof(*var));
     if (!var)
         panic("malloc failed !\n");
-    // var->distance_prj_plane = (ptr->window_width / 2) / tan(ptr->p_infos->fov / 2);
     var->distance_prj_plane = (ptr->window_width / 2) / tan(((M_PI / 180) * 60 )/ 2);
     var->wall_hight = 0;
     var->prj_plane_height = square_len / 2;

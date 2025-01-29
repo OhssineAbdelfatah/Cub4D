@@ -121,8 +121,12 @@ t_player_bonus *init_player_bonus(t_main_s *var, t_player_infos *ptr);
 
 
 
+int get_color_obj(t_main_s *var, int obj_height, int obj_width, int x, int y);
+
 
 void update_obj_data(t_player_infos *p_var, t_obj *obj,int nbr_obj);
+void render_objects(t_main_s *var, t_player_bonus *p_ptr);
+
 /************************************************************/
 //                      >> FREEDOM.C <<
 /************************************************************/

@@ -67,6 +67,7 @@ int get_color_obj(t_main_s *var, int obj_height, int obj_width, int x, int y)
     new_x = (double)var->bonus->pillar_img->width * x_offset;
     new_y = (double)var->bonus->pillar_img->hieght * y_offset;
 
+    // color = var->bonus->pillar_img->pixels[(int)floor(new_y)][(int)floor(new_x)];
     color = var->bonus->pillar_img->pixels[(int)floor(new_y)][(int)floor(new_x)];
     return color;
 }
@@ -163,7 +164,10 @@ void work_of_art(t_main_s *var)
     wall_rendering(var);
     update_obj_data(var->p_infos, var->p_infos->p_bonus->obj, var->bonus->nbr_obj);
 
-    obj_rebdering(var);
+
+    render_objects(var, var->p_infos->p_bonus);
+
+    // obj_rebdering(var);
 
     //here  i call the function so i can get only the width of the img:
    
