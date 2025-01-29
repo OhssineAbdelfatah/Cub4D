@@ -1,7 +1,7 @@
 CC = cc 
 
-CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g
--fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+# -fsanitize=address -g
 
 LIBMLX = ../lib/mlx
 

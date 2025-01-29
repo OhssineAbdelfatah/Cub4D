@@ -78,10 +78,10 @@ void key_hook(mlx_key_data_t key, void *var)
         ptr->p_infos->move_left_right = 1;
     if (key.key == D)
         ptr->p_infos->move_left_right = -1;
-    if (key.key == MLX_KEY_SPACE)
-        ptr->p_infos->jump_kneel = 1;
-    if (key.key == MLX_KEY_LEFT_CONTROL)
-        ptr->p_infos->jump_kneel = -1;
+    // if (key.key == MLX_KEY_SPACE)
+    //     ptr->p_infos->jump_kneel = 1;
+    // if (key.key == MLX_KEY_LEFT_CONTROL)
+    //     ptr->p_infos->jump_kneel = -1;
 }
 
 void loop_hook(void *ptr)

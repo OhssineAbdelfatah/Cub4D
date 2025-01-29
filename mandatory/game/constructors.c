@@ -158,10 +158,10 @@ t_bonus *init_bonus(t_main_s *main)
     var->key = NULL;
     var->mouse_x = (main->window_width) / 2;
     var->gun_in_hand_img = get_image(var->gun_in_hand);
-    var->pillar_tex = safe_load("../assets/textures/Sprite-removebg.png");
-    // var->pillar_tex = safe_load("../assets/textures/Sprite.png");
+    var->pillar_tex = safe_load("../assets/textures/goblin.png");
+    // var->pillar_tex = safe_load("../assets/textures/Sprite-removebg.png");
+    // var->pillar_tex = safe_load("../assets/textures/pilaar2.png");
     // var->pillar_tex = safe_load("../assets/textures/Wolf3Dfinalpillar.png");
-    
     var->pillar_img = get_image(var->pillar_tex);
     var->nbr_enemi = 0;
     var->nbr_obj = 0;

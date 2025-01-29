@@ -8,32 +8,32 @@ double get_distance_obj(t_main_s *var, double x, double  y)
     return (ret);
 }
 
-int hit_an_obj(t_main_s *var, double xintersection, double yintersection, int i, int which)
-{
-    int x;
-    int y;
+// int hit_an_obj(t_main_s *var, double xintersection, double yintersection, int i, int which)
+// {
+//     int x;
+//     int y;
 
-    x = (int)floor(xintersection)/ square_len;
-    y = (int)floor(yintersection)/ square_len;
-    if (y < 0 || x < 0 || x >= var->map_hight || y > (int)ft_strlen(var->map[x]))
-        return 1;
-    if (var->map[x][y] == 'O')
-    {
-        // printf("alo its obj , ray : %d\n", i);
-        if(var->p_infos->rays[i].bonus_rays->obj->distance == 0)
-            var->p_infos->rays[i].bonus_rays->obj->distance = get_distance_obj(var, xintersection, yintersection);
-        var->p_infos->rays[i].bonus_rays->hit_an_obj = true;
-        var->p_infos->rays[i].bonus_rays->obj->from = which;
-        // if (i == 0)
-        //     printf("hited an obj hor\n");
-        // var->p_infos->rays[i].bonus_rays->obj->x_intersection = cst.xintersection;
-        // var->p_infos->rays[i].bonus_rays->obj->y_intersection = cst.yintersection;
-        return 1;
-    }
-    (void)i;
-    (void)which;
-    return 0;
-}
+//     x = (int)floor(xintersection)/ square_len;
+//     y = (int)floor(yintersection)/ square_len;
+//     if (y < 0 || x < 0 || x >= var->map_hight || y > (int)ft_strlen(var->map[x]))
+//         return 1;
+//     if (var->map[x][y] == 'O')
+//     {
+//         // printf("alo its obj , ray : %d\n", i);
+//         if(var->p_infos->rays[i].bonus_rays->obj->distance == 0)
+//             var->p_infos->rays[i].bonus_rays->obj->distance = get_distance_obj(var, xintersection, yintersection);
+//         var->p_infos->rays[i].bonus_rays->hit_an_obj = true;
+//         var->p_infos->rays[i].bonus_rays->obj->from = which;
+//         // if (i == 0)
+//         //     printf("hited an obj hor\n");
+//         // var->p_infos->rays[i].bonus_rays->obj->x_intersection = cst.xintersection;
+//         // var->p_infos->rays[i].bonus_rays->obj->y_intersection = cst.yintersection;
+//         return 1;
+//     }
+//     (void)i;
+//     (void)which;
+//     return 0;
+// }
 int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i)
 {
     int x;
@@ -86,14 +86,6 @@ double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy)
         up_down = -1;
     while (cst.xintersection >= 0 && cst.yintersection >= 0)
     {
-        if (hit_an_obj(var,cst.xintersection + up_down, cst.yintersection , i, 'H'))
-        {
-            // if (i == var->p_infos->nbr_rays / 2 && var->p_infos->rays[i].bonus_rays->hit_an_obj)
-            //         printf("hited an obj horz, dis : %f\n",var->p_infos->rays[i].bonus_rays->obj->distance);
-            
-            var->p_infos->rays[i].bonus_rays->obj->x_intersection = cst.xintersection;
-            var->p_infos->rays[i].bonus_rays->obj->y_intersection = cst.yintersection;
-        }
         if (hit_a_wall(var,cst.xintersection + up_down, cst.yintersection , i))
         {
             xy->y = cst.xintersection;
@@ -144,14 +136,6 @@ double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy)
         left_right = -1;
     while (cst.xintersection >= 0.00 && cst.yintersection >= 0.00)
     {
-        if (hit_an_obj(var,cst.xintersection, cst.yintersection + left_right, i, 'V'))
-        {
-            // var->p_infos->rays[i].bonus_rays->hit_an_obj = true;
-            // if (i == var->p_infos->nbr_rays / 2)
-            //     printf("hited an obj ver, dis : %f\n",var->p_infos->rays[i].bonus_rays->obj->distance);
-            var->p_infos->rays[i].bonus_rays->obj->x_intersection = cst.xintersection;
-            var->p_infos->rays[i].bonus_rays->obj->y_intersection = cst.yintersection;
-        }
         if (hit_a_wall(var, cst.xintersection, cst.yintersection + left_right, i))
         {
             xy->y = cst.xintersection;

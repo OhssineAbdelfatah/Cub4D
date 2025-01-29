@@ -46,7 +46,7 @@ void fill_obj(t_main_s *var, t_obj *obj, t_player_infos *p_var)
 t_obj *init_obj_p(t_main_s *var, t_player_infos *p_var)
 {
     t_obj *res;
-    printf("%d\n", var->bonus->nbr_obj);
+    // printf("NBR _ OBJ : %d\n", var->bonus->nbr_obj);
     if (var->bonus->nbr_obj == 0)
         return NULL;
     res = (t_obj *)malloc(sizeof(t_obj) * var->bonus->nbr_obj);
@@ -151,8 +151,10 @@ double calculate_obj_teta(t_player_infos *p_var, t_obj *obj)
 
 void update_obj_data(t_player_infos *p_var, t_obj *obj,int nbr_obj)
 {
-    int i =0;
-   if (obj)
+    int i;
+
+    i = 0;
+    if (obj)
     {
         // printf("/********************/\n");
         while (i < nbr_obj)
@@ -166,29 +168,13 @@ void update_obj_data(t_player_infos *p_var, t_obj *obj,int nbr_obj)
             check_visibility(p_var, obj, i);
             obj[i].x_screen = obj[i].obj_teta * (1400 / p_var->fov);
             obj[i].y_screen = 800 / 2;
+            // printf("Vector teta : %f,Obj teta : %f, obj x_screen : %d\n", obj[i].vector_teta , obj[i].obj_teta, obj[i].x_screen);
             i++;
         }
         adjust_rank(obj, nbr_obj);
-        // if (obj->visible)
-        //     printf("it's visible\n");
-
         // print_obj(p_var,obj, nbr_obj);
     } 
 }
-
-
-// int get_color_for_obj(t_main_s *var, int i, int x, int y)
-// {
-//     // int color;
-
-//     // int x_offse
-//     (void)var;
-//     (void)i;
-//     (void)x;
-//     (void)y;
-//     return 0;
-// }
-
 
 
 void render_obj(t_main_s *var, t_player_bonus *ptr, t_walls *walls,int i)
@@ -198,6 +184,7 @@ void render_obj(t_main_s *var, t_player_bonus *ptr, t_walls *walls,int i)
     int color;
     int x_increment = 0;
     int y_increment = 0;
+    int ray_to_inspect;
 
     obj_height = (square_len /  ptr->obj[i].distance) * walls->distance_prj_plane;
     obj_width = obj_height;
@@ -207,26 +194,16 @@ void render_obj(t_main_s *var, t_player_bonus *ptr, t_walls *walls,int i)
 
     y_end = y_start + obj_height;
     x_end = x_start + obj_width;
-
-    printf("xstart: %d,ystart: %d \n", x_start, y_start);
-    printf("x_end: %d,yend: %d \n", x_end, y_end);
-    printf("OBJ H: %d,OBJ W: %d \n",obj_height, 
-    obj_width);
-
-    if (x_start > var->window_width  || x_start <= 0)
-        return;
     while (y_start < y_end)
     {
-        x_increment = 0;
         if (y_start >= 0 && y_start < var->window_height)
         {
+            x_increment = 0;
             while (x_start + x_increment < x_end)
             {
-                color =0;
-
+                ray_to_inspect = var->p_infos->nbr_rays - 1 - (x_increment + x_start);
                 color = get_color_obj(var, obj_height, obj_width, x_increment, y_increment);
-                // color = get_color_obj(var, var->p_infos->p_bonus->obj[i].obj_height,var->p_infos->p_bonus->obj[i].obj_width , x_increment, y_increment);
-                if (var->p_infos->rays[x_increment].distance > ptr->obj[i].distance)
+                if (ray_to_inspect >=0 && ray_to_inspect < 1400 && var->p_infos->rays[ray_to_inspect].distance > ptr->obj[i].distance)
                 {
                     if (x_start + x_increment >= 0 && x_start + x_increment <  var->window_width && color)
                         mlx_put_pixel(var->img2, x_start + x_increment, y_start, color);
@@ -237,16 +214,6 @@ void render_obj(t_main_s *var, t_player_bonus *ptr, t_walls *walls,int i)
         y_increment++;
         y_start++;
     }    
-
-    (void)color;
-    (void)var;
-    (void)ptr;
-    (void)walls;
-    (void)i;
-    (void)x_end;
-    (void)y_end;
-    (void)y_increment;
-    (void)x_increment;
 }
 void render_objects(t_main_s *var, t_player_bonus *p_ptr)
 {
@@ -260,7 +227,6 @@ void render_objects(t_main_s *var, t_player_bonus *p_ptr)
         i++;
     }
     free(walls);
-
 }
 t_player_bonus *init_player_bonus(t_main_s *var, t_player_infos *p_var)
 {
