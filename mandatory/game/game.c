@@ -179,40 +179,6 @@ void work_of_art(t_main_s *var)
     free_rays(var);
     mlx_image_to_window(var->mlx, var->img2, 0, 0);
     mlx_image_to_window(var->mlx, var->mini_map->img3, 10, 10);
-
-
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, alo.img, 0, 0);
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->mini_map->img3.img, 0, 0);
-    // mlx_put_image_to_window(var->mlx, var->mlx_win, var->img3.img, var->window_width * scale_of_minimap, 0);
+    mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img, var->window_width / 3, var->window_height / 2);
 }
 
-
-
-
-
-
-// void	ff(void)
-// {
-// 	system("leaks -q cub3D ");
-// }
-
-    /*
-        replace  with parse
-
-            if (ac != 2)
-                return (perror("need path of valid map\n"),1);
-                
-        t_parse_data *data;
-        data = parse(ac, av)
-    */
-
-// int main(int ac, char **av)
-// {
-//     t_main_s *var;
-//     // atexit(ff);
-//     if (ac != 2)
-//         return (perror("need path of valid map\n"),1);
-//     var = init_main_var(av);
-//     work_of_art(var);
-//     mlx_loops_and_hooks(var);
-// }

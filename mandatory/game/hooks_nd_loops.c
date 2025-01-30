@@ -94,14 +94,14 @@ void loop_hook(void *ptr)
     if (need_update(var->p_infos, var->map))
     {
         // mlx_delete_image(var->mlx,var->img);
-        mlx_delete_image(var->mlx,var->img2);
-        mlx_delete_image(var->mlx,var->mini_map->img3);
+        // mlx_delete_image(var->mlx,var->img2);
+        // mlx_delete_image(var->mlx,var->mini_map->img3);
        
-        // var->img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
+        // // var->img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
         
-        var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
+        // var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
         
-        var->mini_map->img3 = mlx_new_image(var->mlx, var->mini_map->minimap_width, var->mini_map->minimap_height);
+        // var->mini_map->img3 = mlx_new_image(var->mlx, var->mini_map->minimap_width, var->mini_map->minimap_height);
         work_of_art(var);
         var->p_infos->move_up_down  = 0;
         var->p_infos->move_left_right  = 0;

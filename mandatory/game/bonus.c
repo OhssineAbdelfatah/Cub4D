@@ -153,27 +153,29 @@ void draw_crosshairs(t_main_s *var, int len ,int width, int color)
 
 void fps_hands_rendring(t_main_s *var)
 {
-    int x
-    ;
-    int y;
-    int color;
-    x = 0;
-    y = 0;
+    // int x;
+    // int y;
+    // int color;
+    // x = 0;
+    // y = 0;
 
     
-    while (x < (var->window_width * 0.5))
-    {
-        y = 0;
-        while (y < (var->window_height * 0.6))
-        {
-            color = get_color(var, var->bonus->gun_in_hand_img, x, y);
-            if (color)
-                mlx_put_pixel(var->img2, x + (var->window_width * 0.5)  , y + (var->window_height - (var->window_height * 0.6)) , color);
-            y ++;
-        }
-        x++; 
+    // while (x < (var->window_width * 0.5 ))
+    // {
+    //     y = 0;
+    //     while (y < (var->window_height * 0.6))
+    //     {
+    //         color = get_color(var, var->bonus->gun_in_hand_text, x, y);
+    //         if (color)
+    //             mlx_put_pixel(var->img2, x + (var->window_width * 0.5)  , y + (var->window_height - (var->window_height * 0.6)) , color);
+    //         y ++;
+    //     }
+    //     x++; 
+    // }
+    // mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img, var->window_width / 2, var->window_height / 2);
+    // var->bonus->gun_in_hands_img->enabled = true;
+    (void)var;
     }
-}
 
 
 

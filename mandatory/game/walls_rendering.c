@@ -77,6 +77,54 @@ int get_transparency(double distance)
 }
 
 
+int get_color_of_floor(t_main_s *var, double x, double y)
+{
+    int color;
+    double x_offset;
+    double y_offset;
+
+    int new_x, new_y;
+
+    x_offset = (double)x / 64;
+    y_offset = (double)y / 64;
+
+    new_x = (double)var->bonus->pillar_img->width * x_offset;
+    new_y = (double)var->bonus->pillar_img->hieght * y_offset;
+
+    color = var->bonus->floor_text->pixels[(int)floor(new_y)][(int)floor(new_x)];
+    return color;
+}
+
+int get_color_for_floor(t_main_s *var, int x, int y, int i)
+{
+    int color;
+    double beta,r,  straight_line_dis, origin_line_distance, floor_x, floor_y;
+
+    beta = var->p_infos->rays[i].angle - var->p_infos->rotation_angle;
+    r = y -  var->window_height / 2;
+    straight_line_dis = ((square_len / 2) / r) * var->p_infos->walls->distance_prj_plane;
+    origin_line_distance = straight_line_dis / cos(beta);
+    floor_x = var->p_infos->y + cos(var->p_infos->rays[i].angle) * origin_line_distance;
+    floor_y = var->p_infos->x - sin(var->p_infos->rays[i].angle) * origin_line_distance;
+    
+    color = get_color_of_floor(var, x, y);
+    return color;
+    // straight_line_dis = 
+}
+
+void draw_floor(t_main_s *var, int x, int y, int nbr_ray)
+{
+    int color;
+
+    while (y < var->window_height)
+    {
+        color = get_color_for_floor(var, x, y, nbr_ray);
+        mlx_put_pixel(var->img2, x, y, color);
+        y++;
+    }
+
+}
+
 void    wall_rendering(t_main_s *var)
 {
     t_walls *walls;
@@ -105,6 +153,7 @@ void    wall_rendering(t_main_s *var)
         x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays + i, square_len, texture->width);
         transparency = get_transparency(adjusted_distance);
         draw_rectangle(var,texture, j, y, x, x_img, color, transparency, i);
+        draw_floor(var, j, x, i);
 
         i--;
         j++;
