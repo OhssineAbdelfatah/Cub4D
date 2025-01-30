@@ -2,6 +2,7 @@
 #define GAME_STRUCTS_H
 
 #include <stdbool.h>
+#include <sys/time.h>
 #include "parsing.h"
 #include "ps.h"
 #include "../../lib/mlx/include/MLX42/MLX42.h"
@@ -186,6 +187,7 @@ struct s_main_struct
     /***********/
     //bonus
     /***********/
+    struct timeval tv;
     t_bonus *bonus;
 
 };

@@ -6,8 +6,8 @@ int check_the_pixel(t_main_s *var, int x, int y)
 
     diff_x = (x - var->mini_map->p_x) * 2;
     diff_y = (y - var->mini_map->p_y) * 2;
-    diff_x = ((int)floor(var->p_infos->y) + diff_x) * 1.3;
-    diff_y = ((int)floor(var->p_infos->x) + diff_y) * 1.3;
+    diff_x = ((int)floor(var->p_infos->y) + diff_x);
+    diff_y = ((int)floor(var->p_infos->x) + diff_y);
     if (diff_x < 0 || diff_y < 0)
         return -1;
     diff_x /=  square_len; 
@@ -24,6 +24,8 @@ int check_the_pixel(t_main_s *var, int x, int y)
         return -1;
     if (var->map[diff_y][diff_x] == 'O')
         return -2;
+    if (var->map[diff_y][diff_x] == 'E')
+        return -3;
     return 0;
 }
 
@@ -39,6 +41,8 @@ void draw_the_pixel_for_minimap(t_main_s *var, int x, int y)
     else if (check == -1)
         mlx_put_pixel(var->mini_map->img3, x, y, 0x606060FF);
     else if (check == -2)
+        mlx_put_pixel(var->mini_map->img3, x, y, 0x66CC00FF);
+    else if (check == -3)
         mlx_put_pixel(var->mini_map->img3, x, y, 0xD82020FF);
 }
 

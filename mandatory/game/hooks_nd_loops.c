@@ -3,8 +3,11 @@
 
 int need_update(t_player_infos * var, char **map)
 {
-    double move_steps, new_y, new_x, tmp_angle;
     int check;
+    double move_steps;
+    double new_y;
+    double new_x;
+    double tmp_angle;
 
     move_steps  = var->move_up_down * var->speed;
     if (var->move_up_down != 0 || var->turn_arround != 0 || var->move_left_right != 0)
@@ -19,11 +22,9 @@ int need_update(t_player_infos * var, char **map)
         }
         new_x = var->x + cos(tmp_angle) * move_steps ;
         new_y = var->y + sin(tmp_angle) * move_steps ;
-        //  new_x = var->x + sin(var->rotation_angle) * move_steps ;
-        // new_y = var->y + cos(var->rotation_angle) * move_steps ;
         if (var->move_left_right || var->move_up_down)
         {
-            check = is_there_a_wall(new_x, new_y, map);
+            check = is_there_a_wall(new_x + ( 4 * (new_x - var->x)) , new_y + ( 4 * (new_y - var->y)), map);
             if (!check)
             {
                 check =  check_teleportation(var, map);
@@ -53,6 +54,7 @@ void smooth_exit(t_main_s *var)
     free(var->mlx);
     free(var->parse);
     free(var->bonus);
+    // (void)var;
 }
 
 
@@ -105,6 +107,8 @@ void loop_hook(void *ptr)
         var->p_infos->move_left_right  = 0;
         var->p_infos->turn_arround  = 0;
     }
+    
+
 }
 
 void mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param)

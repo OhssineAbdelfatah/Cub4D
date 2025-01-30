@@ -172,7 +172,8 @@ t_bonus *init_bonus(t_main_s *main)
     var->key = NULL;
     var->mouse_x = (main->window_width) / 2;
     var->gun_in_hand_img = get_image(var->gun_in_hand);
-    var->pillar_tex = safe_load("../assets/textures/goblin.png");
+    // var->pillar_tex = safe_load("../assets/textures/MBPKA0.png");
+    var->pillar_tex = safe_load("../assets/textures/AGAHA1.png");
     // var->pillar_tex = safe_load("../assets/textures/Sprite-removebg.png");
     // var->pillar_tex = safe_load("../assets/textures/pilaar2.png");
     // var->pillar_tex = safe_load("../assets/textures/Wolf3Dfinalpillar.png");
@@ -286,6 +287,7 @@ t_main_s *init_main_var(t_parse_data *parse)
     var->text = init_textures(var);
 
     var->bonus = init_bonus(var);
+    gettimeofday(&var->tv, NULL);
     //  BONUS PART :: 
     // var->mouse_x = (var->window_width * square_len) / 2;
     // init_textures(var);
