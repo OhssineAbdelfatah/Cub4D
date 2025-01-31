@@ -15,7 +15,7 @@ int main(int ac, char **av)
     t_main_s *var;
     t_parse_data *data;
 
-    // atexit(ff);
+    atexit(ff);
 
     data = parse(ac, av);
     var = init_main_var(data);
@@ -25,7 +25,7 @@ int main(int ac, char **av)
     fill_map(av, var);
 
     // mlx_set_cursor_mode(var->mlx, MLX_MOUSE_DISABLED);
-    work_of_art(var);
+    work_of_art(var, 1);
    
     mlx_loops_and_hooks(var);
     (void)data;

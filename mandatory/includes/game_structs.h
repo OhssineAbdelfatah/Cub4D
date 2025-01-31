@@ -23,11 +23,13 @@ typedef struct s_xy_i t_xy_i;
 typedef struct s_bonus t_bonus;
 typedef struct s_ray_hit_obj t_ray_hit_obj;
 typedef struct s_ray_hit_door t_ray_hit_door;
-typedef struct s_ray_hit_enemi t_ray_hit_enemi;
+typedef struct s_ray_hit_enemy t_ray_hit_enemy;
 typedef struct s_rays_bonus t_rays_bonus;
 typedef struct s_player_bonus t_player_bonus;
 typedef struct s_obj t_obj;
-typedef struct s_enemi t_enemi;
+typedef struct s_enemy t_enemy;
+typedef struct timeval			t_time;
+
 // {
 //     /* data */
 // };
@@ -82,7 +84,7 @@ struct s_ray_hit_door
     double y_intersection;
 };
 
-struct s_ray_hit_enemi
+struct s_ray_hit_enemy
 {
     double distance;
     double x_intersection;
@@ -94,11 +96,11 @@ struct s_rays_bonus
 {
     bool hit_a_door;
     bool hit_an_obj;
-    bool hit_an_enemi;
+    bool hit_an_enemy;
 
     t_ray_hit_obj *obj;
     t_ray_hit_door *door;
-    t_ray_hit_enemi *enemi;
+    t_ray_hit_enemy *enemy;
 };
 
 
@@ -157,6 +159,8 @@ struct s_player_infos
     t_ray_info *rays;
 
     /***bonus***/
+    int look_up_down;
+    int up_down_offset;
     int jump_kneel;
     t_player_bonus *p_bonus;
 };
@@ -188,7 +192,8 @@ struct s_main_struct
     /***********/
     //bonus
     /***********/
-    struct timeval tv;
+    // struct timeval tv;
+    long long start_frame;
     t_bonus *bonus;
 
 };
@@ -216,15 +221,18 @@ struct s_walls_rendering
 struct s_bonus
 {
     int nbr_obj;
-    int nbr_enemi;
+    int nbr_enemies;
     int mouse_x;
+    int mouse_y;
     mlx_texture_t *img;
+    mlx_texture_t *enemy_mlx_tex;
     mlx_texture_t *pillar_tex;
     mlx_texture_t *door;
     mlx_texture_t *key;
     mlx_texture_t *floor;
     mlx_texture_t *sky;
     mlx_texture_t *gun_in_hand;
+    t_text *enemy_text;
     t_text *floor_text;
     t_text *sky_text;
     t_text *gun_in_hand_text;
@@ -250,18 +258,26 @@ struct s_obj
     double distance;
 };
 
-struct s_enemi
+struct s_enemy
 {
-    bool visible;
-    int x;
-    int y;
+    bool alive;
+    int x_screen;
+    int y_screen;
+    double x;
+    double y;
+    double vector_x;
+    double vector_y;
+    double vector_teta;
+    double enemy_teta;
+    double enemy_height;
+    double enemy_width;
     double distance;
 };
 
 struct s_player_bonus
 {
     t_obj *obj;
-    t_enemi *enemi;
+    t_enemy *enemy;
 };
 
 

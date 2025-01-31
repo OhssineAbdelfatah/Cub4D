@@ -11,11 +11,8 @@
 
 
 
-
-
-
 void shoot_the_rays(t_main_s * var);
-int need_update(t_player_infos * var, char **map);
+int need_update(t_main_s *main, t_player_infos * var, char **map);
 
 int is_there_a_wall(double new_y, double new_x, char **map);
 int check_teleportation(t_player_infos *var, char **map);
@@ -100,7 +97,7 @@ int draw_mini_map_42(t_main_s *var);
 
 /****************************TMP************ */
 void fill_map(char **av,t_main_s *var);
-void work_of_art(t_main_s *var);
+void work_of_art(t_main_s *var, int shoot);
 void wall_rendering(t_main_s *var);
 // void paintit(mlx_image_t *img, int color, int hight, int width);
 void paintit(mlx_image_t *img, int color, t_xy_i *start, t_xy_i *till);
@@ -122,10 +119,23 @@ t_player_bonus *init_player_bonus(t_main_s *var, t_player_infos *ptr);
 
 
 int get_color_obj(t_main_s *var, int obj_height, int obj_width, int x, int y);
-
-
-void update_obj_data(t_player_infos *p_var, t_obj *obj,int nbr_obj);
+void update_obj_data(t_main_s *var,  t_player_infos *p_var, t_obj *obj,int nbr_obj);
 void render_objects(t_main_s *var, t_player_bonus *p_ptr);
+
+double calculate_obj_or_enemy_teta(t_player_infos *p_var, t_obj *obj, t_enemy *enemy);
+double get_distance(t_player_infos *p_var, double x, double y);
+void update_enemy_data(t_main_s *var, t_player_infos *p_var, t_enemy *enemy,int nbr_enemy);
+void render_enemies(t_main_s *var, t_player_bonus *p_ptr);
+void adjust_rank_enemies(t_enemy *enemy, int max);
+
+long long	get_time_mil(void);
+
+/************************************************************/
+//                      >> FLOOR_CEILING-BONUS.C <<
+/************************************************************/
+
+void draw_floor(t_main_s *var, int x, int y, int nbr_ray);
+void render_sky(t_main_s *var, int x, int y_end, int nbr_ray);
 
 /************************************************************/
 //                      >> FREEDOM.C <<
