@@ -160,8 +160,8 @@ void work_of_art(t_main_s *var)
     }
     // printf("rotation angle >>> %f\n", var->p_infos->rotation_angle);
     shoot_the_rays(var);
-    draw_mini_map_42(var);
     wall_rendering(var);
+    draw_mini_map_42(var);
     update_obj_data(var->p_infos, var->p_infos->p_bonus->obj, var->bonus->nbr_obj);
 
                 

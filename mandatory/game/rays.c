@@ -66,7 +66,7 @@ void cast_ray(t_main_s *var, int i)
         set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance1 );
         return;
     }
-    distance1=  cast_horizontally(var, i, &h_xy);
+    distance1 = cast_horizontally(var, i, &h_xy);
     distance2 = cast_vertically(var, i, &v_xy);
     if (distance1 < distance2 || distance2 < 0 || distance1 == distance2)
         set_ray_infos(&var->p_infos->rays[i],'h', h_xy, distance1 );
