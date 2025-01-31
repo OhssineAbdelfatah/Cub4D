@@ -98,25 +98,22 @@ int get_color_of_floor(t_main_s *var, double x, double y)
     return color;
 }
 
-int get_color_for_floor(t_main_s *var, int x, int y, int i)
+int get_color_for_floor(t_main_s *var, int x, int y, int nbr_ray)
 {
-    // static int alo;
     int color;
     double beta,r,  straight_line_dis, origin_line_distance, floor_x, floor_y;
 
-    beta = var->p_infos->rays[i].angle - var->p_infos->rotation_angle;
+    beta = var->p_infos->rays[nbr_ray].angle - var->p_infos->rotation_angle;
     beta = adjust_angle(beta);
     r = y -  (var->window_height / 2);
     straight_line_dis = ((square_len / 2) / r) * var->p_infos->walls->distance_prj_plane;
     origin_line_distance = straight_line_dis / cos(beta);
-    floor_x = var->p_infos->x + cos(var->p_infos->rays[i].angle) * origin_line_distance;
-    floor_y = var->p_infos->y - sin(var->p_infos->rays[i].angle) * origin_line_distance;
-
-    // floor_y = var->p_infos->x - cos(var->p_infos->rays[x].angle) * origin_line_distance;
-    // floor_x = var->p_infos->y + sin(var->p_infos->rays[x].angle) * origin_line_distance;
+    floor_x = var->p_infos->x + (cos(var->p_infos->rays[nbr_ray].angle) * origin_line_distance);
+    floor_y = var->p_infos->y - (sin(var->p_infos->rays[nbr_ray].angle) * origin_line_distance) ;
 
     color = get_color_of_floor(var, floor_x, floor_y);
     (void)x;
+    // (void)i;
     return color;
 }
 
