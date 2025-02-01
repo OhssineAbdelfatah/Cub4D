@@ -171,7 +171,7 @@ t_bonus *init_bonus(t_main_s *main)
     // var->gun_in_hand =  safe_load("../assets/textures/shoot1.png");
     var->gun_in_hand =  safe_load("../assets/textures/w0_b.png");
     var->floor = safe_load("../assets/floor/Brick/Brick_18-128x128.png");
-    var->enemy_mlx_tex = safe_load("../assets/textures/goblin.png");
+    var->enemy_mlx_tex = safe_load("../assets/textures/deamon.png");
     var->enemy_text = get_image(var->enemy_mlx_tex);
     // var->floor = safe_load("../assets/floor/Tile/Tile_14-128x128.png");
     // var->floor = safe_load("../assets/textures/2d.png");

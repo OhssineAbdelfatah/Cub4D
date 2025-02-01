@@ -56,7 +56,7 @@ void fill_enemy(t_main_s *var, t_enemy *enemy, t_player_infos *p_var)
         x = 0;
         while (var->map[y][x])
         {
-            if (var->map[y][x] == 'E')
+            if (var->map[y][x] == 'e')
             {
                 enemy[i].alive = true;
                 enemy[i].x = (double)(x * square_len) + (square_len / 2);

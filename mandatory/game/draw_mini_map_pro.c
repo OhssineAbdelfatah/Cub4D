@@ -24,7 +24,7 @@ int check_the_pixel(t_main_s *var, int x, int y)
         return -1;
     if (var->map[diff_y][diff_x] == 'O')
         return -2;
-    if (var->map[diff_y][diff_x] == 'E')
+    if (var->map[diff_y][diff_x] == 'e')
         return -3;
     return 0;
 }

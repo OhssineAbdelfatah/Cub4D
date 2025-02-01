@@ -92,7 +92,7 @@ int hit_some(t_main_s *var, double xintersection, double yintersection)
         return 1;
     if (var->map[x][y] == 'O')
         return 'O';
-    if (var->map[x][y] == 'E')
+    if (var->map[x][y] == 'e')
         return 'E';
     return 0;
 }
@@ -195,7 +195,7 @@ void count_obj_enemi(t_main_s *var)
         {
             if (var->map[y][x] == 'O')
                 nbr_obj ++;
-            if (var->map[y][x] == 'E')
+            if (var->map[y][x] == 'e')
                 nbr_enemies ++;
             x++;
         }

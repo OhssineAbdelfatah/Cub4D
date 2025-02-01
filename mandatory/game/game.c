@@ -163,14 +163,12 @@ void work_of_art(t_main_s *var, int shoot)
     update_enemy_data(var, var->p_infos, var->p_infos->p_bonus->enemy, var->bonus->nbr_enemies);
 
                 
-    render_objects(var, var->p_infos->p_bonus);
+    // render_objects(var, var->p_infos->p_bonus);
     render_enemies(var, var->p_infos->p_bonus);
 
     // obj_rebdering(var);   
     // fps_hands_rendring(var);
-    
     draw_crosshairs(var, 30, 2, 0x66FF33FF);
-   
     if (a==0)
     {
         mlx_image_to_window(var->mlx, var->img2, 0, 0);
