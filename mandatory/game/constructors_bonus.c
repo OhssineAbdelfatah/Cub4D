@@ -101,7 +101,7 @@ t_enemy *init_enemies_p(t_main_s *var, t_player_infos *p_var)
     if (!res)
         panic("malloc failed!\n");
     fill_enemy(var, res, p_var);
-    (void)p_var;
+    // (void)p_var;
     return res;
 }
 

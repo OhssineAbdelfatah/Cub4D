@@ -63,8 +63,8 @@ int draw_mini_map_42(t_main_s *var)
         y = 0;
         x++;
     }
-    new_x = var->mini_map->p_x + sin(var->p_infos->rotation_angle) * 10;
-    new_y = var->mini_map->p_y + cos(var->p_infos->rotation_angle) * 10 ;
+    new_x = var->mini_map->p_x + sin(var->p_infos->rotation_angle) * 30;
+    new_y = var->mini_map->p_y + cos(var->p_infos->rotation_angle) * 30 ;
     draw_disk11(var->mini_map->img3, var->mini_map->p_x, var->mini_map->p_y , player_radius, 0x000000FF);
     draw_a_line2(var, var->mini_map->p_x , var->mini_map->p_y, new_x, new_y, 0x00F0FF,var->mini_map->img3);
     return 0;

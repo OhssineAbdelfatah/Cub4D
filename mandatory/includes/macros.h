@@ -31,7 +31,7 @@
 #define left_arrow  263
 
 #define square_len 64
-#define player_radius 5
+#define player_radius 10
 #define scale_of_minimap 0.2
 #define EPSILON 1e-6
 

@@ -15,7 +15,7 @@ int main(int ac, char **av)
     t_main_s *var;
     t_parse_data *data;
 
-    atexit(ff);
+    // atexit(ff);
 
     data = parse(ac, av);
     var = init_main_var(data);

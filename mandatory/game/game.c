@@ -146,9 +146,9 @@ void paint_floor_celling(t_main_s *var)
     paintit(var->img2, color, &start, &till);
 }
 
-
 void work_of_art(t_main_s *var, int shoot)
-{    
+{  
+    static int a;  
     paint_floor_celling(var);
     if (var->p_infos == NULL)
         var->p_infos=  init_player_struct(var , var->parse->dir, ((var->parse->pos->y_ver * square_len) + (square_len / 2)), ((var->parse->pos->x_hor * square_len) + (square_len / 2)));
@@ -159,25 +159,24 @@ void work_of_art(t_main_s *var, int shoot)
     }
     draw_mini_map_42(var);
     wall_rendering(var);
-    // if (shoot)
     update_obj_data(var, var->p_infos, var->p_infos->p_bonus->obj, var->bonus->nbr_obj);
+    update_enemy_data(var, var->p_infos, var->p_infos->p_bonus->enemy, var->bonus->nbr_enemies);
 
                 
     render_objects(var, var->p_infos->p_bonus);
+    render_enemies(var, var->p_infos->p_bonus);
 
-    // obj_rebdering(var);
-
-    //here  i call the function so i can get only the width of the img:
-   
-   
-    // calc_obj_width(var);
+    // obj_rebdering(var);   
     // fps_hands_rendring(var);
     
-    // draw_crosshairs(var, 30, 2, 0x66FF33FF);
-    // if (shoot)
-    // free_rays(var);
-    mlx_image_to_window(var->mlx, var->img2, 0, 0);
-    mlx_image_to_window(var->mlx, var->mini_map->img3, 10, 10);
-    mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img, var->window_width / 3, var->window_height / 2);
+    draw_crosshairs(var, 30, 2, 0x66FF33FF);
+   
+    if (a==0)
+    {
+        mlx_image_to_window(var->mlx, var->img2, 0, 0);
+        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img, var->window_width / 3, var->window_height / 2);
+        mlx_image_to_window(var->mlx, var->mini_map->img3, 10, 10);
+        a++;
+    }
 }
 

@@ -29,7 +29,6 @@ void render_enemy(t_main_s *var, t_player_bonus *ptr, t_walls *walls,int i)
 
     enemy_height = (square_len /  ptr->enemy[i].distance) * walls->distance_prj_plane;
     enemy_width = enemy_height;
-
     x_start = ptr->enemy[i].x_screen - (enemy_width / 2);
     y_start = ptr->enemy[i].y_screen - (enemy_height / 2);
 
