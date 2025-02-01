@@ -71,6 +71,25 @@ void render_enemies(t_main_s *var, t_player_bonus *p_ptr)
     free(walls);
 }
 
+
+
+void chase_player(t_main_s *var, t_player_infos *p_player, t_enemy *enemy, int i)
+{ 
+    if (enemy[i].vector_x > 0)
+        enemy[i].vector_x -= (p_player->speed - 2);
+    else
+        enemy[i].vector_x += (p_player->speed - 2);
+    if (enemy[i].vector_y > 0)
+        enemy[i].vector_y -= (p_player->speed - 2);
+    else
+        enemy[i].vector_y += (p_player->speed - 2);
+    
+    enemy[i].x = p_player->x + enemy[i].vector_x;
+    enemy[i].y = p_player->y + enemy[i].vector_y;
+    enemy[i].distance =  get_distance(p_player,enemy[i].x, enemy[i].y);
+    (void)var;
+    // enemy[i].vector_y = ;
+}
 void update_enemy_data(t_main_s *var, t_player_infos *p_var, t_enemy *enemy,int nbr_enemy)
 {
     int i;
@@ -84,6 +103,8 @@ void update_enemy_data(t_main_s *var, t_player_infos *p_var, t_enemy *enemy,int 
             enemy[i].distance = get_distance(p_var,enemy[i].x, enemy[i].y);
             enemy[i].vector_x = p_var->y - enemy[i].x;
             enemy[i].vector_y = p_var->x - enemy[i].y;
+            // if (enemy[i].alive)
+            //     chase_player(var, p_var, enemy, i);
             enemy[i].vector_teta = atan2(-enemy[i].vector_y, enemy[i].vector_x);
             enemy[i].vector_teta = adjust_angle(enemy[i].vector_teta  - (M_PI / 2));
             enemy[i].enemy_teta = calculate_obj_or_enemy_teta(p_var,NULL, &enemy[i]);

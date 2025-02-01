@@ -132,11 +132,11 @@ void loop_hook(void *ptr)
         var->p_infos->turn_arround  = 0;
         var->p_infos->look_up_down  = 0;
     }                           
-    // else if (now - var->start_frame > 40)
-    // {
-    //     var->start_frame = now;
-    //     work_of_art (var, 0);
-    // }
+    else if (now - var->start_frame > 40)
+    {
+        var->start_frame = now;
+        work_of_art (var, 0);
+    }
     
     (void)var;
     (void)now;
