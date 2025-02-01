@@ -1,47 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   safe_func.c                                        :+:      :+:    :+:   */
+/*   list_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 18:02:39 by aohssine          #+#    #+#             */
-/*   Updated: 2025/02/01 12:12:07 by aohssine         ###   ########.fr       */
+/*   Created: 2024/11/20 18:32:35 by aohssine          #+#    #+#             */
+/*   Updated: 2025/01/10 18:02:32 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-void	**safe__malloc(void)
+t_map_lst	*create_node(char *value, int type)
 {
-	void	**dt;
+	t_map_lst	*node;
 
-	dt = malloc(sizeof(void *));
-	if (!dt)
-		exit(1);
-	return (dt);
+	node = (t_map_lst *)malloc(sizeof(t_map_lst));
+	if (!node)
+		return (NULL);
+	node->value = ft_strdup(value);
+	free(value);
+	node->type = type;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
 }
 
-void	*safe_malloc(void)
+void	add_back(t_map_lst **lst, t_map_lst **tail, t_map_lst *nd)
 {
-	void	**dt;
-
-	dt = malloc(sizeof(void));
-	if (!dt)
-		exit(1);
-	return (dt);
-}
-
-int	safe_open(char *file, t_pre_data *dt)
-{
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	if (*lst == NULL)
+		*lst = nd;
+	else
 	{
-		free(dt);
-		ft_putstr_fd("Error open map\n", 2);
-		exit(1);
+		(*tail)->next = nd;
+		nd->prev = *tail;
 	}
-	return (fd);
+	*tail = nd;
 }

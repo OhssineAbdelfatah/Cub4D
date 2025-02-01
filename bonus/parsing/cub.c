@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/02/01 12:32:41 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:38:17 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	cube(char *ext, t_parse_data **data)
 		return (1);
 	dt = read_file(ext);
 	if (!dt)
-		return (free(dt), printf("read file\n"),1);
+		return (free(dt), 1);
 	if (!dt->info)
-		return (free_map(dt->info), free(dt),printf("dt info null\n"), 1);
+		return (free_map(dt->info), free(dt), 1);
 	*data = dt->data;
 	free_map(dt->info);
 	free(dt);
@@ -73,8 +73,9 @@ t_parse_data	*parse(int ac, char **av)
 	{
 		if (cube(av[1], data))
 		{
-			ft_putstr_fd("\033[0;31mError\033[0m \n", 2);
-			free(data);
+			ft_putstr_fd("\033[0;31m Error\033[0m \n", 2);
+			free_data(*data);
+			free(*data);
 			exit(1);
 		}
 		data1 = *data;
@@ -83,7 +84,6 @@ t_parse_data	*parse(int ac, char **av)
 	}
 	else
 	{
-		printf("ac %d\n", ac);
 		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infos_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/02/01 12:34:51 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:39:48 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,17 +143,17 @@ t_pre_data	* read_file(char *file)
 		dt->map = check_map(fd_map);
 		if (!dt->map)
 			return (close(fd_map), free_map(dt->info), free(dt->data),
-				free_map(dt->map), free(dt), printf("dt map null\n"), NULL);
+				free_map(dt->map), free(dt), NULL);
 		if (parse_map(dt->map))
 			return (close(fd_map), free_map(dt->info), free(dt->data),
-				free_map(dt->map), free(dt),  printf("parse map\n"),NULL);
+				free_map(dt->map), free(dt), NULL);
 		dt->data->map = list_to_array(dt->map);
 		if (!dt->data->map)
 			return (free_split(dt->data->map), free(dt->data), close(fd_map),
-				free_map(dt->info), free_map(dt->map), free(dt), printf("map null after list to array\n"), NULL);
+				free_map(dt->info), free_map(dt->map), free(dt), NULL);
 		if (valid_map(dt->data->map))
 			return (free_split(dt->data->map), free(dt->data), close(fd_map),
-				free_map(dt->info), free_map(dt->map), free(dt), printf("not a vaid map\n"), NULL);
+				free_map(dt->info), free_map(dt->map), free(dt), NULL);
 	}
 	return (fill_data(dt), free_map(dt->map), close(fd_map), dt);
 }
