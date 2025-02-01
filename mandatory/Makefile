@@ -1,6 +1,6 @@
 CC = cc 
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g
 # -fsanitize=address -g
 
 LIBMLX = ../lib/mlx
@@ -37,10 +37,12 @@ ASCII_ART = "\033[31m\n"\
 
 GNL = ../lib/gnl/get_next_line.c ../lib/gnl/get_next_line_utils.c
 
+BONUS_FILES =  game/enemies_bonus.c  game/floor_ceilling_bonus.c
+
 GAME_FILES = game/hooks_nd_loops.c game/casting.c game/tools.c game/walls_rendering.c game/rays.c \
 			game/drawing.c game/draw_minimap.c game/draw_mini_map_pro.c game/bonus.c \
 			game/constructors.c game/constructors_bonus.c game/freedom.c\
-			game/obj_bonus.c game/enemies_bonus.c \
+			game/obj_bonus.c \
 			game/game.c
 
 TEXTURES	= game/texture.c 		
@@ -51,7 +53,7 @@ PARSING = 	parsing/cub.c          parsing/infos_utils2.c parsing/infos_utils3.c 
 			parsing/valid_map.c    parsing/infos_utils.c  parsing/list_utils.c	\
 			parsing/safe_func.c    parsing/main.c parsing/test.c
 			
-CFILES = ${PARSING} ${GNL} ${TEXTURES} ${GAME_FILES} main.c
+CFILES = ${PARSING} ${GNL} ${TEXTURES} ${GAME_FILES} ${BONUS_FILES} main.c
 
 OBJ = $(CFILES:.c=.o)
 NAME = cub3D

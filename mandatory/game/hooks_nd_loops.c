@@ -1,7 +1,7 @@
 # include "../includes/ps.h"
 
 
-int need_update(t_player_infos * var, char **map)
+int need_update(t_main_s *main, t_player_infos * var, char **map)
 {
     int check;
     double move_steps;
@@ -37,9 +37,18 @@ int need_update(t_player_infos * var, char **map)
         }
         return 1;
     }
-    if (var->jump_kneel)
+    if ( var->look_up_down|| var->jump_kneel )
     {
+        // printf("look_up_down :: %d \n", var->look_up_down);
+        if (var->look_up_down == 1)
+            if (var->up_down_offset < (main->window_height / 3))
+                var->up_down_offset += var->speed * var->look_up_down * 2;
+        if (var->look_up_down == -1)
+            if (var->up_down_offset > ( main->window_height / 3) * -1)
+                var->up_down_offset += var->speed  * var->look_up_down * 2 ;
+
         var->jump_kneel = 0;
+        
         return 1;
     }
     return 0;
@@ -84,31 +93,54 @@ void key_hook(mlx_key_data_t key, void *var)
     //     ptr->p_infos->jump_kneel = 1;
     // if (key.key == MLX_KEY_LEFT_CONTROL)
     //     ptr->p_infos->jump_kneel = -1;
+    if (key.key == MLX_KEY_UP)
+        ptr->p_infos->look_up_down = 1;
+    if (key.key == MLX_KEY_DOWN)
+        ptr->p_infos->look_up_down = -1;
 }
+long long	get_time_mil(void)
+{
+	long long	res;
+	t_time		tp;
+
+	gettimeofday(&tp, NULL);
+	res = (tp.tv_sec * 1000) + (tp.tv_usec / 1000);
+	return (res);
+}
+
 
 void loop_hook(void *ptr)
 {
     t_main_s *var;
+    // static t_time tv;
+    long long now;
 
     var = (t_main_s *)ptr;
-    if (need_update(var->p_infos, var->map))
+    now = get_time_mil();
+    if (need_update(var,  var->p_infos, var->map))
     {
         // mlx_delete_image(var->mlx,var->img);
-        // mlx_delete_image(var->mlx,var->img2);
-        // mlx_delete_image(var->mlx,var->mini_map->img3);
-       
         // // var->img = mlx_new_image(var->mlx, (var->map_width *scale_of_minimap * square_len), (var->map_hight *scale_of_minimap * square_len));
         
+        // mlx_delete_image(var->mlx,var->img2);
+        // mlx_delete_image(var->mlx,var->mini_map->img3);
         // var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
-        
         // var->mini_map->img3 = mlx_new_image(var->mlx, var->mini_map->minimap_width, var->mini_map->minimap_height);
-        work_of_art(var);
+        work_of_art(var, 1);
         var->p_infos->move_up_down  = 0;
         var->p_infos->move_left_right  = 0;
         var->p_infos->turn_arround  = 0;
+        var->p_infos->look_up_down  = 0;
+    }                           
+    else if (now - var->start_frame > 40)
+    {
+        var->start_frame = now;
+        work_of_art (var, 0);
     }
     
-
+    (void)var;
+    (void)now;
+    (void)ptr;
 }
 
 void mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
@@ -119,12 +151,7 @@ void mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *
     var = (t_main_s *)param;
 
     mlx_get_mouse_pos(var->mlx, &new_x, &new_y);
-    // the_origin = var->bonus->mouse_x;
-    // if (new_x < the_origin)
-    //     var->p_infos->turn_arround = -1;
-    // else if (new_x > the_origin)
-    //     var->p_infos->turn_arround = 1;
-    // var->bonus->mouse_x = the_origin;
+   
     (void)button;
     (void)action;
     (void)mods;
@@ -135,17 +162,28 @@ void mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *
 void cursor_func(double xpos, double ypos, void* param)
 {
     t_main_s *var;
-    int the_origin;
+    int the_origin_x, the_origin_y;
    
     var = (t_main_s *)param;
-    the_origin = var->bonus->mouse_x;
-    if (xpos < the_origin - 5)
+    the_origin_x = var->bonus->mouse_x;
+    the_origin_y = var->bonus->mouse_y;
+    if (xpos < the_origin_x - 5)
         var->p_infos->turn_arround = 1;
-    else if (xpos > the_origin + 5)
+    else if (xpos > the_origin_x + 5)
         var->p_infos->turn_arround = -1;
     var->bonus->mouse_x = xpos;
     if (xpos < 0 || xpos > var->window_width)
         var->bonus->mouse_x = var->window_width /2;
+   
+   
+   
+    if (ypos < the_origin_y - 5)
+        var->p_infos->look_up_down = 1;
+    else if (ypos > the_origin_y + 5)
+        var->p_infos->look_up_down = -1;
+    var->bonus->mouse_y = ypos;
+    if (ypos < 0 || ypos > var->window_height)
+        var->bonus->mouse_y = var->window_height /2;
     (void)ypos;
 }
 
@@ -155,6 +193,7 @@ void mlx_loops_and_hooks(t_main_s *var)
     // mlx_hook(var->mlx_win, 2, 1L<<0, key_hook, var);
 
     // mlx_mouse_hook(var->mlx, mouse_hook, var);
+
     // mlx_cursor_hook(var->mlx, cursor_func, var);
     mlx_loop_hook(var->mlx, loop_hook, var);
     mlx_loop(var->mlx); 

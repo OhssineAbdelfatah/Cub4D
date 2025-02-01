@@ -43,6 +43,41 @@ void fill_obj(t_main_s *var, t_obj *obj, t_player_infos *p_var)
     }
 }
 
+void fill_enemy(t_main_s *var, t_enemy *enemy, t_player_infos *p_var)
+{
+    int x, y;
+    int i;
+
+    x = 0;
+    y = 0;
+    i = 0;
+    while (var->map[y])
+    {   
+        x = 0;
+        while (var->map[y][x])
+        {
+            if (var->map[y][x] == 'E')
+            {
+                enemy[i].alive = true;
+                enemy[i].x = (double)(x * square_len) + (square_len / 2);
+                enemy[i].y = (double)(y * square_len) + (square_len / 2);
+                enemy[i].x_screen = 0;
+                enemy[i].y_screen = 0;
+                enemy[i].enemy_height = 0;
+                enemy[i].enemy_width = 0;
+                enemy[i].enemy_teta = 0;
+                enemy[i].vector_teta = 0;
+                enemy[i].vector_x = 0;
+                enemy[i].vector_y = 0;
+                enemy[i].distance = get_distance(p_var,x, y);
+                i++;
+            }
+            x ++;
+        }
+        y++;
+    }
+}
+
 t_obj *init_obj_p(t_main_s *var, t_player_infos *p_var)
 {
     t_obj *res;
@@ -56,32 +91,44 @@ t_obj *init_obj_p(t_main_s *var, t_player_infos *p_var)
     return res;
 }
 
-t_enemi *init_enemies_p(t_main_s *var, t_player_infos *p_var)
+t_enemy *init_enemies_p(t_main_s *var, t_player_infos *p_var)
 {
-    t_enemi *res;
-    // printf("NBR _ OBJ : %d\n", var->bonus->nbr_obj);
-    if (var->bonus->nbr_enemi == 0)
+    t_enemy *res;
+    printf("NBR _ OBJ : %d\n", var->bonus->nbr_enemies);
+    if (var->bonus->nbr_enemies == 0)
         return NULL;
-    res = (t_enemi *)malloc(sizeof(t_enemi) * var->bonus->nbr_enemi);
+    res = (t_enemy *)malloc(sizeof(t_enemy) * var->bonus->nbr_enemies);
     if (!res)
         panic("malloc failed!\n");
-    // fill_obj(var, res, p_var);
-    (void)p_var;
+    fill_enemy(var, res, p_var);
+    // (void)p_var;
     return res;
 }
 
 
 
-int is_sorted(t_obj *obj, int max)
+int is_sorted(t_obj *obj,t_enemy *enemy, int max)
 {
     int i = 0;
+    if (obj)
+    {
+        while (i < max)
+        {
+            if (i + 1 < max)
+                if (obj[i].distance < obj[i + 1].distance)
+                    return 1;
+            i++;
+        }
+        return 0;
+    }
     while (i < max)
     {
         if (i + 1 < max)
-            if (obj[i].distance < obj[i + 1].distance)
+            if (enemy[i].distance < enemy[i + 1].distance)
                 return 1;
         i++;
     }
+
     return 0;
 }
 
@@ -94,11 +141,19 @@ void swap_obj(t_obj *one, t_obj *two)
     *one = *two;
     *two  = tmp;
 }
+void swap_enemy(t_enemy *one, t_enemy *two)
+{
+    t_enemy tmp;
+
+    tmp = *one;
+    *one = *two;
+    *two  = tmp;
+}
 
 void adjust_rank(t_obj *obj, int max)
 {
     int i = 0;
-    while (is_sorted(obj, max))
+    while (is_sorted(obj, NULL, max))
     {
         i = 0;
         while (i < max)
@@ -107,6 +162,25 @@ void adjust_rank(t_obj *obj, int max)
             {
                 if (obj[i].distance < obj[i + 1].distance)
                     swap_obj(&obj[i], &obj[i + 1]);
+            }
+            i++;
+        }
+    }
+}
+
+
+void adjust_rank_enemies(t_enemy *enemy, int max)
+{
+    int i = 0;
+    while (is_sorted(NULL, enemy, max))
+    {
+        i = 0;
+        while (i < max)
+        {
+            if (i + 1 < max)
+            {
+                if (enemy[i].distance < enemy[i + 1].distance)
+                    swap_enemy(&enemy[i], &enemy[i + 1]);
             }
             i++;
         }
@@ -152,20 +226,29 @@ void check_visibility(t_player_infos *p_var, t_obj *obj, int i)
     (void)i;
 }
 
-double calculate_obj_teta(t_player_infos *p_var, t_obj *obj)
+double calculate_obj_or_enemy_teta(t_player_infos *p_var, t_obj *obj, t_enemy *enemy)
 {
-    double obj_teta;
+    double teta;
 
+    if (!enemy)
+    {
+        teta = p_var->rotation_angle + (p_var->fov / 2) - obj->vector_teta;
+        if (p_var->rotation_angle < (M_PI / 2) && obj->vector_teta > (M_PI + (M_PI /2)))
+            teta += (2 * M_PI);
+        if (p_var->rotation_angle > (M_PI + (M_PI /2)) && obj->vector_teta < (M_PI / 2))
+            teta -= (2 * M_PI);
+        return (teta);
+    }
+    teta = p_var->rotation_angle + (p_var->fov / 2) - enemy->vector_teta;
+    if (p_var->rotation_angle < (M_PI / 2) && enemy->vector_teta > (M_PI + (M_PI /2)))
+        teta += (2 * M_PI);
+    if (p_var->rotation_angle > (M_PI + (M_PI /2)) && enemy->vector_teta < (M_PI / 2))
+        teta -= (2 * M_PI);
+    return (teta);
 
-    obj_teta = p_var->rotation_angle + (p_var->fov / 2) - obj->vector_teta;
-    if (p_var->rotation_angle < (M_PI / 2) && obj->vector_teta > (M_PI + (M_PI /2)))
-        obj_teta += (2 * M_PI);
-    if (p_var->rotation_angle > (M_PI + (M_PI /2)) && obj->vector_teta < (M_PI / 2))
-        obj_teta -= (2 * M_PI);
-    return (obj_teta);
 }
 
-void update_obj_data(t_player_infos *p_var, t_obj *obj,int nbr_obj)
+void update_obj_data(t_main_s *var, t_player_infos *p_var, t_obj *obj,int nbr_obj)
 {
     int i;
 
@@ -180,10 +263,10 @@ void update_obj_data(t_player_infos *p_var, t_obj *obj,int nbr_obj)
             obj[i].vector_y = p_var->x - obj[i].y;
             obj[i].vector_teta = atan2(-obj[i].vector_y, obj[i].vector_x);
             obj[i].vector_teta = adjust_angle(obj[i].vector_teta  - (M_PI / 2));
-            obj[i].obj_teta = calculate_obj_teta(p_var, &obj[i]);
+            obj[i].obj_teta = calculate_obj_or_enemy_teta(p_var, &obj[i], NULL);
             check_visibility(p_var, obj, i);
             obj[i].x_screen = obj[i].obj_teta * (1400 / p_var->fov);
-            obj[i].y_screen = 800 / 2;
+            obj[i].y_screen = (var->window_height / 2) + var->p_infos->up_down_offset ;
             // printf("Vector teta : %f,Obj teta : %f, obj x_screen : %d\n", obj[i].vector_teta , obj[i].obj_teta, obj[i].x_screen);
             i++;
         }
@@ -201,9 +284,9 @@ t_player_bonus *init_player_bonus(t_main_s *var, t_player_infos *p_var)
     if (!res)
         panic("malloc failed!\n");
     count_obj_enemi(var);
-    res->enemi = init_enemies_p(var, p_var);
+    res->enemy = init_enemies_p(var, p_var);
     res->obj = init_obj_p(var, p_var);
-    update_obj_data(p_var,res->obj, var->bonus->nbr_obj);
+    // update_obj_data(var, p_var,res->obj, var->bonus->nbr_obj);
     return (res);
 }
 

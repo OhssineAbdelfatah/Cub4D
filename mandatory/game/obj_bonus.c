@@ -51,6 +51,5 @@ void render_objects(t_main_s *var, t_player_bonus *p_ptr)
         render_obj(var, p_ptr, walls,i);
         i++;
     }
-    // printf("vector x : %f ,vector Y: %f\n", p_ptr->obj->vector_x, p_ptr->obj->vector_y);
     free(walls);
 }
