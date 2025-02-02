@@ -163,7 +163,7 @@ void work_of_art(t_main_s *var, int shoot)
     update_enemy_data(var, var->p_infos, var->p_infos->p_bonus->enemy, var->bonus->nbr_enemies);
 
                 
-    // render_objects(var, var->p_infos->p_bonus);
+    render_objects(var, var->p_infos->p_bonus);
     render_enemies(var, var->p_infos->p_bonus);
 
     // obj_rebdering(var);   

@@ -192,10 +192,13 @@ t_bonus *init_bonus(t_main_s *main)
     var->sky_text = get_image(var->sky);
     printf("sky W :%d , sky H : %d\n",var->sky_text->width, var->sky_text->hieght );
     // var->pillar_tex = safe_load("../assets/textures/MBPKA0.png");
-    var->pillar_tex = safe_load("../assets/textures/AGAHA1.png");
     // var->pillar_tex = safe_load("../assets/textures/Sprite-removebg.png");
     // var->pillar_tex = safe_load("../assets/textures/pilaar2.png");
     // var->pillar_tex = safe_load("../assets/textures/Wolf3Dfinalpillar.png");
+    // var->pillar_tex = safe_load("../assets/textures/AGAHA1.png");
+    // var->pillar_img = get_image(var->pillar_tex);
+    var->pillar_tex = safe_load("../assets/textures/EHEDC0.png");
+    // var->pillar_tex = safe_load("../assets/textures/EHEDA0.png");
     var->pillar_img = get_image(var->pillar_tex);
     var->gun_in_hands_img = mlx_texture_to_image(main->mlx, var->gun_in_hand);
     mlx_resize_image(var->gun_in_hands_img, main->window_width / 2, main->window_height / 2);

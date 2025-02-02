@@ -182,6 +182,8 @@ t_bonus *init_bonus(t_main_s *main)
     printf("sky W :%d , sky H : %d\n",var->sky_text->width, var->sky_text->hieght );
     var->pillar_tex = safe_load("../assets/textures/AncientPillar_green.png");
     var->pillar_img = get_image(var->pillar_tex);
+    var->pillar_img = NULL;
+    var->pillar_tex = NULL;
     // var->pillar_tex = NULL;
     // var->pillar_img =NULL;
     var->gun_in_hands_img = mlx_texture_to_image(main->mlx, var->gun_in_hand);

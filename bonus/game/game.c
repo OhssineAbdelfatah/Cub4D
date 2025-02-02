@@ -68,6 +68,7 @@ int get_color_obj(t_main_s *var, int obj_height, int obj_width, int x, int y)
     new_y = (double)var->bonus->pillar_img->hieght * y_offset;
 
     // color = var->bonus->pillar_img->pixels[(int)floor(new_y)][(int)floor(new_x)];
+    printf("alo\n");
     color = var->bonus->pillar_img->pixels[(int)floor(new_y)][(int)floor(new_x)];
     return color;
 }

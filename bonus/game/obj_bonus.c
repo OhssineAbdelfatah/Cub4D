@@ -11,6 +11,7 @@ void render_obj(t_main_s *var, t_player_bonus *ptr, t_walls *walls,int i)
     int y_increment = 0;
     int ray_to_inspect;
 
+    // printf("%d\n")
     obj_height = (square_len /  ptr->obj[i].distance) * walls->distance_prj_plane;
     obj_width = obj_height;
 
