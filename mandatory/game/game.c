@@ -173,7 +173,11 @@ void work_of_art(t_main_s *var, int shoot)
     if (a==0)
     {
         mlx_image_to_window(var->mlx, var->img2, 0, 0);
-        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img, var->window_width / 3, var->window_height / 2);
+        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[0], var->window_width / 3, var->window_height / 2);
+        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[1], var->window_width / 3, var->window_height / 2);
+        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[2], var->window_width / 3, var->window_height / 2);
+        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[3], var->window_width / 3, var->window_height / 2);
+        // var->bonus->gun_in_hands_img0->enabled = false ;
         // mlx_image_to_window(var->mlx, var->mini_map->img3, 10, 10);
         a++;
     }

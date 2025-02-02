@@ -159,6 +159,25 @@ void loop_hook(void *ptr)
 void display_shooting(t_main_s *var)
 {
     
+    int j, i;
+    i = 1;
+    j = 1;
+    while (i < 4)
+    {
+        j = 0;
+        var->bonus->gun_in_hands_img[i]->enabled = true;
+        while (j < 1000)
+            j++;
+        var->bonus->gun_in_hands_img[i - 1]->enabled = false;
+        i++;
+    }
+    i --;
+    while (i  > 0)
+    {
+        var->bonus->gun_in_hands_img[i]->enabled = false;
+        i --;
+    }
+    var->bonus->gun_in_hands_img[i]->enabled = true;
     (void)var;
 }
 

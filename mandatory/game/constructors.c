@@ -172,7 +172,11 @@ t_bonus *init_bonus(t_main_s *main)
     if (!var)
         panic("malloc faild! \n");
     // var->gun_in_hand =  safe_load("../assets/textures/shoot1.png");
-    var->gun_in_hand =  safe_load("../assets/textures/w0_b.png");
+    // var->gun_in_hand =  safe_load("../assets/textures/w0_b.png");
+    var->gun_in_hand[0] =  safe_load("../assets/textures/RGLGD0.png");
+    var->gun_in_hand[1] =  safe_load("../assets/textures/RGLFA0.png");
+    var->gun_in_hand[2] =  safe_load("../assets/textures/RGLFB0.png");
+    var->gun_in_hand[3] =  safe_load("../assets/textures/RGLFC0.png");
     var->floor = safe_load("../assets/floor/Brick/Brick_18-128x128.png");
     var->enemy_mlx_tex = safe_load("../assets/textures/AGAHA1.png");
     var->dead_enemy_mlx_tex = safe_load("../assets/textures/AGAHL0.png");
@@ -187,21 +191,24 @@ t_bonus *init_bonus(t_main_s *main)
     var->key = NULL;
     var->mouse_x = (main->window_width) / 2;
     var->mouse_y = (main->window_height) / 2;
-    var->gun_in_hand_text = get_image(var->gun_in_hand);
+    var->gun_in_hand_text0 = get_image(var->gun_in_hand[0]);
     var->floor_text = get_image(var->floor);
     var->sky_text = get_image(var->sky);
     printf("sky W :%d , sky H : %d\n",var->sky_text->width, var->sky_text->hieght );
-    // var->pillar_tex = safe_load("../assets/textures/MBPKA0.png");
-    // var->pillar_tex = safe_load("../assets/textures/Sprite-removebg.png");
-    // var->pillar_tex = safe_load("../assets/textures/pilaar2.png");
-    // var->pillar_tex = safe_load("../assets/textures/Wolf3Dfinalpillar.png");
-    // var->pillar_tex = safe_load("../assets/textures/AGAHA1.png");
-    // var->pillar_img = get_image(var->pillar_tex);
+  
     var->pillar_tex = safe_load("../assets/textures/EHEDC0.png");
-    // var->pillar_tex = safe_load("../assets/textures/EHEDA0.png");
     var->pillar_img = get_image(var->pillar_tex);
-    var->gun_in_hands_img = mlx_texture_to_image(main->mlx, var->gun_in_hand);
-    mlx_resize_image(var->gun_in_hands_img, main->window_width / 2, main->window_height / 2);
+    var->gun_in_hands_img[0] = mlx_texture_to_image(main->mlx, var->gun_in_hand[0]);
+    var->gun_in_hands_img[1] = mlx_texture_to_image(main->mlx, var->gun_in_hand[1]);
+    var->gun_in_hands_img[2] = mlx_texture_to_image(main->mlx, var->gun_in_hand[2]);
+    var->gun_in_hands_img[3] = mlx_texture_to_image(main->mlx, var->gun_in_hand[3]);
+    mlx_resize_image(var->gun_in_hands_img[0], main->window_width / 2, main->window_height / 2);
+    mlx_resize_image(var->gun_in_hands_img[1], main->window_width / 2, main->window_height / 2);
+    mlx_resize_image(var->gun_in_hands_img[2], main->window_width / 2, main->window_height / 2);
+    mlx_resize_image(var->gun_in_hands_img[3], main->window_width / 2, main->window_height / 2);
+    var->gun_in_hands_img[1]->enabled =false;
+    var->gun_in_hands_img[2]->enabled =false;
+    var->gun_in_hands_img[3]->enabled =false;
     // var->gun_in_hands_img->enabled= false;
     var->nbr_enemies = 0;
     var->nbr_obj = 0;
