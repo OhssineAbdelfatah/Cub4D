@@ -167,13 +167,14 @@ void work_of_art(t_main_s *var, int shoot)
     render_enemies(var, var->p_infos->p_bonus);
 
     // obj_rebdering(var);   
-    // fps_hands_rendring(var);
+    
     draw_crosshairs(var, 30, 2, 0x66FF33FF);
+    draw_health_bar(var);
     if (a==0)
     {
         mlx_image_to_window(var->mlx, var->img2, 0, 0);
         mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img, var->window_width / 3, var->window_height / 2);
-        mlx_image_to_window(var->mlx, var->mini_map->img3, 10, 10);
+        // mlx_image_to_window(var->mlx, var->mini_map->img3, 10, 10);
         a++;
     }
 }

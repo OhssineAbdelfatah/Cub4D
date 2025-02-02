@@ -109,6 +109,17 @@ long long	get_time_mil(void)
 }
 
 
+int check_player_health(t_main_s *var)
+{
+    if (var->p_infos->health <= 0)
+    {
+        var->p_infos->alive = false;
+        mlx_put_string(var->mlx, "GAME OVER", var->window_width / 2, var->window_height / 2);
+        return 1;
+    }
+    return 0;
+}
+
 void loop_hook(void *ptr)
 {
     t_main_s *var;
@@ -117,6 +128,8 @@ void loop_hook(void *ptr)
 
     var = (t_main_s *)ptr;
     now = get_time_mil();
+    if (check_player_health(var))
+        return;
     if (need_update(var,  var->p_infos, var->map))
     {
         // mlx_delete_image(var->mlx,var->img);
@@ -143,18 +156,47 @@ void loop_hook(void *ptr)
     (void)ptr;
 }
 
+void display_shooting(t_main_s *var)
+{
+    
+    (void)var;
+}
+
+void shoot_them_mfs(t_main_s *var)
+{
+
+    int max_range, min_range;
+    int i = var->bonus->nbr_enemies - 1;
+    display_shooting(var);
+    max_range =(var->window_width / 2) + 20;
+    min_range =(var->window_width / 2) - 20;
+    while (i >= 0)
+    {
+        if (var->p_infos->p_bonus->enemy[i].x_screen > min_range && var->p_infos->p_bonus->enemy[i].x_screen < max_range)
+        {
+            if (abs(var->p_infos->up_down_offset) <= 10)
+            {
+                var->p_infos->p_bonus->enemy[i].alive = false;
+                    return;
+            }
+        }
+        i--;
+    }
+}
+
 void mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
 {
     t_main_s *var;
-    int new_x, new_y;
+    // int new_x, new_y;
 
     var = (t_main_s *)param;
 
-    mlx_get_mouse_pos(var->mlx, &new_x, &new_y);
-   
+    if (button == 0)
+        shoot_them_mfs(var);   
     (void)button;
     (void)action;
     (void)mods;
+    (void)var;
     // printf()
 }
 
@@ -192,7 +234,7 @@ void mlx_loops_and_hooks(t_main_s *var)
     mlx_key_hook(var->mlx, key_hook, var);
     // mlx_hook(var->mlx_win, 2, 1L<<0, key_hook, var);
 
-    // mlx_mouse_hook(var->mlx, mouse_hook, var);
+    mlx_mouse_hook(var->mlx, mouse_hook, var);
 
     // mlx_cursor_hook(var->mlx, cursor_func, var);
     mlx_loop_hook(var->mlx, loop_hook, var);

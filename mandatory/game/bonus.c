@@ -93,7 +93,7 @@ int hit_some(t_main_s *var, double xintersection, double yintersection)
     if (var->map[x][y] == 'O')
         return 'O';
     if (var->map[x][y] == 'e')
-        return 'E';
+        return 'e';
     return 0;
 }
 

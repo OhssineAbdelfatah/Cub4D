@@ -140,6 +140,9 @@ t_player_infos *init_player_struct(t_main_s *ptr,char c, int x, int y)
     var->jump_kneel = 0;
     var->look_up_down = 0;
     var->up_down_offset = 0;
+    var->alive = true;
+    var->health = 100;
+    var->max_health = var->health;
     // printf("x >>> %f\n", var->p_infos->x);
 
     var->p_bonus = init_player_bonus(ptr, var);
@@ -172,7 +175,9 @@ t_bonus *init_bonus(t_main_s *main)
     var->gun_in_hand =  safe_load("../assets/textures/w0_b.png");
     var->floor = safe_load("../assets/floor/Brick/Brick_18-128x128.png");
     var->enemy_mlx_tex = safe_load("../assets/textures/AGAHA1.png");
+    var->dead_enemy_mlx_tex = safe_load("../assets/textures/AGAHL0.png");
     var->enemy_text = get_image(var->enemy_mlx_tex);
+    var->dead_enemy_text = get_image(var->dead_enemy_mlx_tex);
     // var->floor = safe_load("../assets/floor/Tile/Tile_14-128x128.png");
     // var->floor = safe_load("../assets/textures/2d.png");
     // var->sky = safe_load("../assets/textures/nightsky.png");
