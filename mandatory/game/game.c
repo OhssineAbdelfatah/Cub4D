@@ -168,15 +168,19 @@ void work_of_art(t_main_s *var, int shoot)
 
     // obj_rebdering(var);   
     
-    draw_crosshairs(var, 30, 2, 0x66FF33FF);
+    // draw_crosshairs(var, 30, 2, 0x66FF33FF);
     draw_health_bar(var);
     if (a==0)
     {
         mlx_image_to_window(var->mlx, var->img2, 0, 0);
-        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[0], var->window_width / 4, var->window_height / 2);
-        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[1], var->window_width / 4, var->window_height / 2);
-        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[2], var->window_width / 4, var->window_height / 2);
-        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[3], var->window_width / 4, var->window_height / 2);
+        mlx_image_to_window(var->mlx, var->bonus->crosshair_img, (var->window_width / 2) - (var->bonus->crosshair_img->width / 2) , (var->window_height / 2) - (var->bonus->crosshair_img->height / 2));
+        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[0], var->window_width / 2 - (var->bonus->gun_in_hands_img[0]->width / 2), (var->window_height) - (var->bonus->gun_in_hands_img[0]->height) );
+        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[1], var->window_width / 2 - (var->bonus->gun_in_hands_img[1]->width / 2), (var->window_height) - (var->bonus->gun_in_hands_img[1]->height) );
+        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[2], var->window_width / 2 - (var->bonus->gun_in_hands_img[2]->width / 2), (var->window_height) - (var->bonus->gun_in_hands_img[2]->height) );
+        mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[3], var->window_width / 2 - (var->bonus->gun_in_hands_img[3]->width / 2), (var->window_height) - (var->bonus->gun_in_hands_img[3]->height) );
+        // mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[1], var->window_width / 4, var->window_height / 2);
+        // mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[2], var->window_width / 4, var->window_height / 2);
+        // mlx_image_to_window(var->mlx, var->bonus->gun_in_hands_img[3], var->window_width / 4, var->window_height / 2);
         // var->bonus->gun_in_hands_img0->enabled = false ;
         // mlx_image_to_window(var->mlx, var->mini_map->img3, 10, 10);
         a++;

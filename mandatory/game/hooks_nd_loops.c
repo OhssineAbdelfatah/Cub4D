@@ -12,6 +12,7 @@ int need_update(t_main_s *main, t_player_infos * var, char **map)
     move_steps  = var->move_up_down * var->speed;
     if (var->move_up_down != 0 || var->turn_arround != 0 || var->move_left_right != 0)
     {
+        // printf("move_up_down:  %d , move_left_right %d , turn_arround : %d \n" ,var->move_up_down,  var->move_left_right, var->turn_arround);
         var->rotation_angle += var->turn_arround * var->rotation_speed;
         var->rotation_angle = adjust_angle(var->rotation_angle);
         tmp_angle = var->rotation_angle;
@@ -68,31 +69,77 @@ void key_hook(mlx_key_data_t key, void *var)
     t_main_s *ptr;
 
     ptr = (t_main_s *)var;
+
     if (key.key == MLX_KEY_ESCAPE)
     {
         // smooth_exit(var);
         exit(0);
     }
+    if (key.key == MLX_KEY_ENTER)
+    {
+        if (key.action)
+            shoot_them_mfs(ptr);   
+        else    
+            redisplay_the_gun(ptr);
+
+    }
     if (key.key == left_arrow)
-        ptr->p_infos->turn_arround = 1;
+    {
+        if (key.action)
+            ptr->p_infos->turn_arround = 1;
+        else
+            ptr->p_infos->turn_arround = 0;
+    }
     if (key.key == right_arrow)
-        ptr->p_infos->turn_arround = -1;
+    {
+        if (key.action)
+            ptr->p_infos->turn_arround = -1;
+        else
+            ptr->p_infos->turn_arround = 0;
+    }
     if (key.key == W)
-        ptr->p_infos->move_up_down = 1;
+    {
+        if (key.action)
+            ptr->p_infos->move_up_down = 1;
+        else    
+            ptr->p_infos->move_up_down = 0;
+    }
     if (key.key == S)
-        ptr->p_infos->move_up_down = -1;
+    {
+        if (key.action)
+            ptr->p_infos->move_up_down = -1;
+        else
+            ptr->p_infos->move_up_down = 0;
+    }
     if (key.key == A)
-        ptr->p_infos->move_left_right = 1;
+    {
+        if (key.action)
+            ptr->p_infos->move_left_right = 1;
+        else    
+            ptr->p_infos->move_left_right = 0;
+    }
     if (key.key == D)
-        ptr->p_infos->move_left_right = -1;
-    // if (key.key == MLX_KEY_SPACE)
-    //     ptr->p_infos->jump_kneel = 1;
-    // if (key.key == MLX_KEY_LEFT_CONTROL)
-    //     ptr->p_infos->jump_kneel = -1;
+    {
+        if (key.action)
+            ptr->p_infos->move_left_right = -1;
+        else
+            ptr->p_infos->move_left_right = 0;
+    }
     if (key.key == MLX_KEY_UP)
-        ptr->p_infos->look_up_down = 1;
+    {
+        if (key.action)
+            ptr->p_infos->look_up_down = 1;
+        else
+            ptr->p_infos->look_up_down = 0;
+
+    }
     if (key.key == MLX_KEY_DOWN)
-        ptr->p_infos->look_up_down = -1;
+    {
+        if (key.action)
+            ptr->p_infos->look_up_down = -1;
+        else
+            ptr->p_infos->look_up_down = 0;
+    }
 }
 long long	get_time_mil(void)
 {
@@ -118,6 +165,7 @@ int check_player_health(t_main_s *var)
     {
         var->p_infos->alive = false;
         paintit(var->img2,  0xFF3333FF, &start, &end);
+        // mlx_put_string(var->mlx, "you have been smothered to death !", var->window_width / 2, var->window_height / 2);
         mlx_put_string(var->mlx, "GAME OVER", var->window_width / 2, var->window_height / 2);
         return 1;
     }
@@ -127,7 +175,6 @@ int check_player_health(t_main_s *var)
 void loop_hook(void *ptr)
 {
     t_main_s *var;
-    // static t_time tv;
     long long now;
 
     var = (t_main_s *)ptr;
@@ -137,17 +184,16 @@ void loop_hook(void *ptr)
     if (need_update(var,  var->p_infos, var->map))
     {
         work_of_art(var, 1);
-        var->p_infos->move_up_down  = 0;
-        var->p_infos->move_left_right  = 0;
-        var->p_infos->turn_arround  = 0;
-        var->p_infos->look_up_down  = 0;
+        // var->p_infos->move_up_down  = 0;
+        // var->p_infos->move_left_right  = 0;
+        // var->p_infos->turn_arround  = 0;
+        // var->p_infos->look_up_down  = 0;
     }                           
     else if (now - var->start_frame > 30)
     {
         var->start_frame = now;
         work_of_art (var, 0);
     }
-    
     (void)var;
     (void)now;
     (void)ptr;
@@ -155,25 +201,26 @@ void loop_hook(void *ptr)
 
 void display_shooting(t_main_s *var)
 {
-    
-    int j, i;
+    long long last_frame, now, diff;
+    int  i;
     i = 1;
-    j = 1;
-    while (i < 4)
+    last_frame = get_time_mil();
+    while (i < 3)
     {
-        j = 0;
         var->bonus->gun_in_hands_img[i]->enabled = true;
-        while (j < 1000)
-            j++;
+        now = get_time_mil();
+        diff =  now - last_frame;
+        while ( diff < 20)
+        {
+            diff =  now - last_frame;
+            now = get_time_mil();
+        }
+        last_frame = now;
+         usleep(30000);
         var->bonus->gun_in_hands_img[i - 1]->enabled = false;
+        
         i++;
     }
-    usleep(1000);
-    // while (j < 100000)
-    //     j++;
-    i --;
-    
-    (void)var;
 }
 
 
@@ -267,6 +314,7 @@ void cursor_func(double xpos, double ypos, void* param)
     t_main_s *var;
     int the_origin_x, the_origin_y;
    
+    // printf("alo\n");
     var = (t_main_s *)param;
     the_origin_x = var->bonus->mouse_x;
     the_origin_y = var->bonus->mouse_y;
@@ -293,7 +341,7 @@ void mlx_loops_and_hooks(t_main_s *var)
 
     mlx_mouse_hook(var->mlx, mouse_hook, var);
 
-    mlx_cursor_hook(var->mlx, cursor_func, var);
+    // mlx_cursor_hook(var->mlx, cursor_func, var);
     mlx_loop_hook(var->mlx, loop_hook, var);
     mlx_loop(var->mlx); 
 }

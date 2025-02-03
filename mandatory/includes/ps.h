@@ -130,6 +130,11 @@ void adjust_rank_enemies(t_enemy *enemy, int max);
 
 long long	get_time_mil(void);
 void draw_health_bar(t_main_s *var);
+void shoot_them_mfs(t_main_s *var);
+void redisplay_the_gun(t_main_s * var);
+
+
+
 /************************************************************/
 //                      >> FLOOR_CEILING-BONUS.C <<
 /************************************************************/

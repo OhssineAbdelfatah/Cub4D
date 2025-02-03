@@ -23,32 +23,6 @@ double adjust_angle(double angle)
     return angle;
 }
 
-// void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-// {
-// 	char	*dst;
-
-// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-// 	*(unsigned int*)dst = color;
-// }
-
-// void paintit(mlx_image_t *img, int color, int hight, int width)
-// {
-//     int i = 0;
-//     int j = 0;
-//     while (i < hight)
-//     {
-//         while (j < width)
-//         {
-//             // my_mlx_pixel_put(img, j, i, color);
-//             mlx_put_pixel(img, j, i, color);
-//             j ++;
-//         }
-//         j = 0;
-//         i++;
-//     }
-// }
-
-
 void paintit(mlx_image_t *img, int color, t_xy_i *start , t_xy_i *till)
 {
     int i = 0;
