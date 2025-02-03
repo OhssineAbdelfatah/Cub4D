@@ -79,7 +79,7 @@ int **gat_pixles(mlx_texture_t* img, int w, int h)
             return (printf("malooc in pix int* failed")), NULL ;
         while(j < w )
         {
-            pixs[i][j] = gettt_rgba( &img->pixels[((i * w) + j) * 4] );
+            pixs[i][j] = gettt_rgba( &img->pixels[((i * w) + j) * 4] ); // y * width + x
             j++;
         }
         i++;

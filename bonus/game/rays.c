@@ -66,17 +66,28 @@ void cast_ray(t_main_s *var, int i)
     }
     if (fabs(var->p_infos->rays[i].angle - M_PI / 2) < EPSILON || fabs(var->p_infos->rays[i].angle - (M_PI + M_PI / 2)) < EPSILON)
     {
-        distance1 = cast_vertically(var, i, &v_xy);
+        distance1 = cast_vertically(var, i, &v_xy, &v_xy_door);
         set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance1 );
         return;
     }
-    distance1 = cast_horizontally(var, i, &h_xy);
-    distance2 = cast_vertically(var, i, &v_xy);
+    distance1 = cast_horizontally(var, i, &h_xy,&h_xy_door);
+    distance2 = cast_vertically(var, i, &v_xy, &v_xy_door);
     if (distance1 < distance2 || distance2 < 0 || distance1 == distance2)
         set_ray_infos(&var->p_infos->rays[i],'h', h_xy, distance1 );
     else if (distance1 > distance2 || distance1 < 0)
         set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance2 );
-    // compaire dis of door thst is setted in the struct 
+        
+    if (h_xy_door.distance < v_xy_door.distance || v_xy_door.distance || v_xy_door.distance == h_xy_door.distance){
+        var->p_infos->rays[i].bonus_rays->door->distance = h_xy_door.distance;
+        var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
+        var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
+    }
+    else if (h_xy_door.distance > v_xy_door.distance || h_xy_door.distance < 0) {
+        var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
+        var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
+        var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
+    }
+    // compaire dis of door that is setted in the struct 
     /****/
 }
 void shoot_the_rays(t_main_s * var)

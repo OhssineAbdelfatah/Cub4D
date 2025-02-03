@@ -88,7 +88,7 @@ void init_cst_horiz(t_casting *cst, t_main_s *var, int i)
         cst->ysteps *= -1;
 }
 
-double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy)
+double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy, t_x_and_y_d *h_xy_door)
 {
     double up_down;
     t_casting cst;
@@ -107,16 +107,17 @@ double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy)
             xy->x = cst.yintersection;
             break;
         }
-        // if (hit_a_door(var,cst.xintersection + up_down, cst.yintersection , i))
-        // {
-        //     var->p_infos->rays[i].bonus_rays->door->y_intersection = cst.xintersection;
-        //     var->p_infos->rays[i].bonus_rays->door->x_intersection = cst.yintersection;
-
-        // }
+        if (hit_a_door(var,cst.xintersection + up_down, cst.yintersection , i) && !var->p_infos->rays[i].bonus_rays->hit_a_door)
+        {
+            var->p_infos->rays[i].bonus_rays->hit_a_door = true;
+            h_xy_door->y = cst.xintersection;
+            h_xy_door->x = cst.yintersection;
+            h_xy_door->distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
+        }
+        cst.distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
         cst.xintersection += (cst.xsteps * up_down);
         cst.yintersection += cst.ysteps ;
     }
-    cst.distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
     return cst.distance;    
 }
 
@@ -146,7 +147,7 @@ void init_cst_vert(t_casting *cst, t_main_s *var, int i)
         cst->xsteps *= -1;
 }
 
-double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy)
+double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy, t_x_and_y_d *v_xy_door)
 {
     t_casting cst;
     double left_right;
@@ -161,11 +162,19 @@ double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy)
         {
             xy->y = cst.xintersection;
             xy->x = cst.yintersection;
-            cst.distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow(cst.yintersection  - var->p_infos->y , 2));
             break;
         }
+        if (hit_a_door(var,cst.xintersection , cst.yintersection + left_right , i) && !var->p_infos->rays[i].bonus_rays->hit_a_door)
+        {
+            var->p_infos->rays[i].bonus_rays->hit_a_door = true;
+            v_xy_door->y = cst.xintersection;
+            v_xy_door->x = cst.yintersection;
+            v_xy_door->distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
+        }
+        cst.distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow(cst.yintersection  - var->p_infos->y , 2));
         cst.xintersection += cst.xsteps;
         cst.yintersection += cst.ysteps;
+
     }
     return cst.distance;
 }
