@@ -114,10 +114,10 @@ double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy, t_x_and_y_d *h_x
             h_xy_door->x = cst.yintersection;
             h_xy_door->distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
         }
-        cst.distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
         cst.xintersection += (cst.xsteps * up_down);
         cst.yintersection += cst.ysteps ;
     }
+    cst.distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
     return cst.distance;    
 }
 
@@ -171,10 +171,10 @@ double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy, t_x_and_y_d *v_xy_
             v_xy_door->x = cst.yintersection;
             v_xy_door->distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
         }
-        cst.distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow(cst.yintersection  - var->p_infos->y , 2));
         cst.xintersection += cst.xsteps;
         cst.yintersection += cst.ysteps;
 
     }
+    cst.distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow(cst.yintersection  - var->p_infos->y , 2));
     return cst.distance;
 }

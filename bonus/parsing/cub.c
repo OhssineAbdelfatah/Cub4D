@@ -6,7 +6,7 @@
 /*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/26 21:38:17 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/02/03 18:52:08 by blacksniper      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,8 @@ t_parse_data	*parse(int ac, char **av)
 	{
 		if (cube(av[1], data))
 		{
-			ft_putstr_fd("\033[0;31m Error\033[0m \n", 2);
-			free_data(*data);
-			free(*data);
+			ft_putstr_fd("\033[0;31mError\033[0m \n", 2);
+			free(data);
 			exit(1);
 		}
 		data1 = *data;
@@ -84,6 +83,7 @@ t_parse_data	*parse(int ac, char **av)
 	}
 	else
 	{
+		printf("ac %d\n", ac);
 		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
