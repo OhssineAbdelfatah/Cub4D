@@ -165,7 +165,6 @@ void work_of_art(t_main_s *var, int shoot)
                 
     render_objects(var, var->p_infos->p_bonus);
     render_enemies(var, var->p_infos->p_bonus);
-
     // obj_rebdering(var);   
     // fps_hands_rendring(var);
     

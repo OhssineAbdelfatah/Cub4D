@@ -35,7 +35,11 @@ void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int
             y_img = calc_y_img(j - top, buttom - top, text->hieght);
             // color = gettt_rgba( &var->text[0].pixels[(y_img * var->text->width + x_img) * 4]);
             // if(x_img < var->text[0].hieght && y_img < var->text[0].width )
+
             color = text->pixels[y_img][x_img];
+            // if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door)
+            //     color = 0xffffff;
+
             // color = gettt_rgba2((unsigned char *)(var->text[0].pixels[y_img] + x_img+ 3), transparency );
             mlx_put_pixel(var->img2, x , j , color);
         }
@@ -192,9 +196,9 @@ void    wall_rendering(t_main_s *var)
         x = ((var->window_height) / 2) + (walls->wall_hight / 2);
         x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays + i, square_len, texture->width);
         transparency = get_transparency(adjusted_distance);
-        render_sky(var, j, y, i);
+        // render_sky(var, j, y, i);
         draw_rectangle(var,texture, j, y, x, x_img, color, transparency, i);
-        draw_floor(var, j, x, i);
+        // draw_floor(var, j, x, i);
 
         i--;
         j++;

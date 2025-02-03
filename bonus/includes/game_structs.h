@@ -63,8 +63,8 @@ struct s_x_and_y_d
 {
     double x;
     double y; 
+    double distance;
 };
-
 
 struct s_ray_hit_obj
 {

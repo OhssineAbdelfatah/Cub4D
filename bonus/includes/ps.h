@@ -72,8 +72,8 @@ int is_it_the_player(char c);
 void init_cst_vert(t_casting *cst, t_main_s *var, int i);
 void init_cst_horiz(t_casting *cst, t_main_s *var, int i);
 // int hit_a_wall(t_casting *cst, t_main_s *var, int i, int ref);
-double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy);
-double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy);
+double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy, t_x_and_y_d* door_xy);
+double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy, t_x_and_y_d* door_xy);
 int hit_a_wall(t_main_s *var, double xintersection, double yintersection, int i);
 
 
