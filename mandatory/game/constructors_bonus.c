@@ -56,7 +56,7 @@ void fill_enemy(t_main_s *var, t_enemy *enemy, t_player_infos *p_var)
         x = 0;
         while (var->map[y][x])
         {
-            if (var->map[y][x] == 'E')
+            if (var->map[y][x] == 'e')
             {
                 enemy[i].alive = true;
                 enemy[i].x = (double)(x * square_len) + (square_len / 2);
@@ -81,7 +81,7 @@ void fill_enemy(t_main_s *var, t_enemy *enemy, t_player_infos *p_var)
 t_obj *init_obj_p(t_main_s *var, t_player_infos *p_var)
 {
     t_obj *res;
-    // printf("NBR _ OBJ : %d\n", var->bonus->nbr_obj);
+
     if (var->bonus->nbr_obj == 0)
         return NULL;
     res = (t_obj *)malloc(sizeof(t_obj) * var->bonus->nbr_obj);
@@ -94,14 +94,13 @@ t_obj *init_obj_p(t_main_s *var, t_player_infos *p_var)
 t_enemy *init_enemies_p(t_main_s *var, t_player_infos *p_var)
 {
     t_enemy *res;
-    printf("NBR _ OBJ : %d\n", var->bonus->nbr_enemies);
+
     if (var->bonus->nbr_enemies == 0)
         return NULL;
     res = (t_enemy *)malloc(sizeof(t_enemy) * var->bonus->nbr_enemies);
     if (!res)
         panic("malloc failed!\n");
     fill_enemy(var, res, p_var);
-    // (void)p_var;
     return res;
 }
 

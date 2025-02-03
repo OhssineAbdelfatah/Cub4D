@@ -203,7 +203,7 @@ t_player_bonus *init_player_bonus(t_main_s *var, t_player_infos *p_var)
     count_obj_enemi(var);
     res->enemi = init_enemies_p(var, p_var);
     res->obj = init_obj_p(var, p_var);
-    update_obj_data(p_var,res->obj, var->bonus->nbr_obj);
+    // update_obj_data(p_var,res->obj, var->bonus->nbr_obj);
     return (res);
 }
 

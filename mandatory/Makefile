@@ -19,8 +19,8 @@ LIBMLX = ../lib/mlx
 # MLXFLAGS_LINK = -L. -lmlx -framework OpenGL -framework AppKit
 
 ######### FOR NEW MLX
-# MLXFLAGS_LINK = $(LIBMLX)/build/libmlx42.a -L /Users/ilaasri/.brew/Cellar/glfw/3.4/lib/ -lglfw -pthread -lm 
-MLXFLAGS_LINK = $(LIBMLX)/build/libmlx42.a -L /goinfre/aohssine/homebrew/Cellar/glfw/3.4/lib/ -lglfw -pthread -lm 
+MLXFLAGS_LINK = $(LIBMLX)/build/libmlx42.a -L /Users/ilaasri/.brew/Cellar/glfw/3.4/lib/ -lglfw -pthread -lm 
+# MLXFLAGS_LINK = $(LIBMLX)/build/libmlx42.a -L /goinfre/aohssine/homebrew/Cellar/glfw/3.4/lib/ -lglfw -pthread -lm 
 ############################################
 
 
@@ -37,7 +37,7 @@ ASCII_ART = "\033[31m\n"\
 
 GNL = ../lib/gnl/get_next_line.c ../lib/gnl/get_next_line_utils.c
 
-BONUS_FILES =  game/enemies_bonus.c  game/floor_ceilling_bonus.c
+BONUS_FILES = game/drawing_things_bonus.c game/enemies_bonus.c  game/floor_ceilling_bonus.c
 
 GAME_FILES = game/hooks_nd_loops.c game/casting.c game/tools.c game/walls_rendering.c game/rays.c \
 			game/drawing.c game/draw_minimap.c game/draw_mini_map_pro.c game/bonus.c \

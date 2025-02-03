@@ -92,8 +92,8 @@ int hit_some(t_main_s *var, double xintersection, double yintersection)
         return 1;
     if (var->map[x][y] == 'O')
         return 'O';
-    if (var->map[x][y] == 'E')
-        return 'E';
+    if (var->map[x][y] == 'e')
+        return 'e';
     return 0;
 }
 
@@ -107,8 +107,8 @@ int get_color(t_main_s *var, t_text *img, int x, int y)
 
     x_off = (double)x / ((double)(var->window_width) * 0.5);
     y_off = (double)y / ((double)(var->window_height) * 0.6);
-    x_img = x_off  * (double)(var->bonus->gun_in_hand->width);
-    y_img = y_off * (double)(var->bonus->gun_in_hand->height); 
+    x_img = x_off  * (double)(var->bonus->gun_in_hand[0]->width);
+    y_img = y_off * (double)(var->bonus->gun_in_hand[0]->height); 
     color = img->pixels[(int)floor(y_img)][(int)floor(x_img)];
     return color;
 }
@@ -195,7 +195,7 @@ void count_obj_enemi(t_main_s *var)
         {
             if (var->map[y][x] == 'O')
                 nbr_obj ++;
-            if (var->map[y][x] == 'E')
+            if (var->map[y][x] == 'e')
                 nbr_enemies ++;
             x++;
         }

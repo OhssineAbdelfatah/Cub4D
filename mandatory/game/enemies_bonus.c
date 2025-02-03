@@ -1,6 +1,6 @@
 # include "../includes/ps.h"
 
-int get_color_enemy(t_main_s *var, int enemy_height, int enemy_width, int x, int y)
+int get_color_enemy(t_main_s *var, int enemy_height, int enemy_width, int x, int y, int i)
 {
     int color;
     double x_offset;
@@ -11,10 +11,18 @@ int get_color_enemy(t_main_s *var, int enemy_height, int enemy_width, int x, int
     x_offset = (double)x / (double)enemy_width;
     y_offset = (double)y / (double)enemy_height;
 
-    new_x = (double)var->bonus->enemy_text->width * x_offset;
-    new_y = (double)var->bonus->enemy_text->hieght * y_offset;
-
-    color = var->bonus->enemy_text->pixels[(int)floor(new_y)][(int)floor(new_x)];
+    if (var->p_infos->p_bonus->enemy[i].alive)
+    {
+        new_x = (double)var->bonus->enemy_text->width * x_offset;
+        new_y = (double)var->bonus->enemy_text->hieght * y_offset;
+        color = var->bonus->enemy_text->pixels[(int)floor(new_y)][(int)floor(new_x)];
+    }
+    else
+    {
+        new_x = (double)var->bonus->dead_enemy_text->width * x_offset;
+        new_y = (double)var->bonus->dead_enemy_text->hieght * y_offset;
+        color = var->bonus->dead_enemy_text->pixels[(int)floor(new_y)][(int)floor(new_x)];
+    }
     return color;
 }
 
@@ -42,7 +50,7 @@ void render_enemy(t_main_s *var, t_player_bonus *ptr, t_walls *walls,int i)
             while (x_start + x_increment < x_end)
             {
                 ray_to_inspect = var->p_infos->nbr_rays - 1 - (x_increment + x_start);
-                color = get_color_enemy(var, enemy_height, enemy_width, x_increment, y_increment);
+                color = get_color_enemy(var, enemy_height, enemy_width, x_increment, y_increment, i);
                 if (ray_to_inspect >=0 && ray_to_inspect < 1400 && var->p_infos->rays[ray_to_inspect].distance > ptr->enemy[i].distance)
                 {
                     if (x_start + x_increment >= 0 && x_start + x_increment <  var->window_width && color)
@@ -71,27 +79,75 @@ void render_enemies(t_main_s *var, t_player_bonus *p_ptr)
     free(walls);
 }
 
+void damage_player(t_main_s *var, t_player_infos *player, t_enemy *enemy, int i)
+{
+    static int time_to_damage;
+    int diff_x, diff_y;
 
+    diff_y = abs((int)floor(enemy[i].vector_y));
+    diff_x = abs( (int)floor(enemy[i].vector_x));
+    if (diff_x <= square_len  && diff_y <= square_len && time_to_damage > 20)
+    {
+        time_to_damage = 0;
+        player->health -= 10;
+    }
+    time_to_damage++;
+    (void)var;
+}
+
+int check_for_walls(t_main_s *var,  t_player_infos *p_player, t_enemy *enemy, int i)
+{
+    double new_V_x, new_V_y, new_E_x, new_E_y;
+
+    if (enemy[i].vector_x > 0)
+            new_V_x = enemy[i].vector_x - (p_player->speed / 2) - (int)(enemy[i].enemy_width / 2);
+    else
+        new_V_x = enemy[i].vector_x + (p_player->speed / 2) + (int)(enemy[i].enemy_width / 2);
+    new_E_x = p_player->y - new_V_x;
+
+    if (enemy[i].vector_y > 0)
+        new_V_y =  enemy[i].vector_y - (p_player->speed / 2) - (int)(enemy[i].enemy_width / 2);
+    else
+        new_V_y =  enemy[i].vector_y + (p_player->speed / 2) + (int)(enemy[i].enemy_width / 2);
+    
+    new_E_y =  p_player->x - new_V_y;
+    if (hit_a_wall(var, new_E_y, new_E_x, 0))
+        return 1;
+    return 0;
+}
 
 void chase_player(t_main_s *var, t_player_infos *p_player, t_enemy *enemy, int i)
 { 
-    if (enemy[i].vector_x > 0)
-        enemy[i].vector_x -= (p_player->speed - 2);
-    else
-        enemy[i].vector_x += (p_player->speed - 2);
-    if (enemy[i].vector_y > 0)
-        enemy[i].vector_y -= (p_player->speed - 2);
-    else
-        enemy[i].vector_y += (p_player->speed - 2);
-    
-    enemy[i].x = p_player->x + enemy[i].vector_x;
-    enemy[i].y = p_player->y + enemy[i].vector_y;
+    int diff_x, diff_y;
+
+    diff_y = abs((int)floor(enemy[i].vector_y));
+    diff_x = abs( (int)floor(enemy[i].vector_x));
+    damage_player(var, p_player, enemy, i);
+    if (check_for_walls(var, p_player, enemy, i))
+        return;
+    if (diff_x > square_len)
+    {
+        if (enemy[i].vector_x > 0)
+            enemy[i].vector_x -= (p_player->speed / 2);
+        else
+            enemy[i].vector_x += (p_player->speed / 2);
+        enemy[i].x = p_player->y - enemy[i].vector_x;
+    }
+    if (diff_y > square_len)
+    {
+        if (enemy[i].vector_y > 0)
+            enemy[i].vector_y -= (p_player->speed / 2);
+        else
+            enemy[i].vector_y += (p_player->speed / 2);
+        
+        enemy[i].y = p_player->x - enemy[i].vector_y;
+    }
     enemy[i].distance =  get_distance(p_player,enemy[i].x, enemy[i].y);
     (void)var;
-    // enemy[i].vector_y = ;
 }
 void update_enemy_data(t_main_s *var, t_player_infos *p_var, t_enemy *enemy,int nbr_enemy)
 {
+    // static int alo;
     int i;
 
     i = 0;
@@ -103,8 +159,8 @@ void update_enemy_data(t_main_s *var, t_player_infos *p_var, t_enemy *enemy,int 
             enemy[i].distance = get_distance(p_var,enemy[i].x, enemy[i].y);
             enemy[i].vector_x = p_var->y - enemy[i].x;
             enemy[i].vector_y = p_var->x - enemy[i].y;
-            // if (enemy[i].alive)
-            //     chase_player(var, p_var, enemy, i);
+            if (enemy[i].alive)
+                chase_player(var, p_var, enemy, i);
             enemy[i].vector_teta = atan2(-enemy[i].vector_y, enemy[i].vector_x);
             enemy[i].vector_teta = adjust_angle(enemy[i].vector_teta  - (M_PI / 2));
             enemy[i].enemy_teta = calculate_obj_or_enemy_teta(p_var,NULL, &enemy[i]);

@@ -159,6 +159,9 @@ struct s_player_infos
     t_ray_info *rays;
 
     /***bonus***/
+    bool alive;
+    int health;
+    int max_health;
     int look_up_down;
     int up_down_offset;
     int jump_kneel;
@@ -226,18 +229,29 @@ struct s_bonus
     int mouse_y;
     mlx_texture_t *img;
     mlx_texture_t *enemy_mlx_tex;
+    mlx_texture_t *dead_enemy_mlx_tex;
     mlx_texture_t *pillar_tex;
     mlx_texture_t *door;
     mlx_texture_t *key;
     mlx_texture_t *floor;
     mlx_texture_t *sky;
-    mlx_texture_t *gun_in_hand;
+    mlx_texture_t *gun_in_hand[4];
+    // mlx_texture_t *gun_in_hand0;
+    // mlx_texture_t *gun_in_hand1;
+    // mlx_texture_t *gun_in_hand2;
+    // mlx_texture_t *gun_in_hand3;
+    t_text *dead_enemy_text;
     t_text *enemy_text;
     t_text *floor_text;
     t_text *sky_text;
-    t_text *gun_in_hand_text;
+    t_text *gun_in_hand_text0;
     t_text *pillar_img;
-    mlx_image_t *gun_in_hands_img;
+    // mlx_image_t *gun_in_hands_img0;
+    // mlx_image_t *gun_in_hands_img1;
+    // mlx_image_t *gun_in_hands_img2;
+    // mlx_image_t *gun_in_hands_img3;
+    mlx_image_t *gun_in_hands_img[4];
+    // mlx_image_t *gun_in_hands_img;
     // mlx_image_t *door;
 };
 
