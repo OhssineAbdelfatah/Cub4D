@@ -36,22 +36,21 @@ void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int
         printf("\nnbr_ray : %d , from %c,>>door : %f , wall : %f\n", ray_nbr,  var->p_infos->rays[ray_nbr].bonus_rays->door->from,  var->p_infos->rays[ray_nbr].bonus_rays->door->distance , var->p_infos->rays[ray_nbr].distance);
         // alo++;
     }
-    while (j < buttom)
-    {
-        if (j >= 0 && j < var->window_height) // window hieght
-        {
-            y_img = calc_y_img(j - top, buttom - top, text->hieght);
-            // color = gettt_rgba( &var->text[0].pixels[(y_img * var->text->width + x_img) * 4]);
-            // if(x_img < var->text[0].hieght && y_img < var->text[0].width )
-
-            color = text->pixels[y_img][x_img];
-            if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door
+    /*
+    door
+    if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door
                 && var->p_infos->rays[ray_nbr].bonus_rays->door->distance
                  && var->p_infos->rays[ray_nbr].bonus_rays->door->distance < var->p_infos->rays[ray_nbr].distance)
             {
                 color = 0x0017ff;
             }
-            // color = gettt_rgba2((unsigned char *)(var->text[0].pixels[y_img] + x_img+ 3), transparency );
+    */
+    while (j < buttom)
+    {
+        if (j >= 0 && j < var->window_height) // window hieght
+        {
+            y_img = calc_y_img(j - top, buttom - top, text->hieght);
+            color = text->pixels[y_img][x_img];
             mlx_put_pixel(var->img2, x , j , color);
         }
         j++;
