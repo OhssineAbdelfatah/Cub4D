@@ -29,13 +29,19 @@ void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int
     // static int alo;
 
     j = top;
-    if (0 == ray_nbr || ray_nbr == var->p_infos->nbr_rays - 1)
-    {
-         if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door)
-            printf("hitted a door ,nbr ray : %d \n", ray_nbr);
-        printf("\nnbr_ray : %d , from %c,>>door : %f , wall : %f\n", ray_nbr,  var->p_infos->rays[ray_nbr].bonus_rays->door->from,  var->p_infos->rays[ray_nbr].bonus_rays->door->distance , var->p_infos->rays[ray_nbr].distance);
-        // alo++;
-    }
+
+    // int i = ray_nbr;
+    // if(i == 0)
+    // {
+    //     printf("from draw rect :>>>>>>>>>from : %c >>>>>>> DISTANCE : %f\n", var->p_infos->rays[i].bonus_rays->door->from, var->p_infos->rays[i].bonus_rays->door->distance );
+    // }
+    // if (0 == ray_nbr)
+    // {
+    //      if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door)
+    //         printf("hitted a door ,nbr ray : %d \n", ray_nbr);
+    //     printf("\nnbr_ray : %d , from %c,>>door : %f , wall : %f\n", ray_nbr,  var->p_infos->rays[ray_nbr].bonus_rays->door->from,  var->p_infos->rays[ray_nbr].bonus_rays->door->distance , var->p_infos->rays[ray_nbr].distance);
+    //     // alo++;
+    // }
     while (j < buttom)
     {
         if (j >= 0 && j < var->window_height) // window hieght

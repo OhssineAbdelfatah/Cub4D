@@ -70,7 +70,7 @@ void cast_ray(t_main_s *var, int i)
     {
         distance1 = cast_horizontally(var, i, &h_xy, &h_xy_door);
         set_ray_infos(&var->p_infos->rays[i],'h', h_xy, distance1 );
-            // var->p_infos->rays[i].bonus_rays->door->from = 'h';
+            var->p_infos->rays[i].bonus_rays->door->from = 'I';
         var->p_infos->rays[i].bonus_rays->door->distance = h_xy_door.distance;
         var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
         var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
@@ -80,7 +80,7 @@ void cast_ray(t_main_s *var, int i)
     {
         distance1 = cast_vertically(var, i, &v_xy, &v_xy_door);
         set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance1 );
-        // var->p_infos->rays[i].bonus_rays->door->from = 'v';
+        var->p_infos->rays[i].bonus_rays->door->from = 'L';
         var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
         var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
         var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
@@ -94,20 +94,54 @@ void cast_ray(t_main_s *var, int i)
     else if (distance1 > distance2 )
         set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance2 );
     // else if (distance1 > distance2 || distance1 < 0)
-        
-    if(i == 0)
-        printf(">>>>>>>>>>>>>>>> %f ||h %f ||v %f\n",  var->p_infos->rays[i].bonus_rays->door->distance, h_xy_door.distance, v_xy_door.distance );
-    if (((h_xy_door.distance < v_xy_door.distance  || v_xy_door.distance == h_xy_door.distance) && h_xy_door.distance )){
+
+    if (h_xy_door.distance)
+    {
         var->p_infos->rays[i].bonus_rays->door->from = 'p';
         var->p_infos->rays[i].bonus_rays->door->distance = h_xy_door.distance;
         var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
-        var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
+        var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;    
+        if (v_xy_door.distance)
+        {
+            if (v_xy_door.distance < h_xy_door.distance)
+            {
+                var->p_infos->rays[i].bonus_rays->door->from = 'v';
+                var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
+                var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
+                var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
+            }
+        }
     }
-    else if (h_xy_door.distance > v_xy_door.distance && v_xy_door.distance) {
+    else
+    {
         var->p_infos->rays[i].bonus_rays->door->from = 'v';
         var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
         var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
         var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
+
+    }
+    // if ((((h_xy_door.distance < v_xy_door.distance ) && v_xy_door.distance ) || !v_xy_door.distance  || v_xy_door.distance == h_xy_door.distance)){
+    //     var->p_infos->rays[i].bonus_rays->door->from = 'p';
+    //     var->p_infos->rays[i].bonus_rays->door->distance = h_xy_door.distance;
+    //     var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
+    //     var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
+    //     /*  
+    //     var->p_infos->rays[i].bonus_rays->door->from = 'p';
+    //     var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
+    //     var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
+    //     var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
+    //     */
+    // }
+    // else if (h_xy_door.distance > v_xy_door.distance || (!h_xy_door.distance)) {
+    //     var->p_infos->rays[i].bonus_rays->door->from = 'v';
+    //     var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
+    //     var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
+    //     var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
+    // }
+    if(i == 0)
+    {
+
+        printf(">>>>>>>>>from : %c >>>>>>>DOOR DISTANCE : %f ||h %f ||v %f\n", var->p_infos->rays[i].bonus_rays->door->from, var->p_infos->rays[i].bonus_rays->door->distance, h_xy_door.distance, v_xy_door.distance );
     }
     // compaire dis of door that is setted in the struct 
     /****/

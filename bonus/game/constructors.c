@@ -37,7 +37,7 @@ t_ray_hit_door *init_door()
     if (!ret)
         panic("malloc failed !\n");
     ret->distance = 0;
-    ret->from = 0;
+    ret->from = 'N';
     ret->x_intersection = 0;
     ret->y_intersection = 0;
     return ret;
