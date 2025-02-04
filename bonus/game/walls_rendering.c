@@ -26,8 +26,16 @@ void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int
 {
     int j; 
     int y_img;
+    // static int alo;
 
     j = top;
+    if (0 == ray_nbr || ray_nbr == var->p_infos->nbr_rays - 1)
+    {
+         if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door)
+            printf("hitted a door ,nbr ray : %d \n", ray_nbr);
+        printf("\nnbr_ray : %d , from %c,>>door : %f , wall : %f\n", ray_nbr,  var->p_infos->rays[ray_nbr].bonus_rays->door->from,  var->p_infos->rays[ray_nbr].bonus_rays->door->distance , var->p_infos->rays[ray_nbr].distance);
+        // alo++;
+    }
     while (j < buttom)
     {
         if (j >= 0 && j < var->window_height) // window hieght
@@ -37,9 +45,12 @@ void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int
             // if(x_img < var->text[0].hieght && y_img < var->text[0].width )
 
             color = text->pixels[y_img][x_img];
-            // if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door)
-            //     color = 0xffffff;
-
+            if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door
+                && var->p_infos->rays[ray_nbr].bonus_rays->door->distance
+                 && var->p_infos->rays[ray_nbr].bonus_rays->door->distance < var->p_infos->rays[ray_nbr].distance)
+            {
+                color = 0x0017ff;
+            }
             // color = gettt_rgba2((unsigned char *)(var->text[0].pixels[y_img] + x_img+ 3), transparency );
             mlx_put_pixel(var->img2, x , j , color);
         }

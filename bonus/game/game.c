@@ -166,7 +166,7 @@ void work_of_art(t_main_s *var)
     update_obj_data(var->p_infos, var->p_infos->p_bonus->obj, var->bonus->nbr_obj);
 
                 
-    render_objects(var, var->p_infos->p_bonus);
+    // render_objects(var, var->p_infos->p_bonus);
 
     // obj_rebdering(var);
 

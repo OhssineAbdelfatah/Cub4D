@@ -6,7 +6,10 @@ void free_rays_bonus(t_ray_info *var)
     if (var->bonus_rays)
     {
         if (var->bonus_rays->door)
+        {
             free(var->bonus_rays->door);
+            var->bonus_rays->door = NULL;
+        }
         if (var->bonus_rays->enemi)
             free(var->bonus_rays->enemi);
         if (var->bonus_rays->obj)
