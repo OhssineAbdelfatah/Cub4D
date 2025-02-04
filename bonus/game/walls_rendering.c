@@ -42,6 +42,7 @@ void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int
     //     printf("\nnbr_ray : %d , from %c,>>door : %f , wall : %f\n", ray_nbr,  var->p_infos->rays[ray_nbr].bonus_rays->door->from,  var->p_infos->rays[ray_nbr].bonus_rays->door->distance , var->p_infos->rays[ray_nbr].distance);
     //     // alo++;
     // }
+    
     while (j < buttom)
     {
         if (j >= 0 && j < var->window_height) // window hieght
@@ -57,11 +58,21 @@ void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int
             {
                 color = 0x0017ff;
             }
-            // color = gettt_rgba2((unsigned char *)(var->text[0].pixels[y_img] + x_img+ 3), transparency );
             mlx_put_pixel(var->img2, x , j , color);
         }
         j++;
     }
+    // */
+    // while (j < buttom)
+    // {
+    //     if (j >= 0 && j < var->window_height) // window hieght
+    //     {
+    //         y_img = calc_y_img(j - top, buttom - top, text->hieght);
+    //         color = text->pixels[y_img][x_img];
+    //         mlx_put_pixel(var->img2, x , j , color);
+    //     }
+    //     j++;
+    // }
     (void)transparency;
     (void)ray_nbr;
     return ;

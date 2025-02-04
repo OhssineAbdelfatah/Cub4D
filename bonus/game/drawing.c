@@ -122,7 +122,7 @@ void draw_disk11(mlx_image_t *img, int x_c, int y_c, int radius, int color)
         x = -radius;
         while (x <= radius) {
             if (x * x + y * y <= radius * radius) {
-                if ((x_c + x >= 0 && x_c+ x < img->width) &&( y_c + y < img->height && y_c + y >= 0))
+                // if ((x_c + x >= 0 && x_c+ x < img->width) &&( y_c + y < img->height && y_c + y >= 0))
                     mlx_put_pixel(img, x_c + x, y_c + y, color);
             }
             x++;
