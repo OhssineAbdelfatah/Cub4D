@@ -28,20 +28,19 @@ int get_color_enemy(t_main_s *var, int enemy_height, int enemy_width, int x, int
 
 void render_enemy(t_main_s *var, t_player_bonus *ptr, t_walls *walls,int i)
 {
-    int enemy_height, enemy_width;
     int x_start, x_end, y_start, y_end;
     int color;
     int x_increment = 0;
     int y_increment = 0;
     int ray_to_inspect;
 
-    enemy_height = (square_len /  ptr->enemy[i].distance) * walls->distance_prj_plane;
-    enemy_width = enemy_height;
-    x_start = ptr->enemy[i].x_screen - (enemy_width / 2);
-    y_start = ptr->enemy[i].y_screen - (enemy_height / 2);
 
-    y_end = y_start + enemy_height;
-    x_end = x_start + enemy_width;
+    ptr->enemy[i].enemy_height = (square_len /  ptr->enemy[i].distance) * walls->distance_prj_plane;
+    ptr->enemy[i].enemy_width = ptr->enemy[i].enemy_height;
+    x_start = ptr->enemy[i].x_screen - (ptr->enemy[i].enemy_width / 2);
+    y_start = ptr->enemy[i].y_screen - (ptr->enemy[i].enemy_height / 2);
+    y_end = y_start + ptr->enemy[i].enemy_height;
+    x_end = x_start + ptr->enemy[i].enemy_width;
     while (y_start < y_end)
     {
         if (y_start >= 0 && y_start < var->window_height)
@@ -50,7 +49,7 @@ void render_enemy(t_main_s *var, t_player_bonus *ptr, t_walls *walls,int i)
             while (x_start + x_increment < x_end)
             {
                 ray_to_inspect = var->p_infos->nbr_rays - 1 - (x_increment + x_start);
-                color = get_color_enemy(var, enemy_height, enemy_width, x_increment, y_increment, i);
+                color = get_color_enemy(var, ptr->enemy[i].enemy_height, ptr->enemy[i].enemy_width, x_increment, y_increment, i);
                 if (ray_to_inspect >=0 && ray_to_inspect < 1400 && var->p_infos->rays[ray_to_inspect].distance > ptr->enemy[i].distance)
                 {
                     if (x_start + x_increment >= 0 && x_start + x_increment <  var->window_width && color)
@@ -75,7 +74,6 @@ void render_enemies(t_main_s *var, t_player_bonus *p_ptr)
         render_enemy(var, p_ptr, walls,i);
         i++;
     }
-    // printf("vector x : %f ,vector Y: %f\n", p_ptr->enemy->vector_x, p_ptr->enemy->vector_y);
     free(walls);
 }
 
@@ -86,7 +84,7 @@ void damage_player(t_main_s *var, t_player_infos *player, t_enemy *enemy, int i)
 
     diff_y = abs((int)floor(enemy[i].vector_y));
     diff_x = abs( (int)floor(enemy[i].vector_x));
-    if (diff_x <= square_len  && diff_y <= square_len && time_to_damage > 20)
+    if (diff_x <= square_len  && diff_y <= square_len && time_to_damage > 10)
     {
         time_to_damage = 0;
         player->health -= 10;

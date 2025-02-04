@@ -118,19 +118,17 @@ void draw_disk11(mlx_image_t *img, int x_c, int y_c, int radius, int color)
     int x, y;
 
     y = -radius;
-    // printf("drawing the disk \n");
     while (y <= radius) {
         x = -radius;
         while (x <= radius) {
             if (x * x + y * y <= radius * radius) {
-                // my_mlx_pixel_put(img, x_c + x, y_c + y, color);
-                mlx_put_pixel(img, x_c + x, y_c + y, color);
+                // if ((x_c + x >= 0 && x_c+ x < img->width) &&( y_c + y < img->height && y_c + y >= 0))
+                    mlx_put_pixel(img, x_c + x, y_c + y, color);
             }
             x++;
         }
         y++;
     }
-    // printf("finished drawing the disk \n");
 }
 
 // void draw_disk2(t_test *var, int x_c, int y_c, int radius)

@@ -134,4 +134,11 @@ void render_objects(t_main_s *var, t_player_bonus *p_ptr);
 void free_rays_bonus(t_ray_info *var);
 void free_rays(t_main_s *var);
 
+/************************************************************/
+//                      >> DOOR_BONUS.C <<
+/************************************************************/
+
+int is_there_door(t_rays_bonus* ray, t_main_s *var, int ray_nbr);
+void    draw_door(t_main_s *var,t_walls *walls, int i, int j);
+
 #endif

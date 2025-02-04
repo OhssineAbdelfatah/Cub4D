@@ -65,12 +65,11 @@ void cast_ray(t_main_s *var, int i)
     h_xy_door.distance = 0;
     h_xy_door.x = 0;
     h_xy_door.y = 0;
-    // h_xy_door.fro= 0;
     if (fabs(var->p_infos->rays[i].angle - M_PI) < EPSILON || fabs(var->p_infos->rays[i].angle) < -EPSILON)
     {
         distance1 = cast_horizontally(var, i, &h_xy, &h_xy_door);
         set_ray_infos(&var->p_infos->rays[i],'h', h_xy, distance1 );
-            // var->p_infos->rays[i].bonus_rays->door->from = 'h';
+            var->p_infos->rays[i].bonus_rays->door->from = 'I';
         var->p_infos->rays[i].bonus_rays->door->distance = h_xy_door.distance;
         var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
         var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
@@ -80,7 +79,7 @@ void cast_ray(t_main_s *var, int i)
     {
         distance1 = cast_vertically(var, i, &v_xy, &v_xy_door);
         set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance1 );
-        // var->p_infos->rays[i].bonus_rays->door->from = 'v';
+        var->p_infos->rays[i].bonus_rays->door->from = 'L';
         var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
         var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
         var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
@@ -88,26 +87,59 @@ void cast_ray(t_main_s *var, int i)
     }
     distance1 = cast_horizontally(var, i, &h_xy,&h_xy_door);
     distance2 = cast_vertically(var, i, &v_xy, &v_xy_door);
-    // if (distance1 < distance2 || distance2 < 0 || distance1 == distance2)
     if (distance1 < distance2  || distance1 == distance2)
         set_ray_infos(&var->p_infos->rays[i],'h', h_xy, distance1 );
     else if (distance1 > distance2 )
         set_ray_infos(&var->p_infos->rays[i],'v', v_xy, distance2 );
     // else if (distance1 > distance2 || distance1 < 0)
-        
-    if(i == 0)
-        printf(">>>>>>>>>>>>>>>> %f ||h %f ||v %f\n",  var->p_infos->rays[i].bonus_rays->door->distance, h_xy_door.distance, v_xy_door.distance );
-    if (((h_xy_door.distance < v_xy_door.distance  || v_xy_door.distance == h_xy_door.distance) && h_xy_door.distance )){
+
+    if (h_xy_door.distance)
+    {
         var->p_infos->rays[i].bonus_rays->door->from = 'p';
         var->p_infos->rays[i].bonus_rays->door->distance = h_xy_door.distance;
         var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
-        var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
+        var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;    
+        if (v_xy_door.distance)
+        {
+            if (v_xy_door.distance < h_xy_door.distance)
+            {
+                var->p_infos->rays[i].bonus_rays->door->from = 'v';
+                var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
+                var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
+                var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
+            }
+        }
     }
-    else if (h_xy_door.distance > v_xy_door.distance && v_xy_door.distance) {
+    else
+    {
         var->p_infos->rays[i].bonus_rays->door->from = 'v';
         var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
         var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
         var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
+
+    }
+    // if ((((h_xy_door.distance < v_xy_door.distance ) && v_xy_door.distance ) || !v_xy_door.distance  || v_xy_door.distance == h_xy_door.distance)){
+    //     var->p_infos->rays[i].bonus_rays->door->from = 'p';
+    //     var->p_infos->rays[i].bonus_rays->door->distance = h_xy_door.distance;
+    //     var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
+    //     var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
+    //     /*  
+    //     var->p_infos->rays[i].bonus_rays->door->from = 'p';
+    //     var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
+    //     var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
+    //     var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
+    //     */
+    // }
+    // else if (h_xy_door.distance > v_xy_door.distance || (!h_xy_door.distance)) {
+    //     var->p_infos->rays[i].bonus_rays->door->from = 'v';
+    //     var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
+    //     var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
+    //     var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
+    // }
+    if(i == 0)
+    {
+
+        printf(">>>>>>>>>from : %c >>>>>>>DOOR DISTANCE : %f ||h %f ||v %f\n", var->p_infos->rays[i].bonus_rays->door->from, var->p_infos->rays[i].bonus_rays->door->distance, h_xy_door.distance, v_xy_door.distance );
     }
     // compaire dis of door that is setted in the struct 
     /****/
@@ -117,7 +149,6 @@ void shoot_the_rays(t_main_s * var)
     double fov, angle_to_start, ray_angle_increment;
     double ray_angle;
     int i;
-    // int x, y;
 
     i = 0;
     var->p_infos->nbr_rays  = var->window_width;
@@ -128,16 +159,10 @@ void shoot_the_rays(t_main_s * var)
     ray_angle = angle_to_start;
     ray_angle = adjust_angle(ray_angle);
     var->p_infos->rays =  init_rays(var, ray_angle, ray_angle_increment);
-    // x = var->p_infos->x ;
-    // y = var->p_infos->y ;
     while (i < var->p_infos->nbr_rays)
     {
         set_ray_direction(&var->p_infos->rays[i], ray_angle);
         cast_ray(var,  i);
-        // if (i == 0)
-            // printf(">>>>%f\n")
-        // x = var->p_infos->x + (cos(ray_angle) * (var->p_infos->rays[i].distance ));
-        // y = var->p_infos->y + (sin(ray_angle) * (var->p_infos->rays[i].distance ));
         ray_angle += ray_angle_increment;
         ray_angle = adjust_angle(ray_angle);
         i++;

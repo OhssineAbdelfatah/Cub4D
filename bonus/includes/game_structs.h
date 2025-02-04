@@ -220,11 +220,11 @@ struct s_bonus
     int mouse_x;
     mlx_texture_t *img;
     mlx_texture_t *pillar_tex;
-    mlx_texture_t *door;
     mlx_texture_t *key;
     mlx_texture_t *floor;
     mlx_texture_t *sky;
     mlx_texture_t *gun_in_hand;
+    t_text *door;
     t_text *floor_text;
     t_text *sky_text;
     t_text *gun_in_hand_text;

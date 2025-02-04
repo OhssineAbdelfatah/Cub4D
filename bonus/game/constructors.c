@@ -37,7 +37,7 @@ t_ray_hit_door *init_door()
     if (!ret)
         panic("malloc failed !\n");
     ret->distance = 0;
-    ret->from = 0;
+    ret->from = 'N';
     ret->x_intersection = 0;
     ret->y_intersection = 0;
     return ret;
@@ -172,7 +172,12 @@ t_bonus *init_bonus(t_main_s *main)
     var->floor = safe_load("../assets/floor/Tile/Tile_14-128x128.png");
     // var->floor = safe_load("../assets/textures/2d.png");
     var->sky = safe_load("../assets/sky/Fuzzy Sky/Fuzzy_Sky-Sunset_04-1024x512.png");
-    var->door = NULL;
+    
+    // mlx_texture_t* door_text = safe_load("../assets/textures/EHEDA0.png");
+    // if(!var->door )
+    //     puts("valid door");
+    // mlx_delete_texture(door_text);
+    
     var->img = NULL;
     var->key = NULL;
     var->mouse_x = (main->window_width) / 2;
@@ -182,6 +187,7 @@ t_bonus *init_bonus(t_main_s *main)
     printf("sky W :%d , sky H : %d\n",var->sky_text->width, var->sky_text->hieght );
     var->pillar_tex = safe_load("../assets/textures/AncientPillar_green.png");
     var->pillar_img = get_image(var->pillar_tex);
+    var->door = main->text[0];
     var->pillar_img = NULL;
     var->pillar_tex = NULL;
     // var->pillar_tex = NULL;

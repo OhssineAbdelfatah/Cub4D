@@ -278,8 +278,8 @@ struct s_enemy
     double vector_y;
     double vector_teta;
     double enemy_teta;
-    double enemy_height;
-    double enemy_width;
+    int enemy_height;
+    int enemy_width;
     double distance;
 };
 
