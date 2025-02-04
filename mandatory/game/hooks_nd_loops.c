@@ -201,22 +201,22 @@ void loop_hook(void *ptr)
 
 void display_shooting(t_main_s *var)
 {
-    long long last_frame, now, diff;
+    // long long last_frame, now, diff;
     int  i;
     i = 1;
-    last_frame = get_time_mil();
+    // last_frame = get_time_mil();
     while (i < 3)
     {
         var->bonus->gun_in_hands_img[i]->enabled = true;
-        now = get_time_mil();
-        diff =  now - last_frame;
-        while ( diff < 20)
-        {
-            diff =  now - last_frame;
-            now = get_time_mil();
-        }
-        last_frame = now;
-         usleep(30000);
+        // now = get_time_mil();
+        // diff =  now - last_frame;
+        // while ( diff < 20)
+        // {
+        //     diff =  now - last_frame;
+        //     now = get_time_mil();
+        // }
+        // last_frame = now;
+        //  usleep(30000);
         var->bonus->gun_in_hands_img[i - 1]->enabled = false;
         
         i++;
@@ -242,10 +242,10 @@ void shoot_them_mfs(t_main_s *var)
     int max_range, min_range;
     int i = var->bonus->nbr_enemies - 1;
     display_shooting(var);
-    max_range =(var->window_width / 2) + 30;
-    min_range =(var->window_width / 2) - 30;
     while (i >= 0)
     {
+        max_range =(var->window_width / 2) + (var->p_infos->p_bonus->enemy[i].enemy_width / 4) ;
+        min_range =(var->window_width / 2) - (var->p_infos->p_bonus->enemy[i].enemy_width / 4) ;
         if (var->p_infos->p_bonus->enemy[i].x_screen > min_range && var->p_infos->p_bonus->enemy[i].x_screen < max_range)
         {
             if (abs(var->p_infos->up_down_offset) <= 30)
