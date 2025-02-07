@@ -136,11 +136,11 @@ void cast_ray(t_main_s *var, int i)
     //     var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
     //     var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
     // }
-    if(i == 0)
-    {
+    // if(i == 0)
+    // {
 
-        printf(">>>>>>>>>from : %c >>>>>>>DOOR DISTANCE : %f ||h %f ||v %f\n", var->p_infos->rays[i].bonus_rays->door->from, var->p_infos->rays[i].bonus_rays->door->distance, h_xy_door.distance, v_xy_door.distance );
-    }
+    //     printf(">>>>>>>>>from : %c >>>>>>>DOOR DISTANCE : %f ||h %f ||v %f\n", var->p_infos->rays[i].bonus_rays->door->from, var->p_infos->rays[i].bonus_rays->door->distance, h_xy_door.distance, v_xy_door.distance );
+    // }
     // compaire dis of door that is setted in the struct 
     /****/
 }

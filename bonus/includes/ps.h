@@ -134,4 +134,15 @@ void render_objects(t_main_s *var, t_player_bonus *p_ptr);
 void free_rays_bonus(t_ray_info *var);
 void free_rays(t_main_s *var);
 
+/************************************************************/
+//                      >> TEXTURES.C <<
+/************************************************************/
+
+int     create_trgb(int t, int r, int g, int b);
+int calc_x_img( t_main_s *var,t_calc_img* calc,char type);
+// int     calc_y_img(int y_proj ,int wall_hiegt , int img_h);
+int calc_y_img(int y_proj ,int wall_hiegt , int img_h, int door_h, int img_door_h, char type);
+t_text  *get_images(mlx_texture_t* text);
+int     gettt_rgba(uint8_t *color);
+
 #endif

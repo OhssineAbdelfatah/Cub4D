@@ -18,6 +18,7 @@ typedef struct s_mini_map t_mini_map;
 typedef struct s_textures_imgs t_textures_img;
 typedef struct s_x_and_y_d t_x_and_y_d;
 typedef struct s_xy_i t_xy_i;
+typedef struct s_calc_img t_calc_img;
 
 /********>> BONUS <<*****/
 typedef struct s_bonus t_bonus;
@@ -133,6 +134,7 @@ struct s_ray_info
     double y_last_intersection;
     int x_hor;
     int y_ver;
+    double wall_hight;
     int horzt_or_vert;
     double distance;
     double angle;
@@ -180,6 +182,7 @@ struct s_main_struct
     void *img_hor;
     mlx_t *mlx;
     mlx_image_t *img2;
+    mlx_image_t *img3;
     t_text **text;
     t_mini_map *mini_map;
     t_player_infos *p_infos;
@@ -220,7 +223,7 @@ struct s_bonus
     int mouse_x;
     mlx_texture_t *img;
     mlx_texture_t *pillar_tex;
-    mlx_texture_t *door;
+    // mlx_texture_t *door;
     mlx_texture_t *key;
     mlx_texture_t *floor;
     mlx_texture_t *sky;
@@ -229,6 +232,7 @@ struct s_bonus
     t_text *sky_text;
     t_text *gun_in_hand_text;
     t_text *pillar_img;
+    t_text *door;
     mlx_image_t *gun_in_hands_img;
     // mlx_image_t *door;
 };
@@ -264,15 +268,18 @@ struct s_player_bonus
     t_enemi *enemi;
 };
 
+struct s_calc_img
+{
+    double door_h;
+    int ray_nbr;
+    double img_w;
+    double img_door_w;
+};
 
 
 
 
-int     create_trgb(int t, int r, int g, int b);
-int     calc_x_img(int hor_or_ver, t_ray_info *ray, double wall_hiegt, double img_w);
-int     calc_y_img(int y_proj ,int wall_hiegt , int img_h);
-t_text  *get_images(mlx_texture_t* text);
-int     gettt_rgba(uint8_t *color);
+
 
 // struct s_test
 // {

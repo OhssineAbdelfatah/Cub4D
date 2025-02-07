@@ -22,71 +22,70 @@ int	gettt_rgba2(uint8_t *color, int trans)
 	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | trans);
 }
 
-void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int x_img, int color, int transparency,int ray_nbr)
+int is_there_door(t_rays_bonus* ray, t_main_s *var, int ray_nbr)
+{
+    return ((ray->hit_a_door
+        && ray->door->distance
+        && ray->door->distance < var->p_infos->rays[ray_nbr].distance)
+    );
+}
+
+void draw_rect_door(t_main_s *var, t_text* text,int x, int top , int buttom, int x_door, int color, int transparency,int ray_nbr)
 {
     int j; 
-    int y_img;
-    // static int alo;
-
-    j = top;
-
-    // int i = ray_nbr;
-    // if(i == 0)
-    // {
-    //     printf("from draw rect :>>>>>>>>>from : %c >>>>>>> DISTANCE : %f\n", var->p_infos->rays[i].bonus_rays->door->from, var->p_infos->rays[i].bonus_rays->door->distance );
-    // }
-    // if (0 == ray_nbr)
-    // {
-    //      if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door)
-    //         printf("hitted a door ,nbr ray : %d \n", ray_nbr);
-    //     printf("\nnbr_ray : %d , from %c,>>door : %f , wall : %f\n", ray_nbr,  var->p_infos->rays[ray_nbr].bonus_rays->door->from,  var->p_infos->rays[ray_nbr].bonus_rays->door->distance , var->p_infos->rays[ray_nbr].distance);
-    //     // alo++;
-    // }
+    int y_door;
     
+    j = top;
     while (j < buttom)
     {
         if (j >= 0 && j < var->window_height) // window hieght
         {
-            y_img = calc_y_img(j - top, buttom - top, text->hieght);
-            // color = gettt_rgba( &var->text[0].pixels[(y_img * var->text->width + x_img) * 4]);
-            // if(x_img < var->text[0].hieght && y_img < var->text[0].width )
-
-            color = text->pixels[y_img][x_img];
-            if(var->p_infos->rays[ray_nbr].bonus_rays->hit_a_door
-                && var->p_infos->rays[ray_nbr].bonus_rays->door->distance
-                 && var->p_infos->rays[ray_nbr].bonus_rays->door->distance < var->p_infos->rays[ray_nbr].distance)
-            {
-                color = 0x0017ff;
+            if( is_there_door(var->p_infos->rays[ray_nbr].bonus_rays, var ,ray_nbr))
+             {
+                // int calc_y_img(int y_proj ,int wall_hiegt , int img_h, int door_h, int img_door_h, char type)
+                // 
+                y_door = calc_y_img(j - top , 0, 0, buttom - top, var->bonus->door->hieght,'D');
+                color = var->bonus->door->pixels[y_door][x_door];
+                mlx_put_pixel(var->img3, x , j , color);
+                // color = 
             }
+        }
+        j++;
+    }
+    (void)text;
+    (void)transparency;
+}
+
+void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int x_img, int color, int transparency,int ray_nbr)
+{
+    int j; 
+    int y_img;
+    
+    j = top;
+    while (j < buttom)
+    {
+        if (j >= 0 && j < var->window_height) // window hieght
+        {
+            y_img = calc_y_img(j - top, buttom - top, text->hieght, 0,0 , 'W');
+            color = text->pixels[y_img][x_img];
             mlx_put_pixel(var->img2, x , j , color);
         }
         j++;
     }
-    // */
-    // while (j < buttom)
-    // {
-    //     if (j >= 0 && j < var->window_height) // window hieght
-    //     {
-    //         y_img = calc_y_img(j - top, buttom - top, text->hieght);
-    //         color = text->pixels[y_img][x_img];
-    //         mlx_put_pixel(var->img2, x , j , color);
-    //     }
-    //     j++;
-    // }
     (void)transparency;
     (void)ray_nbr;
     return ;
 }
 
-double adjust_distance(t_main_s *var, int i)
+double adjust_distance(t_main_s *var, int i, char type)
 {
     double which_distance ;
     double teta_angle;
     double adjusted_distance ;
 
     which_distance = var->p_infos->rays[i].distance;
-    // if(type =='D')
-        // which_distance = var->p_infos->rays->bonus_rays->door->distance;
+    if(type =='D')
+        which_distance = var->p_infos->rays[i].bonus_rays->door->distance;
     
     teta_angle = var->p_infos->rays[i].angle - var->p_infos->rays[var->p_infos->nbr_rays / 2].angle;
     if (teta_angle < 0)
@@ -197,9 +196,18 @@ void render_sky(t_main_s *var, int x, int y_end, int nbr_ray)
     }
 }
 
+void init_calc(t_calc_img* calc,double door_h, double img_w, double img_door_w )
+{
+    calc->door_h = door_h;
+    calc->img_door_w = img_door_w;
+    calc->img_w = img_w;
+    return ;
+}
+
 void    wall_rendering(t_main_s *var)
 {
-    t_walls *walls;
+    // t_walls *walls;
+    t_calc_img calc;
     t_text *texture;
     double adjusted_distance;
     int color = 0 ;
@@ -209,28 +217,45 @@ void    wall_rendering(t_main_s *var)
     int x_img;
     int i;
     int j;
+    int x_door;
+    double door_hieght;
+
 
     i = var->p_infos->nbr_rays-1;
     j = 0;
-    walls = init_walls(var);
+    init_calc(&calc, 0,0,0);
+    var->p_infos->walls = init_walls(var);
     while (i >= 0)
     {
+        calc.ray_nbr = i;
         texture = which_texture(var->p_infos->rays+i, var->text);
-        adjusted_distance = adjust_distance(var, i);
+        adjusted_distance = adjust_distance(var, i, 0);
         if (adjusted_distance == 0)
             adjusted_distance = 0.5;
-        walls->wall_hight = (square_len / adjusted_distance) * walls->distance_prj_plane;
-        y = ((var->window_height) / 2) - (walls->wall_hight / 2);
-        x = ((var->window_height) / 2) + (walls->wall_hight / 2);
-        x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays + i, square_len, texture->width);
+        var->p_infos->rays[i].wall_hight = (square_len / adjusted_distance) * var->p_infos->walls->distance_prj_plane;
+        y = ((var->window_height) / 2) - (var->p_infos->rays[i].wall_hight / 2);
+        x = ((var->window_height) / 2) + (var->p_infos->rays[i].wall_hight / 2);
+        init_calc(&calc, door_hieght, texture->width, var->bonus->door->width);
+        x_img = calc_x_img(var, &calc, 'W');
         transparency = get_transparency(adjusted_distance);
         // render_sky(var, j, y, i);
+        // printf("top %d buttom %d wall_h %d\n",y,x, var->p_infos->walls->wall_hight);
         draw_rectangle(var,texture, j, y, x, x_img, color, transparency, i);
+        adjusted_distance = adjust_distance(var, i, 'D');
+        door_hieght = (square_len / adjusted_distance) * var->p_infos->walls->distance_prj_plane;
+        init_calc(&calc, door_hieght, texture->width, var->bonus->door->width);
+       if(is_there_door(var->p_infos->rays[i].bonus_rays, var, i)){
+            x_door = calc_x_img(var, &calc, 'D'); // door hieght to be calculated
+       }
+        // void draw_rect_door(t_main_s *var, t_text* text,int x, int top , int buttom, int x_door, int color, int transparency,int ray_nbr)
+        y = ((var->window_height) / 2) - (door_hieght / 2);
+        x = ((var->window_height) / 2) + (door_hieght / 2);
+        draw_rect_door(var,texture, j, y, x, x_door, color, transparency, i);
         // draw_floor(var, j, x, i);
 
         i--;
         j++;
     }
     (void)x_img;
-    free(walls);
+    free(var->p_infos->walls);
 }
