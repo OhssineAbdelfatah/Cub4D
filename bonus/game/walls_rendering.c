@@ -204,8 +204,8 @@ void    wall_rendering(t_main_s *var)
     double adjusted_distance;
     int color = 0 ;
     int transparency;
-    int y;
-    int x;
+    int top;
+    int buttom;
     int x_img;
     int i;
     int j;
@@ -220,12 +220,12 @@ void    wall_rendering(t_main_s *var)
         if (adjusted_distance == 0)
             adjusted_distance = 0.5;
         walls->wall_hight = (square_len / adjusted_distance) * walls->distance_prj_plane;
-        y = ((var->window_height) / 2) - (walls->wall_hight / 2);
-        x = ((var->window_height) / 2) + (walls->wall_hight / 2);
+        top = ((var->window_height) / 2) - (walls->wall_hight / 2);
+        buttom = ((var->window_height) / 2) + (walls->wall_hight / 2);
         x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays + i, square_len, texture->width);
         transparency = get_transparency(adjusted_distance);
-        // render_sky(var, j, y, i);
-        draw_rectangle(var,texture, j, y, x, x_img, color, transparency, i);
+        // render_sky(var, j, top, i);
+        draw_rectangle(var,texture, j, top, buttom, x_img, color, transparency, i);
         if(is_there_door(var->p_infos->rays[i].bonus_rays, var, i))
             draw_door(var, walls,i,j);
         // draw_floor(var, j, x, i);

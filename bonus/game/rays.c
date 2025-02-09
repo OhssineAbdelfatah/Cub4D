@@ -118,31 +118,6 @@ void cast_ray(t_main_s *var, int i)
         var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
 
     }
-    // if ((((h_xy_door.distance < v_xy_door.distance ) && v_xy_door.distance ) || !v_xy_door.distance  || v_xy_door.distance == h_xy_door.distance)){
-    //     var->p_infos->rays[i].bonus_rays->door->from = 'p';
-    //     var->p_infos->rays[i].bonus_rays->door->distance = h_xy_door.distance;
-    //     var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
-    //     var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
-    //     /*  
-    //     var->p_infos->rays[i].bonus_rays->door->from = 'p';
-    //     var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
-    //     var->p_infos->rays[i].bonus_rays->door->x_intersection = h_xy_door.y;
-    //     var->p_infos->rays[i].bonus_rays->door->y_intersection = h_xy_door.x;
-    //     */
-    // }
-    // else if (h_xy_door.distance > v_xy_door.distance || (!h_xy_door.distance)) {
-    //     var->p_infos->rays[i].bonus_rays->door->from = 'v';
-    //     var->p_infos->rays[i].bonus_rays->door->distance = v_xy_door.distance;
-    //     var->p_infos->rays[i].bonus_rays->door->x_intersection = v_xy_door.y;
-    //     var->p_infos->rays[i].bonus_rays->door->y_intersection = v_xy_door.x;
-    // }
-    if(i == 0)
-    {
-
-        printf(">>>>>>>>>from : %c >>>>>>>DOOR DISTANCE : %f ||h %f ||v %f\n", var->p_infos->rays[i].bonus_rays->door->from, var->p_infos->rays[i].bonus_rays->door->distance, h_xy_door.distance, v_xy_door.distance );
-    }
-    // compaire dis of door that is setted in the struct 
-    /****/
 }
 void shoot_the_rays(t_main_s * var)
 {

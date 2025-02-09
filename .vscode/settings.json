@@ -1,10 +1,10 @@
 {
-  "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",
   "C_Cpp_Runner.debuggerPath": "lldb",
   "C_Cpp_Runner.cStandard": "",
   "C_Cpp_Runner.cppStandard": "",
+  "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.useMsvc": false,
   "C_Cpp_Runner.warnings": [
     "-Wall",
@@ -55,38 +55,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "files.associations": {
-    "ps.h": "c",
-    "parsing.h": "c",
-    "fcntl.h": "c",
-    "atomic": "cpp",
-    "cstdlib": "cpp",
-    "locale": "cpp",
-    "ostream": "cpp",
-    "algorithm": "cpp",
-    "complex": "cpp",
-    "new": "cpp"
-  },
-  "cmake.sourceDirectory": "/Users/ilaasri/Desktop/C_cursus/42_Cube3D/lib/mlx",
-  "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#3a2b55",
-    "activityBar.background": "#322e67",
-    "activityBar.foreground": "#e7e7e7",
-    "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#2a2578",
-    "activityBarBadge.foreground": "#e7e7e7",
-    "commandCenter.border": "#e7e7e799",
-    "sash.hoverBorder": "#2a2578",
-    "statusBar.background": "#6b1726",
-    "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#1b1bfa",
-    "statusBarItem.remoteBackground": "#b51e3f",
-    "statusBarItem.remoteForeground": "#e7e7e7",
-    "titleBar.activeBackground": "#4f97a6",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#40399499",
-    "titleBar.inactiveForeground": "#e7e7e799"
-  },
-  "peacock.color": "#dd0531"
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }
