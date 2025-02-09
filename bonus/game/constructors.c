@@ -10,7 +10,6 @@ t_walls *init_walls(t_main_s *ptr)
     if (!var)
         panic("malloc failed !\n");
     var->distance_prj_plane = (ptr->window_width / 2) / tan(((M_PI / 180) * 60 )/ 2);
-    var->wall_hight = 0;
     var->prj_plane_height = square_len / 2;
     return var;
 }
@@ -191,6 +190,9 @@ t_bonus *init_bonus(t_main_s *main)
     var->gun_in_hands_img->enabled= true;
     var->nbr_enemi = 0;
     var->nbr_obj = 0;
+    mlx_texture_t *door;
+    door = mlx_load_png("../assets/textures/EHEDA0.png");
+    var->door = get_image(door);// should  added to parsing
     return (var);
 }
 
@@ -233,6 +235,13 @@ void print_pixesl(t_text *img)
         }
         i++;
     }
+}
+
+t_text *safe_img_cnv(char *path_to_img)
+{
+    mlx_texture_t *img;
+    img = safe_load(path_to_img);
+    return get_image(img);
 }
 t_text **init_textures(t_main_s *var)
 {
@@ -293,6 +302,7 @@ t_main_s *init_main_var(t_parse_data *parse)
     // var->img = mlx_new_image(var->mlx, (10  * square_len * scale_of_minimap), (var->map_hight * scale_of_minimap * square_len));
    
     var->img2 = mlx_new_image(var->mlx, var->window_width, var->window_height);
+    var->img3 = mlx_new_image(var->mlx, var->window_width, var->window_height);
 
     var->mini_map = init_mini_map(var->mlx, var->window_width, var->window_height);
     var->text = init_textures(var);

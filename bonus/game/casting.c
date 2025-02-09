@@ -103,18 +103,18 @@ double cast_horizontally(t_main_s *var, int i, t_x_and_y_d *xy, t_x_and_y_d *h_x
         up_down = -1;
     while (cst.xintersection >= 0 && cst.yintersection >= 0)
     {
-        if (hit_a_wall(var,cst.xintersection + up_down, cst.yintersection , i))
-        {
-            xy->y = cst.xintersection;
-            xy->x = cst.yintersection;
-            break;
-        }
         if (hit_a_door(var,cst.xintersection + up_down, cst.yintersection , i) && !var->p_infos->rays[i].bonus_rays->hit_a_door)
         {
             var->p_infos->rays[i].bonus_rays->hit_a_door = true;
             h_xy_door->y = cst.xintersection;
             h_xy_door->x = cst.yintersection;
             h_xy_door->distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
+        }
+        if (hit_a_wall(var,cst.xintersection + up_down, cst.yintersection , i))
+        {
+            xy->y = cst.xintersection;
+            xy->x = cst.yintersection;
+            break;
         }
         cst.xintersection += (cst.xsteps * up_down);
         cst.yintersection += cst.ysteps ;
@@ -160,18 +160,18 @@ double cast_vertically(t_main_s *var, int i, t_x_and_y_d *xy, t_x_and_y_d *v_xy_
         left_right = -1;
     while (cst.xintersection >= 0.00 && cst.yintersection >= 0.00)
     {
-        if (hit_a_wall(var, cst.xintersection, cst.yintersection + left_right, i))
-        {
-            xy->y = cst.xintersection;
-            xy->x = cst.yintersection;
-            break;
-        }
         if (hit_a_door(var,cst.xintersection , cst.yintersection + left_right , i) && !var->p_infos->rays[i].bonus_rays->hit_a_door)
         {
             var->p_infos->rays[i].bonus_rays->hit_a_door = true;
             v_xy_door->y = cst.xintersection;
             v_xy_door->x = cst.yintersection;
             v_xy_door->distance = sqrt(pow((cst.xintersection - var->p_infos->x), 2) + pow ((cst.yintersection - var->p_infos->y), 2));
+        }
+        if (hit_a_wall(var, cst.xintersection, cst.yintersection + left_right, i))
+        {
+            xy->y = cst.xintersection;
+            xy->x = cst.yintersection;
+            break;
         }
         cst.xintersection += cst.xsteps;
         cst.yintersection += cst.ysteps;

@@ -1,0 +1,1 @@
+** in init_bonus u can use mlx_texture_t as locals and destroy loaded img with mlx_load_png (good practice)
