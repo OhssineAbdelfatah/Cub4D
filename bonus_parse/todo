@@ -1,0 +1,8 @@
+[*] pass the direction based on player (N,W,S,E)
+[] texture access
+[] wall adjusted height in image rendering should not be adjusted
+[] direction use four textures 
+    [] left vertical texture shoudl renderd reversed
+    
+[] norm
+

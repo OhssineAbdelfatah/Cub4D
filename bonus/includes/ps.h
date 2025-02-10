@@ -10,15 +10,19 @@
 
 
 
-
-
-
-
 void shoot_the_rays(t_main_s * var);
 int need_update(t_player_infos * var, char **map);
 
 int is_there_a_wall(double new_y, double new_x, char **map);
 int check_teleportation(t_player_infos *var, char **map);
+
+/*************************************************/
+//            >>    TEXTURES.C     <<
+/*************************************************/
+
+int calc_x_img(int hor_or_ver, t_ray_info *ray, double wall_hiegt, double img_w);
+int calc_y_img(int y_proj ,int wall_hiegt , int img_h);
+
 
 /*************************************************/
 //            >>    DRAWING.C     <<
@@ -135,14 +139,10 @@ void free_rays_bonus(t_ray_info *var);
 void free_rays(t_main_s *var);
 
 /************************************************************/
-//                      >> TEXTURES.C <<
+//                      >> DOOR_BONUS.C <<
 /************************************************************/
 
-int     create_trgb(int t, int r, int g, int b);
-int calc_x_img( t_main_s *var,t_calc_img* calc,char type);
-// int     calc_y_img(int y_proj ,int wall_hiegt , int img_h);
-int calc_y_img(int y_proj ,int wall_hiegt , int img_h, int door_h, int img_door_h, char type);
-t_text  *get_images(mlx_texture_t* text);
-int     gettt_rgba(uint8_t *color);
+int is_there_door(t_rays_bonus* ray, t_main_s *var, int ray_nbr);
+void    draw_door(t_main_s *var,t_walls *walls, int i, int j, double offset);
 
 #endif

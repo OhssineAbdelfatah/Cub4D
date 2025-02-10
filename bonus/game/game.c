@@ -135,6 +135,10 @@ void obj_rebdering(t_main_s *var)
     (void) var;
 }
 
+int	create_trgb(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
 
 void paint_floor_celling(t_main_s *var)
 {

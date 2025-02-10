@@ -212,7 +212,7 @@ struct s_walls_rendering
 {
     double distance_prj_plane;
     double prj_plane_height;
-    // double wall_hight;
+    double wall_hight;
 };
 
 
@@ -223,16 +223,16 @@ struct s_bonus
     int mouse_x;
     mlx_texture_t *img;
     mlx_texture_t *pillar_tex;
-    // mlx_texture_t *door;
     mlx_texture_t *key;
     mlx_texture_t *floor;
     mlx_texture_t *sky;
     mlx_texture_t *gun_in_hand;
+    t_text *door;
     t_text *floor_text;
     t_text *sky_text;
     t_text *gun_in_hand_text;
     t_text *pillar_img;
-    t_text *door;
+    // t_text *door;
     mlx_image_t *gun_in_hands_img;
     // mlx_image_t *door;
 };
