@@ -209,10 +209,15 @@ void    wall_rendering(t_main_s *var)
     int x_img;
     int i;
     int j;
+    static double offset = 1;
 
     i = var->p_infos->nbr_rays-1;
     j = 0;
     walls = init_walls(var);
+    if (offset >= 0 && var->p_infos->rays[699].bonus_rays->door->distance < 128 && var->p_infos->rays[699].bonus_rays->door->distance > 0)
+        offset -= 0.1;
+    else if( offset < 1 && var->p_infos->rays[699].bonus_rays->door->distance > 128 &&  var->p_infos->rays[699].bonus_rays->door->distance > 0) 
+        offset += 0.1;
     while (i >= 0)
     {
         texture = which_texture(var->p_infos->rays+i, var->text);
@@ -227,7 +232,7 @@ void    wall_rendering(t_main_s *var)
         // render_sky(var, j, top, i);
         draw_rectangle(var,texture, j, top, buttom, x_img, color, transparency, i);
         if(is_there_door(var->p_infos->rays[i].bonus_rays, var, i))
-            draw_door(var, walls,i,j);
+            draw_door(var, walls,i,j, offset);
         // draw_floor(var, j, x, i);
 
         i--;

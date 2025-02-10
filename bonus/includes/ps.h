@@ -139,6 +139,6 @@ void free_rays(t_main_s *var);
 /************************************************************/
 
 int is_there_door(t_rays_bonus* ray, t_main_s *var, int ray_nbr);
-void    draw_door(t_main_s *var,t_walls *walls, int i, int j);
+void    draw_door(t_main_s *var,t_walls *walls, int i, int j, double offset);
 
 #endif

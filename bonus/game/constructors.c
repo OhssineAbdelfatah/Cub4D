@@ -173,10 +173,11 @@ t_bonus *init_bonus(t_main_s *main)
     // var->floor = safe_load("../assets/textures/2d.png");
     var->sky = safe_load("../assets/sky/Fuzzy Sky/Fuzzy_Sky-Sunset_04-1024x512.png");
     
-    // mlx_texture_t* door_text = safe_load("../assets/textures/EHEDA0.png");
-    // if(!var->door )
-    //     puts("valid door");
-    // mlx_delete_texture(door_text);
+    mlx_texture_t* door_text = safe_load("../assets/textures/doortile.png");
+    var->door = get_image(door_text);
+    if(!var->door )
+        puts("valid door");
+    mlx_delete_texture(door_text);
     
     var->img = NULL;
     var->key = NULL;
@@ -187,7 +188,7 @@ t_bonus *init_bonus(t_main_s *main)
     printf("sky W :%d , sky H : %d\n",var->sky_text->width, var->sky_text->hieght );
     var->pillar_tex = safe_load("../assets/textures/AncientPillar_green.png");
     var->pillar_img = get_image(var->pillar_tex);
-    var->door = main->text[0];
+    // var->door = main->text[0];
     var->pillar_img = NULL;
     var->pillar_tex = NULL;
     // var->pillar_tex = NULL;
