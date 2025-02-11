@@ -10,6 +10,8 @@ void	ff(void)
 
 */
 
+
+
 int main(int ac, char **av)
 {
     t_main_s *var;
@@ -18,31 +20,20 @@ int main(int ac, char **av)
     // atexit(ff);
 
     data = parse(ac, av);
-    var = init_main_var(data);
-    
-  
+    var = init_main_var(data);  
     av++;
     fill_map(av, var);
-
     // mlx_set_cursor_mode(var->mlx, MLX_MOUSE_DISABLED);
     work_of_art(var, 1);
-   
     mlx_loops_and_hooks(var);
+
+
+
     (void)data;
+    (void)var;
+    (void)av;
     (void)ac;
 }
-
-
-
-
-    // atexit(ff);
-    // if (ac != 2)
-    //     return (perror("need path of valid map\n"),1);
-//     var = init_main_var(av);
-//     work_of_art(var);
-//     mlx_loops_and_hooks(var);
-// }
-
 
 /**
  * ONLY PARSING

@@ -53,7 +53,7 @@ struct s_xy_i {
 
 struct s_text {
     int **pixels;
-    char* name;
+    // char* name;
     int width;
     int hieght;
 };
@@ -182,9 +182,8 @@ struct s_main_struct
     int window_height;
     int map_hight;
     int map_width;
+    long long start_frame;
     char **map;
-    void *img_ver;
-    void *img_hor;
     mlx_t *mlx;
     mlx_image_t *img2;
     t_text **text;
@@ -196,7 +195,6 @@ struct s_main_struct
     //bonus
     /***********/
     // struct timeval tv;
-    long long start_frame;
     t_bonus *bonus;
 
 };
@@ -227,17 +225,17 @@ struct s_bonus
     int nbr_enemies;
     int mouse_x;
     int mouse_y;
-    mlx_texture_t *img;
+    // mlx_texture_t *img;
+    // mlx_texture_t *key;
+    // mlx_texture_t *gun_in_hand0;
     mlx_texture_t *enemy_mlx_tex;
     mlx_texture_t *dead_enemy_mlx_tex;
     mlx_texture_t *pillar_tex;
     mlx_texture_t *door;
-    mlx_texture_t *key;
     mlx_texture_t *floor;
     mlx_texture_t *sky;
     mlx_texture_t *gun_in_hand[4];
     mlx_texture_t *crosshair;
-    // mlx_texture_t *gun_in_hand0;
     t_text *dead_enemy_text;
     t_text *enemy_text;
     t_text *floor_text;
@@ -272,14 +270,14 @@ struct s_enemy
     bool alive;
     int x_screen;
     int y_screen;
+    int enemy_height;
+    int enemy_width;
     double x;
     double y;
     double vector_x;
     double vector_y;
     double vector_teta;
     double enemy_teta;
-    int enemy_height;
-    int enemy_width;
     double distance;
 };
 

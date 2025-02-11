@@ -72,7 +72,7 @@ void key_hook(mlx_key_data_t key, void *var)
 
     if (key.key == MLX_KEY_ESCAPE)
     {
-        // smooth_exit(var);
+        free_all(var);
         exit(0);
     }
     if (key.key == MLX_KEY_ENTER)

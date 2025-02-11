@@ -90,8 +90,8 @@ int **gat_pixles(mlx_texture_t* img, int w, int h)
 
 t_text *get_image(mlx_texture_t *text)
 {
-    int i = 0 ;
-    i = 0 ;
+    // int i = 0 ;
+    // i = 0 ;
     t_text *img;
 
 
@@ -100,11 +100,14 @@ t_text *get_image(mlx_texture_t *text)
     img = malloc(sizeof(t_text));
     if(!img )
         return NULL;
-    
-    img[i].pixels = gat_pixles(text, text->width, text->height);
-    img[i].hieght = text->height;
-    img[i].width = text->width;
-    
+
+    // img[i].pixels = gat_pixles(text, text->width, text->height);
+    // img[i].hieght = text->height;
+    // img[i].width = text->width;
+    img->pixels = gat_pixles(text, text->width, text->height);
+    img->hieght = text->height;
+    img->width = text->width;
+    mlx_delete_texture(text);
     return img;
 }
 
@@ -183,11 +186,12 @@ t_bonus *init_bonus(t_main_s *main)
     var->dead_enemy_text = get_image(var->dead_enemy_mlx_tex);
     var->sky = safe_load("../assets/sky/Fuzzy Sky/Fuzzy_Sky-Sunset_04-1024x512.png");
     var->door = NULL;
-    var->img = NULL;
-    var->key = NULL;
+    // var->img = NULL;
+    // var->key = NULL;
     var->mouse_x = (main->window_width) / 2;
     var->mouse_y = (main->window_height) / 2;
-    var->gun_in_hand_text0 = get_image(var->gun_in_hand[0]);
+    // var->gun_in_hand_text0 = get_image(var->gun_in_hand[0]);
+    var->gun_in_hand_text0 = NULL;
     var->floor_text = get_image(var->floor);
     var->sky_text = get_image(var->sky);  
     var->pillar_tex = safe_load("../assets/textures/EHEDC0.png");
@@ -276,16 +280,6 @@ t_text **init_textures(t_main_s *var)
     text[3] = get_image(img3);
     (void)var;
     return text;
-    // safe_load();
-    // safe_load();
-    // safe_load();
-        
-    // var->text.height = 64;
-    // var->text.width = 64;
-    // var->text.img_hor = mlx_xpm_file_to_image(var->mlx, "", &var->text.width, &var->text.height);
-    // var->text.img_ver = mlx_xpm_file_to_image(var->mlx, "", &var->text.width, &var->text.height);
-    // var->text.img_hor = NULL;
-    // var->text.img_ver = NULL;
 }
 
 

@@ -43,6 +43,8 @@ void fill_obj(t_main_s *var, t_obj *obj, t_player_infos *p_var)
     }
 }
 
+
+
 void fill_enemy(t_main_s *var, t_enemy *enemy, t_player_infos *p_var)
 {
     int x, y;
@@ -220,9 +222,6 @@ void check_visibility(t_player_infos *p_var, t_obj *obj, int i)
             obj[i].visible = true;
         else
             obj[i].visible = false;
-    // printf("MIN POV %f , MAX POV %f\n", min_fov, max_fov);
-    (void)obj;
-    (void)i;
 }
 
 double calculate_obj_or_enemy_teta(t_player_infos *p_var, t_obj *obj, t_enemy *enemy)
@@ -254,7 +253,6 @@ void update_obj_data(t_main_s *var, t_player_infos *p_var, t_obj *obj,int nbr_ob
     i = 0;
     if (obj)
     {
-        // printf("/********************/\n");
         while (i < nbr_obj)
         {
             obj[i].distance = get_distance(p_var,obj[i].x, obj[i].y);
@@ -266,11 +264,9 @@ void update_obj_data(t_main_s *var, t_player_infos *p_var, t_obj *obj,int nbr_ob
             check_visibility(p_var, obj, i);
             obj[i].x_screen = obj[i].obj_teta * (1400 / p_var->fov);
             obj[i].y_screen = (var->window_height / 2) + var->p_infos->up_down_offset ;
-            // printf("Vector teta : %f,Obj teta : %f, obj x_screen : %d\n", obj[i].vector_teta , obj[i].obj_teta, obj[i].x_screen);
             i++;
         }
         adjust_rank(obj, nbr_obj);
-        // print_obj(p_var,obj, nbr_obj);
     } 
 }
 
@@ -285,7 +281,6 @@ t_player_bonus *init_player_bonus(t_main_s *var, t_player_infos *p_var)
     count_obj_enemi(var);
     res->enemy = init_enemies_p(var, p_var);
     res->obj = init_obj_p(var, p_var);
-    // update_obj_data(var, p_var,res->obj, var->bonus->nbr_obj);
     return (res);
 }
 

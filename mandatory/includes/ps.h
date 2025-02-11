@@ -148,5 +148,14 @@ void render_sky(t_main_s *var, int x, int y_end, int nbr_ray);
 
 void free_rays_bonus(t_ray_info *var);
 void free_rays(t_main_s *var);
+void free_p_info(t_player_infos *player, t_main_s *var);
+void        free_p_bonus(t_player_bonus* player_b);
+void free_minimap(t_main_s *var ,t_mini_map *mini_map);
+void free_text(t_text *text);
+void free_texts(t_text **text);
+void free_d_arr(char **av);
+void free_main_bonus(t_bonus *var, t_main_s *main);
+void reset_them_all(t_main_s * var);
+void free_all(t_main_s *var);
 
 #endif
