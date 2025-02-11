@@ -43,7 +43,7 @@ GAME_FILES = game/hooks_nd_loops.c game/casting.c game/tools.c game/walls_render
 			game/obj_bonus.c game/enemies_bonus.c \
 			game/game.c
 
-TEXTURES	= game/texture.c 		
+TEXTURES	= game/texture.c game/door_bonus.c		
 
 PARSING = 	parsing/cub.c          parsing/infos_utils2.c parsing/infos_utils3.c \
 			parsing/map_check.c	\
