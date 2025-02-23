@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:39:01 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/26 20:43:26 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/02/21 00:14:46 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@
 
 # include <errno.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
 
 /*   LIB   */
+
 # include "../../lib/gnl/get_next_line.h"
 # include "../../lib/libft/libft.h"
 
 /*   STRUCT MAP   */
 typedef struct s_map_lst	t_map_lst;
-typedef struct s_parse_data t_parse_data;
+typedef struct s_parse_data	t_parse_data;
 typedef enum s_type
 {
 	IMG_WE,
@@ -79,7 +79,6 @@ struct						s_map_lst
 	t_map_lst				*prev;
 };
 
-
 typedef struct s_pos
 {
 	int						x_hor;
@@ -98,7 +97,7 @@ typedef struct s_pos
 // 	char					**map;
 // }							t_data;
 
-struct s_parse_data
+struct						s_parse_data
 {
 	char					**map;
 	char					*tex_no;
@@ -115,14 +114,22 @@ struct s_parse_data
 /////////////////////////////////////////////
 
 /*  cub */
-int							cube(char *ext, t_parse_data** data);
+int							cube(char *ext, t_parse_data **data);
 int							check_ext(char *ext, char *base_ext);
-void 						free_data(t_parse_data* data);
+void						free_data(t_parse_data *data);
 
 /*  inofs parse */
 t_pre_data					*read_file(char *file);
 t_map_lst					*get_map_infos(int fd_map);
 int							check_unicty_infos(t_map_lst *list);
+char						**split2(char *base);
+
+/*  inofs parse 2*/
+
+void						*free_error(t_pre_data *dt, int f_dt_map,
+								int f_dt_data_map);
+void						fill_data(t_pre_data *dt);
+void						fill_colors(t_pre_data *dt);
 
 /*  inofs_utils */
 int							get_type(char *line);
@@ -138,7 +145,7 @@ int							file_exist(char *path);
 
 void						find_pos(char **map, t_pos *pos);
 char						*find_info_value(int type, t_map_lst *info);
-char						*fetch_index_splited(char *str, int index, char set);
+char						*fetch_index_splited(char *str);
 
 /*  list init   */
 t_map_lst					*create_node(char *value, int type);
@@ -170,21 +177,18 @@ int							__direction(char c);
 int							valid_map(char **s_map_lst);
 
 /*	safe functions	*/
-void					*safe_malloc(void);
-int						safe_open(char *file, t_pre_data *dt);
-void					**safe__malloc(void);
-
+void						*safe_malloc(void);
+int							safe_open(char *file, t_pre_data *dt);
+void						**safe__malloc(void);
 
 /*	main func	*/
-t_parse_data	*parse(int ac, char **av);
+t_parse_data				*parse(int ac, char **av);
 
 ///////////////////////////////////////////////////////////////////////
-
-
 
 /*TEST*/
 void						print_type(int type);
 void						print_map(t_map_lst *head, char dir);
-void print_data(t_parse_data* data);
+void						print_data(t_parse_data *data);
 /*TEST*/
 #endif

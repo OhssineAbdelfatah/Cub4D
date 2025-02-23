@@ -1,124 +1,78 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   walls_rendering.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ilaasri <ilaasri@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/18 21:56:14 by ilaasri           #+#    #+#             */
+/*   Updated: 2025/02/18 21:56:15 by ilaasri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ps.h"
 
-int	gettt_rgba(uint8_t *color)
+void	draw_rectangle(t_main_s *var, t_text *text, t_wall_rendering func)
 {
-	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | color[3]);
-}
-t_text *which_texture(t_ray_info* ray, t_text** texture)
-{
-    if(ray->wall_dir ==  'W')
-        return texture[0];
-    if(ray->wall_dir ==  'E')
-        return texture[1];
-    if(ray->wall_dir ==  'S')
-        return texture[2];
-    if(ray->wall_dir ==  'N')
-        return texture[3];
-    return NULL;
-}
+	int	j;
+	int	y_img;
 
-int	gettt_rgba2(uint8_t *color, int trans)
-{
-	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | trans);
+	j = func.top;
+	while (j < func.buttom)
+	{
+		if (j >= 0 && j < var->window_height)
+		{
+			y_img = calc_y_img(j - func.top, func.buttom - func.top,
+					text->hieght);
+			func.color = text->pixels[y_img][func.x_img];
+			mlx_put_pixel(var->img2, func.j, j, func.color);
+		}
+		j++;
+	}
+	return ;
 }
 
-void draw_rectangle(t_main_s *var, t_text* text,int x, int top , int buttom, int x_img, int color, int transparency,int ray_nbr)
+double	adjust_distance(t_main_s *var, int i)
 {
-    int j; 
-    int y_img;
+	double	teta_angle;
+	double	adjusted_distance;
 
-    j = top;
-    while (j < buttom)
-    {
-        if (j >= 0 && j < var->window_height) // window hieght
-        {
-            y_img = calc_y_img(j - top, buttom - top, text->hieght);
-            // color = gettt_rgba( &var->text[0].pixels[(y_img * var->text->width + x_img) * 4]);
-            // if(x_img < var->text[0].hieght && y_img < var->text[0].width )
-            color = text->pixels[y_img][x_img];
-            // color = gettt_rgba2((unsigned char *)(var->text[0].pixels[y_img] + x_img+ 3), transparency );
-            mlx_put_pixel(var->img2, x , j , color);
-        }
-        j++;
-    }
-    (void)transparency;
-    (void)ray_nbr;
-    return ;
+	teta_angle = var->p_infos->rays[i].angle
+		- var->p_infos->rays[var->p_infos->nbr_rays / 2].angle;
+	if (teta_angle < 0)
+		teta_angle *= -1;
+	adjusted_distance = cos(teta_angle) * var->p_infos->rays[i].distance;
+	return (adjusted_distance);
 }
 
-double adjust_distance(t_main_s *var, int i)
+void	wall_rendering_core(t_main_s *var, t_wall_rendering *func)
 {
-    double teta_angle;
-    double adjusted_distance ;
-
-    teta_angle = var->p_infos->rays[i].angle - var->p_infos->rays[var->p_infos->nbr_rays / 2].angle;
-    if (teta_angle < 0)
-        teta_angle *= -1;
-    adjusted_distance = cos(teta_angle) * var->p_infos->rays[i].distance;
-    return adjusted_distance; 
+	while (func->i >= 0)
+	{
+		func->texture = which_texture(var->p_infos->rays + func->i, var->text);
+		func->adjusted_distance = adjust_distance(var, func->i);
+		if (func->adjusted_distance == 0)
+			func->adjusted_distance = 0.5;
+		var->walls->wall_hight = (SQ_LEN / func->adjusted_distance)
+			* var->walls->distance_prj_plane;
+		func->top = (((var->window_height) / 2) - (var->walls->wall_hight / 2));
+		func->buttom = func->top + var->walls->wall_hight;
+		func->x_img = calc_x_img(var->p_infos->rays[func->i].horzt_or_vert,
+				var->p_infos->rays + func->i, SQ_LEN, func->texture->width);
+		draw_rectangle(var, func->texture, *func);
+		func->i--;
+		func->j++;
+	}
 }
 
-
-
-
-
-int get_transparency(double distance)
+void	wall_rendering(t_main_s *var)
 {
-    // static int ss;
-    int i, distance2;
-    i = 0;
-    distance2 = (int)floor(distance);
-    while (i < distance2)
-        i++;
-    i /= 5;
-    if (i > 255)
-        i = 255;
-    return (255 - i);
-}
+	t_wall_rendering	func;
 
-
-
-
-
-
-void    wall_rendering(t_main_s *var)
-{
-    t_walls *walls;
-    t_text *texture;
-    double adjusted_distance;
-    int color = 0 ;
-    int transparency;
-    int top;
-    int bottom;
-    int x_img;
-    int i;
-    int j;
-
-    i = var->p_infos->nbr_rays-1;
-    j = 0;
-    walls = init_walls(var);
-    while (i >= 0)
-    {
-        texture = which_texture(var->p_infos->rays+i, var->text);
-        adjusted_distance = adjust_distance(var, i);
-        if (adjusted_distance == 0)
-            adjusted_distance = 0.5;
-        walls->wall_hight = (square_len / adjusted_distance) * walls->distance_prj_plane;
-        // y = ((var->window_height) / 2) - (walls->wall_hight / 2) ;
-        // x = ((var->window_height) / 2) + (walls->wall_hight / 2);
-        // if (i == 0)
-        //     printf ("look up and  dowm : %d \n", var->p_infos->up_down_offset);
-        top = (((var->window_height) / 2) - (walls->wall_hight / 2)) + var->p_infos->up_down_offset;
-        bottom = top + walls->wall_hight;
-        x_img = calc_x_img(var->p_infos->rays[i].horzt_or_vert, var->p_infos->rays + i, square_len, texture->width);
-        transparency = get_transparency(adjusted_distance);
-        render_sky(var, j, top, i);
-        draw_rectangle(var,texture, j, top, bottom, x_img, color, transparency, i);
-        draw_floor(var, j, bottom, i);
-
-        i--;
-        j++;
-    }
-    (void)x_img;
-    free(walls);
+	func.color = 0;
+	func.i = var->p_infos->nbr_rays - 1;
+	func.j = 0;
+	var->walls = init_walls(var);
+	wall_rendering_core(var, &func);
+	free(var->walls);
 }

@@ -6,35 +6,11 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:22:54 by aohssine          #+#    #+#             */
-/*   Updated: 2025/02/01 12:34:51 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/02/21 00:17:39 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
-
-/*
-
-◦ The map must be closed/surrounded by walls, if not the program must return
-	an error.
-
-
-◦ Except for the map content, each type of element can be separated by one or
-	more empty line(s).
-
-
-◦ Except for the map content which always has to be the last, each type of
-	element can be set in any order in the file.
-
-
-◦ Except for the map, each type of information from an element can be separated
-	by one or more space(s).
-
-
-◦ The map must be parsed as it looks in the file. Spaces are a valid part of the
-	map and are up to you to handle. You must be able to parse any kind of map,
-	as long as it respects the rules of the map.
-
-*/
 
 int	check_unicty_infos(t_map_lst *list)
 {
@@ -85,49 +61,10 @@ t_map_lst	*get_map_infos(int fd_map)
 	return (dt.map_lst);
 }
 
-void	fill_data(t_pre_data *dt)
+t_pre_data	*read_file(char *file)
 {
-	char	***sets;
-	char	*set1;
-	char	*set2;
-	int		count;
-
-	count = 0;
-	dt->data->tex_ea = fetch_index_splited(find_info_value(IMG_EA, dt->info), 1,
-			' ');
-	dt->data->tex_so = fetch_index_splited(find_info_value(IMG_SO, dt->info), 1,
-			' ');
-	dt->data->tex_we = fetch_index_splited(find_info_value(IMG_WE, dt->info), 1,
-			' ');
-	dt->data->tex_no = fetch_index_splited(find_info_value(IMG_NO, dt->info), 1,
-			' ');
-	dt->data->pos = malloc(sizeof(t_pos));
-	find_pos(dt->data->map, dt->data->pos);
-	dt->data->dir = dt->data->map[dt->data->pos->y_ver][dt->data->pos->x_hor];
-	sets = (char ***)malloc(2 * sizeof(char **));
-	set1 = fetch_index_splited(find_info_value(FLOOR, dt->info), 1, ' ');
-	sets[0] = ft_split(set1, ',');
-	set2 = fetch_index_splited(find_info_value(CEILEING, dt->info), 1, ' ');
-	sets[1] = ft_split(set2, ',');
-	dt->data->clr_f = malloc(3 * sizeof(int));
-	dt->data->clr_c = malloc(3 * sizeof(int));
-	while (count < 3)
-	{
-		dt->data->clr_f[count] = ft_atoi(sets[0][count]);
-		dt->data->clr_c[count] = ft_atoi(sets[1][count]);
-		count++;
-	}
-	free(set1);
-	free(set2);
-	free_split(sets[0]);
-	free_split(sets[1]);
-	free(sets);
-}
-
-t_pre_data	* read_file(char *file)
-{
-	int			fd_map;
 	t_pre_data	*dt;
+	int			fd_map;
 
 	dt = (t_pre_data *)malloc(sizeof(t_pre_data));
 	dt->data = (t_parse_data *)malloc(sizeof(t_parse_data));
@@ -136,37 +73,48 @@ t_pre_data	* read_file(char *file)
 	fd_map = safe_open(file, dt);
 	dt->info = get_map_infos(fd_map);
 	if (check_unicty_infos(dt->info))
-		return (free_map(dt->info), free(dt->data), free(dt),
-			printf("unicty err\n"), NULL);
+		return (free_error(dt, 0, 0));
 	if (dt->info)
 	{
 		dt->map = check_map(fd_map);
 		if (!dt->map)
-			return (close(fd_map), free_map(dt->info), free(dt->data),
-				free_map(dt->map), free(dt), printf("dt map null\n"), NULL);
+			return (close(fd_map), free_error(dt, 1, 0));
 		if (parse_map(dt->map))
-			return (close(fd_map), free_map(dt->info), free(dt->data),
-				free_map(dt->map), free(dt),  printf("parse map\n"),NULL);
+			return (close(fd_map), free_error(dt, 1, 0));
 		dt->data->map = list_to_array(dt->map);
 		if (!dt->data->map)
-			return (free_split(dt->data->map), free(dt->data), close(fd_map),
-				free_map(dt->info), free_map(dt->map), free(dt), printf("map null after list to array\n"), NULL);
+			return (close(fd_map), free_error(dt, 1, 1));
 		if (valid_map(dt->data->map))
-			return (free_split(dt->data->map), free(dt->data), close(fd_map),
-				free_map(dt->info), free_map(dt->map), free(dt), printf("not a vaid map\n"), NULL);
+			return (close(fd_map), free_error(dt, 1, 1));
 	}
 	return (fill_data(dt), free_map(dt->map), close(fd_map), dt);
 }
 
-// here check the mfc map
-/***
- * 1 : walls no escape
- * 2 : objects (1 , 0 or (N,S,W,E) once , space inside map error , outside dayz)
- *      and others
- */
+char	**split2(char *base)
+{
+	char	**strs;
+	char	**new;
 
-/*
-	free linked list ,should return 2d array of map instead .
-	list ( rest of file ) is just for read the file
-	undefined length
-*/
+	new = NULL;
+	strs = ft_split(base, 32);
+	if (!strs)
+		return (NULL);
+	if (ft_strslen(strs) == 1)
+	{
+		new = (char **)malloc(sizeof(char *) * 2);
+		if (!new)
+			return (NULL);
+		new[0] = ft_strdup(strs[0]);
+		new[1] = NULL;
+	}
+	else if (ft_strslen(strs) > 1)
+	{
+		new = (char **)malloc(sizeof(char *) * 3);
+		if (!new)
+			return (NULL);
+		new[0] = ft_strdup(strs[0]);
+		new[1] = ft_strdup(ft_strchr(base, strs[1][0]));
+		new[2] = NULL;
+	}
+	return (free_split(strs), new);
+}

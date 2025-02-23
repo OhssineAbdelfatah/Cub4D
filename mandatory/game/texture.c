@@ -1,52 +1,55 @@
-#include"../includes/ps.h"
-#include"math.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/18 21:38:09 by aohssine          #+#    #+#             */
+/*   Updated: 2025/02/19 00:26:45 by aohssine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../includes/ps.h"
 
-// inter[0] => x_inter
-// inter[1] => y_inter
-int calc_x_img(int hor_or_ver, t_ray_info *ray, double wall_hiegt, double img_w)
+t_text	*which_texture(t_ray_info *ray, t_text **texture)
 {
-    double x_img;
-    double a;
-
-    x_img = 0;
-    if(hor_or_ver == 'h')
-    {
-        a = ray->x_last_intersection / (double)wall_hiegt;
-        // printf("---------Xinter [%f]\n", a);
-        x_img = (a) - floor(a);
-    }
-    else if(hor_or_ver == 'v')
-    {
-        a = ray->y_last_intersection / (double)wall_hiegt;
-        x_img = (a) - floor(a);
-        // printf("---------Yinter [%f]\n", x_img);
-    }
-    return (int)(x_img * img_w);
+	if (ray->wall_dir == 'N')
+		return (texture[0]);
+	if (ray->wall_dir == 'E')
+		return (texture[1]);
+	if (ray->wall_dir == 'S')
+		return (texture[2]);
+	if (ray->wall_dir == 'W')
+		return (texture[3]);
+	return (NULL);
 }
 
-int calc_y_img(int y_proj ,int wall_hiegt , int img_h)
+int	calc_x_img(int hor_or_ver, t_ray_info *ray, double wall_hiegt, double img_w)
 {
-    double y_img;
-    double y_prc;
-    y_prc = (double)y_proj / (double)wall_hiegt;
-    y_img = y_prc * img_h;
-    return (int)y_img;
+	double	x_img;
+	double	a;
+
+	x_img = 0;
+	if (hor_or_ver == 'h')
+	{
+		a = ray->x_last_intersection / (double)wall_hiegt;
+		x_img = a - floor(a);
+	}
+	else if (hor_or_ver == 'v')
+	{
+		a = ray->y_last_intersection / (double)wall_hiegt;
+		x_img = a - floor(a);
+	}
+	return ((int)(x_img * img_w));
 }
 
-
-int	create_trgb(int r, int g, int b, int a)
+int	calc_y_img(int y_proj, int wall_hiegt, int img_h)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	double	y_img;
+	double	y_prc;
+
+	y_prc = (double)y_proj / (double)wall_hiegt;
+	y_img = y_prc * img_h;
+	return ((int)y_img);
 }
-
-/***
- * images stored in array in a strict order 
- * following real direction N -> E -> S -> W 
-*/
-
-// int	gettt_rgba(uint8_t *color)
-// {
-// 	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | color[3]);
-// }
-

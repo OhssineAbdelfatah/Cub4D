@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infos_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blacksniper <blacksniper@student.42.fr>    +#+  +:+       +#+        */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:02:25 by aohssine          #+#    #+#             */
-/*   Updated: 2025/01/26 21:37:56 by blacksniper      ###   ########.fr       */
+/*   Updated: 2025/02/23 12:29:50 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	valid_set(char *set)
 	i = 0;
 	while (sets[i])
 	{
-		if (ft_atoi(sets[i]) > 255 || ft_atoi(sets[i]) < 0)
+		if (ft_atoi(sets[i]) > 255 || ft_atoi(sets[i]) < 0 || sets[i] > '9' || sets[i] < '0')
 			return (free_split(sets), 1);
 		i++;
 	}
@@ -35,17 +35,14 @@ int	valid_set(char *set)
 	return (0);
 }
 
-// tsawer bach biti tkhdem abatal
 int	handel_file(char *texture)
 {
 	if (check_ext(texture, ".png"))
 	{
-		printf("texture ext error\n");
 		return (1);
 	}
 	if (file_exist(texture))
 	{
-		printf("texture permission error\n");
 		return (1);
 	}
 	return (0);
@@ -62,17 +59,13 @@ int	__type_tex(int type)
 		|| type == IMG_WE);
 }
 
-	/*
-		u caan split textures chcek and colors sets
-	*/
-	// texture name with spaces should handeld here in second if
 int	get_type(char *line)
 {
 	char	**tokens;
 	int		type;
 
 	type = NO_TYPE;
-	tokens = ft_split(line, ' ');
+	tokens = split2(line);
 	if (!tokens)
 		return (type);
 	if (ft_strslen(tokens) != 2)

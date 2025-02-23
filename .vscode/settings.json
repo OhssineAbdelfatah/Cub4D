@@ -55,38 +55,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "files.associations": {
-    "ps.h": "c",
-    "parsing.h": "c",
-    "fcntl.h": "c",
-    "atomic": "cpp",
-    "cstdlib": "cpp",
-    "locale": "cpp",
-    "ostream": "cpp",
-    "algorithm": "cpp",
-    "complex": "cpp",
-    "new": "cpp"
-  },
-  "cmake.sourceDirectory": "/Users/ilaasri/Desktop/C_cursus/42_Cube3D/lib/mlx",
-  "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#124ac4",
-    "activityBar.background": "#0ebac0",
-    "activityBar.foreground": "#e7e7e7",
-    "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#39cce6",
-    "activityBarBadge.foreground": "#e7e7e7",
-    "commandCenter.border": "#e7e7e799",
-    "sash.hoverBorder": "#46b2dd",
-    "statusBar.background": "#299c97",
-    "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#24c2c2",
-    "statusBarItem.remoteBackground": "#48638d",
-    "statusBarItem.remoteForeground": "#e7e7e7",
-    "titleBar.activeBackground": "#368d99",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#dd053199",
-    "titleBar.inactiveForeground": "#e7e7e799"
-  },
-  "peacock.color": "#dd0531"
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }

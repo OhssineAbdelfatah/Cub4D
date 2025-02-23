@@ -1,0 +1,15 @@
+NO ../assets/textures/hitler.png
+EA ../assets/textures/red_wall.png
+SO ../assets/textures/ss.png
+WE ../assets/textures/brick.png
+
+F 1,1,1
+C 1,1,1
+
+1111111
+1000001
+1111111
+1000001
+111N111
+1110111
+1111111

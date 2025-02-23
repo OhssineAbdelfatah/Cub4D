@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/aohssine/42/42_Cube3D",
-      "program": "/Users/aohssine/42/42_Cube3D/build/Debug/outDebug"
+      "cwd": "/Users/aohssine/42/42_Cube3D/mandatory/parsing",
+      "program": "/Users/aohssine/42/42_Cube3D/mandatory/parsing/build/Debug/outDebug"
     }
   ]
 }

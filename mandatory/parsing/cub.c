@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:00:24 by aohssine          #+#    #+#             */
-/*   Updated: 2025/02/01 12:32:41 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/02/21 00:11:21 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	cube(char *ext, t_parse_data **data)
 		return (1);
 	dt = read_file(ext);
 	if (!dt)
-		return (free(dt), printf("read file\n"),1);
+		return (free(dt), 1);
 	if (!dt->info)
-		return (free_map(dt->info), free(dt),printf("dt info null\n"), 1);
+		return (free_map(dt->info), free(dt), 1);
 	*data = dt->data;
 	free_map(dt->info);
 	free(dt);
@@ -61,15 +61,13 @@ void	free_data(t_parse_data *data)
 	return ;
 }
 
-// int is_file_exist()
-
 t_parse_data	*parse(int ac, char **av)
 {
 	t_parse_data	**data;
 	t_parse_data	*data1;
 
 	data = (t_parse_data **)safe__malloc();
-	if (ac == 2 || ac == 3)
+	if (ac == 2)
 	{
 		if (cube(av[1], data))
 		{
@@ -83,7 +81,6 @@ t_parse_data	*parse(int ac, char **av)
 	}
 	else
 	{
-		printf("ac %d\n", ac);
 		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}

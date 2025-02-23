@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   infos_utils3.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/17 16:58:28 by aohssine          #+#    #+#             */
+/*   Updated: 2025/02/17 16:58:29 by aohssine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
 void	find_pos(char **map, t_pos *pos)
@@ -23,7 +35,6 @@ void	find_pos(char **map, t_pos *pos)
 	}
 	return ;
 }
-// norm
 
 char	*find_info_value(int type, t_map_lst *info)
 {
@@ -36,14 +47,12 @@ char	*find_info_value(int type, t_map_lst *info)
 	return (NULL);
 }
 
-char	*fetch_index_splited(char *str, int index, char set)
+char	*fetch_index_splited(char *str)
 {
 	char	**strs;
 	char	*new;
 
-	strs = ft_split(str, set);
-	if (index > ft_strslen(strs) || index < 0)
-		return (free_split(strs), NULL);
-	new = ft_strdup(strs[index]);
+	strs = split2(str);
+	new = ft_strdup(strs[1]);
 	return (free_split(strs), new);
 }

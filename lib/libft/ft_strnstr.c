@@ -11,24 +11,24 @@
 /* ************************************************************************** */
 #include <stdlib.h>
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	if (!haystack && !len)
+	if (!big && !len)
 		return (NULL);
-	if (!(*needle))
-		return ((char *)haystack);
-	while (haystack[i] && i < len)
+	if (!(*little))
+		return ((char *)big);
+	while (big[i] && i < len)
 	{
 		j = 0;
-		while (needle[j] == haystack[i + j] && haystack[i + j] && needle[j] && i
+		while (little[j] == big[i + j] && big[i + j] && little[j] && i
 			+ j < len)
 			j++;
-		if (needle[j] == '\0')
-			return ((char *)(&haystack[i]));
+		if (little[j] == '\0')
+			return ((char *)(&big[i]));
 		i++;
 	}
 	return (NULL);
