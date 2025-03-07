@@ -82,13 +82,13 @@ NC=\033[0m
 RED=\033[0;31m
 LGREY=\033[0;37m
 
-CUB4D = "{RED}" \
+CUB4D = "${RED}\n" \
 "░█▀▀░█░█░█▀▄░█░█░█▀▄\n"\
 "░█░░░█░█░█▀▄░░▀█░█░█\n"\
 "░▀▀▀░▀▀▀░▀▀░░░░▀░▀▀░\n"\
 "\n"\
-"      by TILLAS & Nol-Yel \n"
-"{NC}"
+"      by TILLAS & Nol-Yel \n"\
+"${NC}"
 
 NAME = cub3D
 NAMEB = cub3D_bonus

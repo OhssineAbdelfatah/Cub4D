@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:02:25 by aohssine          #+#    #+#             */
-/*   Updated: 2025/02/23 12:29:50 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/03/07 03:05:27 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	valid_set(char *set)
 	i = 0;
 	while (sets[i])
 	{
-		if (ft_atoi(sets[i]) > 255 || ft_atoi(sets[i]) < 0 || sets[i] > '9' || sets[i] < '0')
+		if (ft_atoi(sets[i]) > 255 || ft_atoi(sets[i]) < 0 )
 			return (free_split(sets), 1);
 		i++;
 	}

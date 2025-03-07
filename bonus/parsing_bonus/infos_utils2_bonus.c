@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:02:28 by aohssine          #+#    #+#             */
-/*   Updated: 2025/02/17 17:56:38 by aohssine         ###   ########.fr       */
+/*   Updated: 2025/03/07 03:04:54 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	chcek_set_len(char **sets)
 		{
 			if (sets[i][j] && sets[i][j] != '0')
 			{
-				if (ft_strlen(&sets[i][j]) > 3)
+				if (ft_strlen(&sets[i][j]) > 3 || !ft_isdigit(sets[i][j])  )
 					return (1);
 			}
 			j++;
