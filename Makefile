@@ -77,6 +77,19 @@ BONUS = ${PARSING_B} ${GNL} ${TEXTURES_B} ${ENEMIES_OBJ} ${GAME_FILES_B} ${BONUS
 OBJ = $(MANDATORY:.c=.o)
 OBJB = $(BONUS:.c=.o)
 
+
+NC=\033[0m
+RED=\033[0;31m
+LGREY=\033[0;37m
+
+CUB4D = "{RED}" \
+"░█▀▀░█░█░█▀▄░█░█░█▀▄\n"\
+"░█░░░█░█░█▀▄░░▀█░█░█\n"\
+"░▀▀▀░▀▀▀░▀▀░░░░▀░▀▀░\n"\
+"\n"\
+"      by TILLAS & Nol-Yel \n"
+"{NC}"
+
 NAME = cub3D
 NAMEB = cub3D_bonus
 
@@ -86,7 +99,7 @@ Folder_lib = lib/libft/
 HEADERS = mandatory/includes/game_structs.h mandatory/includes/macros.h mandatory/includes/norm_structs.h mandatory/includes/parsing.h mandatory/includes/ps.h 
 HEADERS_B = bonus/includes/game_structs_bonus.h bonus/includes/macros_bonus.h bonus/includes/norm_structs_bonus.h bonus/includes/parsing_bonus.h bonus/includes/ps_bonus.h 
 
-all :$(My_lib) $(NAME) 
+all : ASCII_ART $(My_lib) $(NAME) 
 
 bonus :$(My_lib) $(NAMEB)
 
@@ -101,6 +114,9 @@ $(NAME) : $(OBJ) $(My_lib)
 
 $(NAMEB) : $(OBJB) $(My_lib) 
 	$(CC) $^ $(CFLAGS) $(My_lib) $(MLXFLAGS_LINK)  -o $@
+
+ASCII_ART :
+	@echo $(CUB4D)
 
 clean :
 	make clean -C ${Folder_lib}
