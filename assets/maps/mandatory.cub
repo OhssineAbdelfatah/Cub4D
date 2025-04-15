@@ -1,10 +1,9 @@
-NO ./assets/textures/hitler.png
+NO ./assets/textures/brick.png
 EA ./assets/textures/red_wall.png
-SO ./assets/textures/ss.png
-WE ./assets/textures/brick.png
-C 0,0,255
-F 255, 0,0
-
+SO ./assets/textures/greyBrick.png
+WE ./assets/textures/redBrick.png
+C 205,131,221
+F 0,1,2
 
 111111111111111111111111111
 10000000000000000000000011

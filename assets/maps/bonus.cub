@@ -1,7 +1,7 @@
-NO ./assets/textures/Brick_Plaster_01_Window_2.png
-EA ./assets/textures/Brick_Plaster_01_Bullets_2.png
-SO ./assets/textures/Brick_Plaster_04_Orange_2.png
-WE ./assets/textures/Brick_Plaster_04_Green_1.png
+NO ./assets/textures/brick.png
+EA ./assets/textures/red_wall.png
+SO ./assets/textures/greyBrick.png
+WE ./assets/textures/redBrick.png
 C 205,111,221
 F 0,1,2
 
