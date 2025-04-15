@@ -1,3 +1,10 @@
+NO ./assets/textures/brick.png
+EA ./assets/textures/red_wall.png
+SO ./assets/textures/greyBrick.png
+WE ./assets/textures/redBrick.png
+C 205,111,221
+F 0,1,2
+
 1111111111111111111111111111
 10001101100000000000000000011
 1110001100000000101110100011

@@ -59,7 +59,7 @@ void	shoot_them_mfs(t_main_s *var)
 		if (var->p_infos->p_bonus->enemy[i].x_screen > min_range
 			&& var->p_infos->p_bonus->enemy[i].x_screen < max_range)
 		{
-			if (abs(var->p_infos->up_down_offset) <= 30)
+			if (abs(var->p_infos->up_down_offset) <= 50)
 			{
 				var->p_infos->p_bonus->enemy[i].alive = false;
 				return ;

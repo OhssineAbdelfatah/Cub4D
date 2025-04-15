@@ -1,10 +1,9 @@
-NO ../assets/textures/hitler.png
-EA ../assets/textures/red_wall.png
-SO ../assets/textures/ss.png
-WE ../assets/textures/brick.png
-
-F 1,1,1
-C 1,1,1
+NO ./assets/textures/brick.png
+EA ./assets/textures/red_wall.png
+SO ./assets/textures/greyBrick.png
+WE ./assets/textures/redBrick.png
+C 205,111,221
+F 0,1,2
 
 1111111
 1000001
