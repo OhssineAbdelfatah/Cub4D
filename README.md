@@ -1,7 +1,7 @@
 # **Cub3D**  
 **42 Project | A Simple Raycasting Engine**  
 
-![Cub3D Screenshot](assets/textures/cub4d.jpg)  
+![Cub3D Screenshot](Cub4D/assets/textures/cube4d.jpg)  
 
 ## **About**  
 This project is a basic 3D raycasting engine inspired by the classic *Wolfenstein 3D*. It renders a 2D map into a pseudo-3D perspective using raycasting techniques, with textured walls, sprite rendering, and basic player movement.  
