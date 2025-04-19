@@ -20,9 +20,9 @@ This project is a basic 3D raycasting engine inspired by the classic *Wolfenstei
 
 ### **Compilation & Run**  
 ```bash  
-git clone https://github.com/yourusername/cub3d.git  
+git clone https://github.com/ohssineabdelfatah/Cub4d.git  
 cd cub3d  
-make  
+make  # make bonus
 ./cub3d maps/example.cub  
 ```  
 
