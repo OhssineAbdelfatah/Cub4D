@@ -1,42 +1,63 @@
-# **CUB3D**  
-**42 Project | Neural-Hacked Raycaster | Cyberpunk Edition**  
+# **Cub3D**  
+**42 Project | A Simple Raycasting Engine**  
 
-![Cub3D Screenshot](assets/preview.gif) *(optional: add a cool screenshot)*  
+![Cub3D Screenshot](screenshots/gameplay.png)  
 
-## **🛠️ TECH STACK**  
-- **C** (No external libs, pure pain)  
-- **Raycasting** (Wolfenstein-style, but darker)  
-- **MinilibX** (Because X11 is retro-futuristic)  
+## **About**  
+This project is a basic 3D raycasting engine inspired by the classic *Wolfenstein 3D*. It renders a 2D map into a pseudo-3D perspective using raycasting techniques, with textured walls, sprite rendering, and basic player movement.  
 
-## **🔥 FEATURES**  
-- **Neural-wired 2.5D engine** – Renders cyber-dungeons in brutalist wireframes  
-- **Dynamic FOV** – Like black-market optics in your skull  
-- **Texture-mapped paranoia** – Walls bleed static, floors glitch  
-- **Zero-lag movement** – Optimized for synth-enhanced reflexes  
+## **Features**  
+✔ **Raycasting engine** – Converts a 2D map into a 3D-like view  
+✔ **Textured walls & sprites** – Supports PNG/XPM textures  
+✔ **Customizable maps** – Simple `.cub` file configuration  
+✔ **Smooth controls** – WASD movement, mouse/camera rotation  
+✔ **Minimal dependencies** – Only requires **MiniLibX**  
 
-## **⚡ QUICKSTART**  
+## **Installation & Usage**  
+### **Requirements**  
+- GCC (C compiler)  
+- MiniLibX (provided by 42)  
+
+### **Compilation & Run**  
 ```bash  
-git clone [your-repo] && cd cub3d  
-make && ./cub3d maps/cyberden.cub  
+git clone https://github.com/yourusername/cub3d.git  
+cd cub3d  
+make  
+./cub3d maps/example.cub  
 ```  
-*(Replace with your actual commands)*  
 
-## **📡 CYBER-DOCS**  
-- **Controls:** WASD (move), ← → (rotate), ESC (abort simulation)  
-- **Custom Maps:** Edit `.cub` files—or risk corrupting reality  
-- **Need help?** `./cub3d --hack` *(just kidding, read the PDF)*  
+### **Controls**  
+- **WASD** → Move  
+- **← → (Arrow Keys)** → Rotate camera  
+- **ESC** → Quit  
 
-## **💾 CREDITS**  
-- **42** – For the tech-grind  
-- **Wolfenstein 3D** – The OG glitch  
-- **Your brain** – Now property of the machine  
+## **Map Configuration**  
+Maps are defined in `.cub` files with:  
+- Wall textures (NO, SO, EA, WE)  
+- Floor & ceiling colors  
+- Player spawn position  
+- Map layout (1 = wall, 0 = empty space)  
+
+Example:  
+```  
+NO textures/wall_north.xpm  
+SO textures/wall_south.xpm  
+...  
+F 220,100,0  
+C 135,206,235  
+
+111111  
+100101  
+101001  
+111111  
+```  
+
+## **Credits**  
+- **42 School** – Project guidelines  
+- **MiniLibX** – Graphics library  
+- **Wolfenstein 3D** – Inspiration  
 
 ---  
-**⚠️ WARNING:** Unauthorized compilation may attract corporate ICE. Use at your own risk.  
+**Enjoy exploring!** 🎮  
 
-![cyberpunk-divider](assets/divider.png) *(optional: add a glitchy divider)*  
-
-**"The grid isn’t a game—it’s your last exploit."**  
-
----  
-*(Adjust paths/commands to match your project. Keep it cryptic, keep it cyber.)* 🚀
+*(Replace paths and details with your actual project structure.)*
